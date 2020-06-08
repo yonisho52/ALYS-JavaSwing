@@ -17,10 +17,12 @@ public class DataController implements Observer{
 	public ShowUserApartmentView showUserApartmentView;
 	public MainView mainView;
 	public ShowAllApartmentView showAllApartmentView;
+	public ShowAllUsersView showAllUsersView;
+
 	
 	public DataController(DataExcelConn dataExcelConn,RegisterView registerView, SearchDetailsView searchDetailsView, 
 			AddNewApartmentView addNewApartmentView,ShowUserApartmentView showUserApartmentView, MainView mainView, 
-			ShowAllApartmentView showAllApartmentView) {
+			ShowAllApartmentView showAllApartmentView, ShowAllUsersView showAllUsersView) {
 		
 		this.dataExcelConn = dataExcelConn;
 		this.registerView = registerView;
@@ -29,6 +31,7 @@ public class DataController implements Observer{
 		this.showUserApartmentView = showUserApartmentView;
 		this.mainView = mainView;
 		this.showAllApartmentView = showAllApartmentView;
+		this.showAllUsersView = showAllUsersView;
 	}
 
 	@Override

@@ -101,6 +101,11 @@ public class RegisterView extends Observable {
 						phoneNumber.getText().toString()};
 				setChanged();
 				notifyObservers(newTenant);
+				
+				// after login show allApartmentView on the same user that register
+				openShowAllApartmentView(arg0);
+
+				
 			}
 		});
 		regButton.setBounds(305, 350, 97, 25);
@@ -153,5 +158,11 @@ public class RegisterView extends Observable {
 		JLabel lastNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
 		lastNameLabel.setBounds(320, 225, 82, 16);
 		frame.getContentPane().add(lastNameLabel);
+	}
+	
+	public void openShowAllApartmentView(MouseEvent arg0) {
+		
+		this.frame.setVisible(false); 
+		showAllApartmentView.openShowAllApartment();
 	}
 }

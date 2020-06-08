@@ -21,6 +21,7 @@ public class ShowAllApartmentView extends Observable {
 	AddNewApartmentView addNewApartmentView;
 	ShowUserApartmentView showUserApartmentView;
 	MainView mainView;
+	ShowAllUsersView showAllUsersView;
 
 	private JFrame frame;
 	private JTextField City;
@@ -50,10 +51,11 @@ public class ShowAllApartmentView extends Observable {
 	 * Create the application.
 	 */
 	public ShowAllApartmentView(SearchDetailsView searchDetailsView,AddNewApartmentView addNewApartmentView,
-			ShowUserApartmentView showUserApartmentView) {
+			ShowUserApartmentView showUserApartmentView, ShowAllUsersView showAllUsersView) {
 		this.searchDetailsView = searchDetailsView;
 		this.addNewApartmentView = addNewApartmentView;
 		this.showUserApartmentView = showUserApartmentView;
+		this.showAllUsersView = showAllUsersView;
 		initialize();
 	}
 	
@@ -208,6 +210,15 @@ public class ShowAllApartmentView extends Observable {
 		JButton printSearchResultButton = new JButton("\u05D4\u05D3\u05E4\u05E1\u05EA \u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9");
 		printSearchResultButton.setBounds(38, 179, 184, 25);
 		frame.getContentPane().add(printSearchResultButton);
+
+		JButton PrintSearchResultButton = new JButton("\u05D4\u05D3\u05E4\u05E1\u05EA \u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9");
+		PrintSearchResultButton.setBounds(22, 226, 184, 25);
+		frame.getContentPane().add(PrintSearchResultButton);
+		
+		JButton showAllUsersButton = new JButton("\u05D4\u05E6\u05D2 \u05D0\u05EA \u05DB\u05DC \u05D4\u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD");
+		showAllUsersButton.setBounds(22, 179, 182, 25);
+		frame.getContentPane().add(showAllUsersButton);
+
 	}
 	
 	public void setMainView(MainView mainView) { // know who to return when event handler (back)
