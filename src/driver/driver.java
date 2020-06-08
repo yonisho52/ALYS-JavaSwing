@@ -27,16 +27,18 @@ public class driver
 		ShowUserApartmentView showUserApartmentView = new ShowUserApartmentView();
 		SearchDetailsView searchDetailsView = new SearchDetailsView();
 		AddNewApartmentView addNewApartmentView = new AddNewApartmentView();
+		ShowAllUsersView showAllUsersView = new ShowAllUsersView();
 		///// 3 line above for the next line
-		ShowAllApartmentView showAllApartmentView = new ShowAllApartmentView(searchDetailsView, addNewApartmentView, showUserApartmentView);
+		ShowAllApartmentView showAllApartmentView = new ShowAllApartmentView(searchDetailsView, addNewApartmentView, 
+				showUserApartmentView, showAllUsersView);
 
 		RegisterView registerView = new RegisterView(showAllApartmentView);
 
 		MainView mainView = new MainView(registerView,showAllApartmentView);
 
 		DataController dataController = new DataController(dataExcelConn, registerView, searchDetailsView, 
-				 addNewApartmentView, showUserApartmentView,  mainView, showAllApartmentView);
-
+				 addNewApartmentView, showUserApartmentView,  mainView, showAllApartmentView, showAllUsersView);
+		
 		
 		// add observer for the controller's watch
 		mainView.addObserver(dataController);
@@ -46,5 +48,7 @@ public class driver
 		showAllApartmentView.addObserver(dataController);		
 		dataExcelConn.addObserver(dataController);
 		registerView.addObserver(dataController);
+		showAllUsersView.addObserver(dataController);
+
 	}
 }

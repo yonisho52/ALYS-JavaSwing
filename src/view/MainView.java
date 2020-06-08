@@ -18,11 +18,8 @@ import java.util.Observable;
 
 public class MainView extends Observable {
 
-
 	RegisterView registerView;
 	ShowAllApartmentView showAllApartmentView;
-	
-	
 	
 	private JFrame frame;
 	private JTextField userNameTextField;
