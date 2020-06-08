@@ -56,21 +56,21 @@ public class SearchDetailsView extends Observable {
 		mostSearchedApartmentsLabel.setBounds(328, 46, 172, 16);
 		frame.getContentPane().add(mostSearchedApartmentsLabel);
 		
-		JButton BackButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
-		BackButton.setBounds(12, 42, 97, 25);
-		frame.getContentPane().add(BackButton);
+		JButton backButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
+		backButton.setBounds(12, 42, 97, 25);
+		frame.getContentPane().add(backButton);
 		
-		JButton PrintButton = new JButton("\u05D4\u05D3\u05E4\u05E1");
-		PrintButton.setBounds(12, 80, 97, 25);
-		frame.getContentPane().add(PrintButton);
+		JButton printButton = new JButton("\u05D4\u05D3\u05E4\u05E1");
+		printButton.setBounds(12, 80, 97, 25);
+		frame.getContentPane().add(printButton);
 		
 		JList list = new JList();
 		list.setBounds(32, 304, 255, -154);
 		frame.getContentPane().add(list);
 		
-		JList list_1 = new JList();
-		list_1.setBounds(12, 146, 611, 271);
-		frame.getContentPane().add(list_1);
+		JList mostSearchedApartmentList = new JList();
+		mostSearchedApartmentList.setBounds(12, 146, 611, 271);
+		frame.getContentPane().add(mostSearchedApartmentList);
 	}
 
 }

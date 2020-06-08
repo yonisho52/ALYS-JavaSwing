@@ -94,21 +94,21 @@ public class ShowAllApartmentView extends Observable {
 		numOfRoomatesLabel.setBounds(620, 111, 90, 16);
 		frame.getContentPane().add(numOfRoomatesLabel);
 		
-		JLabel MissingRoomatesLabel = new JLabel("\u05E9\u05D5\u05EA\u05E4\u05D9\u05DD \u05D7\u05E1\u05E8\u05D9\u05DD");
-		MissingRoomatesLabel.setBounds(620, 140, 97, 16);
-		frame.getContentPane().add(MissingRoomatesLabel);
+		JLabel missingRoomatesLabel = new JLabel("\u05E9\u05D5\u05EA\u05E4\u05D9\u05DD \u05D7\u05E1\u05E8\u05D9\u05DD");
+		missingRoomatesLabel.setBounds(620, 140, 97, 16);
+		frame.getContentPane().add(missingRoomatesLabel);
 		
-		JLabel RoomsLabel = new JLabel("\u05D7\u05D3\u05E8\u05D9\u05DD");
-		RoomsLabel.setBounds(620, 169, 56, 16);
-		frame.getContentPane().add(RoomsLabel);
+		JLabel roomsLabel = new JLabel("\u05D7\u05D3\u05E8\u05D9\u05DD");
+		roomsLabel.setBounds(620, 169, 56, 16);
+		frame.getContentPane().add(roomsLabel);
 		
-		JLabel StartPriceLabel = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
-		StartPriceLabel.setBounds(620, 198, 56, 16);
-		frame.getContentPane().add(StartPriceLabel);
+		JLabel startPriceLabel = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
+		startPriceLabel.setBounds(620, 198, 56, 16);
+		frame.getContentPane().add(startPriceLabel);
 		
-		JLabel LimitPriceLabel = new JLabel("\u05E2\u05D3 \u05DE\u05D7\u05D9\u05E8");
-		LimitPriceLabel.setBounds(620, 230, 56, 16);
-		frame.getContentPane().add(LimitPriceLabel);
+		JLabel limitPriceLabel = new JLabel("\u05E2\u05D3 \u05DE\u05D7\u05D9\u05E8");
+		limitPriceLabel.setBounds(620, 230, 56, 16);
+		frame.getContentPane().add(limitPriceLabel);
 		
 		LimitPrice = new JTextField();
 		LimitPrice.setColumns(10);
@@ -120,69 +120,69 @@ public class ShowAllApartmentView extends Observable {
 		StartPrice.setBounds(483, 195, 116, 22);
 		frame.getContentPane().add(StartPrice);
 		
-		JSpinner RoomsSpinner = new JSpinner();
-		RoomsSpinner.setBounds(563, 166, 36, 22);
-		frame.getContentPane().add(RoomsSpinner);
+		JSpinner roomsSpinner = new JSpinner();
+		roomsSpinner.setBounds(563, 166, 36, 22);
+		frame.getContentPane().add(roomsSpinner);
 		
-		JSpinner MissingRoomatesSpinner = new JSpinner();
-		MissingRoomatesSpinner.setBounds(563, 137, 36, 22);
-		frame.getContentPane().add(MissingRoomatesSpinner);
+		JSpinner missingRoomatesSpinner = new JSpinner();
+		missingRoomatesSpinner.setBounds(563, 137, 36, 22);
+		frame.getContentPane().add(missingRoomatesSpinner);
 		
 		JSpinner numOfRommatesspinner = new JSpinner();
 		numOfRommatesspinner.setBounds(563, 108, 36, 22);
 		frame.getContentPane().add(numOfRommatesspinner);
 		
-		JCheckBox ElevatorCheckBox = new JCheckBox("\u05DE\u05E2\u05DC\u05D9\u05EA");
-		ElevatorCheckBox.setBounds(362, 35, 113, 25);
-		frame.getContentPane().add(ElevatorCheckBox);
+		JCheckBox elevatorCheckBox = new JCheckBox("\u05DE\u05E2\u05DC\u05D9\u05EA");
+		elevatorCheckBox.setBounds(362, 35, 113, 25);
+		frame.getContentPane().add(elevatorCheckBox);
 		
-		JCheckBox ParkingCheckBox = new JCheckBox("\u05D7\u05E0\u05D9\u05D4");
-		ParkingCheckBox.setBounds(362, 69, 113, 25);
-		frame.getContentPane().add(ParkingCheckBox);
+		JCheckBox parkingCheckBox = new JCheckBox("\u05D7\u05E0\u05D9\u05D4");
+		parkingCheckBox.setBounds(362, 69, 113, 25);
+		frame.getContentPane().add(parkingCheckBox);
 		
-		JCheckBox AirCheckBox = new JCheckBox("\u05DE\u05D9\u05D6\u05D5\u05D2");
-		AirCheckBox.setBounds(362, 108, 113, 25);
-		frame.getContentPane().add(AirCheckBox);
+		JCheckBox airCheckBox = new JCheckBox("\u05DE\u05D9\u05D6\u05D5\u05D2");
+		airCheckBox.setBounds(362, 108, 113, 25);
+		frame.getContentPane().add(airCheckBox);
 		
-		JCheckBox PatioCheckBox = new JCheckBox("\u05DE\u05E8\u05E4\u05E1\u05EA");
-		PatioCheckBox.setBounds(362, 141, 113, 25);
-		frame.getContentPane().add(PatioCheckBox);
+		JCheckBox patioCheckBox = new JCheckBox("\u05DE\u05E8\u05E4\u05E1\u05EA");
+		patioCheckBox.setBounds(362, 141, 113, 25);
+		frame.getContentPane().add(patioCheckBox);
 		
-		JCheckBox MamadCheckBox = new JCheckBox("\u05DE\u05DE\"\u05D3");
-		MamadCheckBox.setBounds(362, 179, 113, 25);
-		frame.getContentPane().add(MamadCheckBox);
+		JCheckBox mamadCheckBox = new JCheckBox("\u05DE\u05DE\"\u05D3");
+		mamadCheckBox.setBounds(362, 179, 113, 25);
+		frame.getContentPane().add(mamadCheckBox);
 		
-		JCheckBox StorageCheckBox = new JCheckBox("\u05DE\u05D7\u05E1\u05DF");
-		StorageCheckBox.setBounds(245, 35, 113, 25);
-		frame.getContentPane().add(StorageCheckBox);
+		JCheckBox storageCheckBox = new JCheckBox("\u05DE\u05D7\u05E1\u05DF");
+		storageCheckBox.setBounds(245, 35, 113, 25);
+		frame.getContentPane().add(storageCheckBox);
 		
-		JCheckBox AccesibleCheckBox = new JCheckBox("\u05D2\u05D9\u05E9\u05D4 \u05DC\u05E0\u05DB\u05D9\u05DD");
-		AccesibleCheckBox.setBounds(245, 69, 113, 25);
-		frame.getContentPane().add(AccesibleCheckBox);
+		JCheckBox accesibleCheckBox = new JCheckBox("\u05D2\u05D9\u05E9\u05D4 \u05DC\u05E0\u05DB\u05D9\u05DD");
+		accesibleCheckBox.setBounds(245, 69, 113, 25);
+		frame.getContentPane().add(accesibleCheckBox);
 		
-		JCheckBox FurnitureCheckBox = new JCheckBox("\u05DE\u05E8\u05D5\u05D4\u05D8\u05EA");
-		FurnitureCheckBox.setBounds(245, 108, 113, 25);
-		frame.getContentPane().add(FurnitureCheckBox);
+		JCheckBox furnitureCheckBox = new JCheckBox("\u05DE\u05E8\u05D5\u05D4\u05D8\u05EA");
+		furnitureCheckBox.setBounds(245, 108, 113, 25);
+		frame.getContentPane().add(furnitureCheckBox);
 		
-		JCheckBox PetCheckBox = new JCheckBox("\u05D7\u05D9\u05D5\u05EA \u05DE\u05D7\u05DE\u05D3");
-		PetCheckBox.setBounds(245, 141, 113, 25);
-		frame.getContentPane().add(PetCheckBox);
+		JCheckBox petCheckBox = new JCheckBox("\u05D7\u05D9\u05D5\u05EA \u05DE\u05D7\u05DE\u05D3");
+		petCheckBox.setBounds(245, 141, 113, 25);
+		frame.getContentPane().add(petCheckBox);
 		
-		JLabel SearchApartmentLabel = new JLabel("\u05D7\u05D9\u05E4\u05D5\u05E9 \u05D3\u05D9\u05E8\u05D4");
-		SearchApartmentLabel.setBounds(368, 4, 83, 16);
-		frame.getContentPane().add(SearchApartmentLabel);
+		JLabel searchApartmentLabel = new JLabel("\u05D7\u05D9\u05E4\u05D5\u05E9 \u05D3\u05D9\u05E8\u05D4");
+		searchApartmentLabel.setBounds(368, 4, 83, 16);
+		frame.getContentPane().add(searchApartmentLabel);
 		
-		JButton SearchButton = new JButton("\u05D7\u05E4\u05E9");
-		SearchButton.setBounds(308, 226, 97, 25);
-		frame.getContentPane().add(SearchButton);
+		JButton searchButton = new JButton("\u05D7\u05E4\u05E9");
+		searchButton.setBounds(308, 226, 97, 25);
+		frame.getContentPane().add(searchButton);
 		
 		JList list = new JList();
 		list.setBounds(12, 295, 661, 115);
 		frame.getContentPane().add(list);
 		
-		JLabel SearchResultLabel = new JLabel("\u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9 - \u05E8\u05E9\u05D9\u05DE\u05D4");
-		SearchResultLabel.setBounds(308, 266, 143, 16);
-		frame.getContentPane().add(SearchResultLabel);
+		JLabel searchResultLabel = new JLabel("\u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9 - \u05E8\u05E9\u05D9\u05DE\u05D4");
+		searchResultLabel.setBounds(308, 266, 143, 16);
+		frame.getContentPane().add(searchResultLabel);
 		
 		JButton loginOrLogoutButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8/\u05D4\u05EA\u05E0\u05EA\u05E7");
 		loginOrLogoutButton.addMouseListener(new MouseAdapter() {
@@ -195,18 +195,22 @@ public class ShowAllApartmentView extends Observable {
 		loginOrLogoutButton.setBounds(38, 34, 128, 25);
 		frame.getContentPane().add(loginOrLogoutButton);
 		
-		JButton AddApartmentButton = new JButton("\u05D4\u05D5\u05E1\u05E4\u05EA \u05D3\u05D9\u05E8\u05D4 \u05D7\u05D3\u05E9\u05D4 - \u05DE\u05E0\u05D5\u05D9/\u05D0\u05D3\u05DE\u05D9\u05DF");
-		AddApartmentButton.setBounds(12, 68, 227, 25);
-		frame.getContentPane().add(AddApartmentButton);
+		JButton addApartmentButton = new JButton("\u05D4\u05D5\u05E1\u05E4\u05EA \u05D3\u05D9\u05E8\u05D4 \u05D7\u05D3\u05E9\u05D4 - \u05DE\u05E0\u05D5\u05D9/\u05D0\u05D3\u05DE\u05D9\u05DF");
+		addApartmentButton.setBounds(12, 68, 227, 25);
+		frame.getContentPane().add(addApartmentButton);
 		
-		JButton WatchApartmentButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05D3\u05D9\u05E8\u05D5\u05EA \u05E9\u05DC\u05DA - \u05DE\u05E0\u05D5\u05D9");
-		WatchApartmentButton.setBounds(22, 107, 182, 25);
-		frame.getContentPane().add(WatchApartmentButton);
+		JButton watchApartmentButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05D3\u05D9\u05E8\u05D5\u05EA \u05E9\u05DC\u05DA - \u05DE\u05E0\u05D5\u05D9");
+		watchApartmentButton.setBounds(22, 107, 182, 25);
+		frame.getContentPane().add(watchApartmentButton);
 		
-		JButton WatchSearchResultButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E0\u05EA\u05D5\u05E0\u05D9 \u05D7\u05D9\u05E4\u05D5\u05E9 - \u05D0\u05D3\u05DE\u05D9\u05DF");
-		WatchSearchResultButton.setBounds(12, 141, 210, 25);
-		frame.getContentPane().add(WatchSearchResultButton);
+		JButton watchSearchResultButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E0\u05EA\u05D5\u05E0\u05D9 \u05D7\u05D9\u05E4\u05D5\u05E9 - \u05D0\u05D3\u05DE\u05D9\u05DF");
+		watchSearchResultButton.setBounds(12, 141, 210, 25);
+		frame.getContentPane().add(watchSearchResultButton);
 		
+		JButton printSearchResultButton = new JButton("\u05D4\u05D3\u05E4\u05E1\u05EA \u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9");
+		printSearchResultButton.setBounds(38, 179, 184, 25);
+		frame.getContentPane().add(printSearchResultButton);
+
 		JButton PrintSearchResultButton = new JButton("\u05D4\u05D3\u05E4\u05E1\u05EA \u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9");
 		PrintSearchResultButton.setBounds(22, 226, 184, 25);
 		frame.getContentPane().add(PrintSearchResultButton);
@@ -220,6 +224,7 @@ public class ShowAllApartmentView extends Observable {
 		});
 		showAllUsersButton.setBounds(22, 179, 182, 25);
 		frame.getContentPane().add(showAllUsersButton);
+
 	}
 	
 	public void setMainView(MainView mainView) { // know who to return when event handler (back)

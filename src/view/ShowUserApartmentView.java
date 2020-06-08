@@ -61,24 +61,24 @@ public class ShowUserApartmentView extends Observable {
 		showApartmentsLabel.setBounds(393, 41, 127, 16);
 		frame.getContentPane().add(showApartmentsLabel);
 		
-		JButton BackButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
-		BackButton.addActionListener(new ActionListener() {
+		JButton backButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
+		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		BackButton.setBounds(12, 37, 97, 25);
-		frame.getContentPane().add(BackButton);
+		backButton.setBounds(12, 37, 97, 25);
+		frame.getContentPane().add(backButton);
 		
-		JButton EditApartmentButton = new JButton("\u05E2\u05E8\u05D5\u05DA \u05D3\u05D9\u05E8\u05D4 \u05DE\u05E1\u05D5\u05DE\u05E0\u05EA");
-		EditApartmentButton.setBounds(0, 77, 147, 20);
-		frame.getContentPane().add(EditApartmentButton);
+		JButton editApartmentButton = new JButton("\u05E2\u05E8\u05D5\u05DA \u05D3\u05D9\u05E8\u05D4 \u05DE\u05E1\u05D5\u05DE\u05E0\u05EA");
+		editApartmentButton.setBounds(0, 77, 147, 20);
+		frame.getContentPane().add(editApartmentButton);
 		
-		JButton DeleteButton = new JButton("\u05DE\u05D7\u05E7 \u05D3\u05D9\u05E8\u05D4 \u05DE\u05E1\u05D5\u05DE\u05E0\u05EA");
-		DeleteButton.setBounds(10, 111, 153, 25);
-		frame.getContentPane().add(DeleteButton);
+		JButton deleteButton = new JButton("\u05DE\u05D7\u05E7 \u05D3\u05D9\u05E8\u05D4 \u05DE\u05E1\u05D5\u05DE\u05E0\u05EA");
+		deleteButton.setBounds(10, 111, 153, 25);
+		frame.getContentPane().add(deleteButton);
 		
-		JList ApartmentList = new JList();
-		ApartmentList.setBounds(12, 149, 618, 266);
-		frame.getContentPane().add(ApartmentList);
+		JList apartmentList = new JList();
+		apartmentList.setBounds(12, 149, 618, 266);
+		frame.getContentPane().add(apartmentList);
 	}
 }
