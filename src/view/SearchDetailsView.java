@@ -1,13 +1,14 @@
 package view;
 
 import java.awt.EventQueue;
+import java.util.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
 
-public class SearchDetailsView {
+public class SearchDetailsView extends Observable {
 	
 	ShowAllApartmentView showAllApartmentView;
 

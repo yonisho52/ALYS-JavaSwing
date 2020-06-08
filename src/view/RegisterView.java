@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.Observable;
 import javax.swing.JLabel;
 
-public class RegisterView extends Observable{
+public class RegisterView extends Observable {
 
 	MainView mainView;
 	ShowAllApartmentView showAllApartmentView;

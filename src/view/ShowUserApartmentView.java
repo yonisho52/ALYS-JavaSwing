@@ -8,9 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JList;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 import java.awt.event.ActionEvent;
 
-public class ShowUserApartmentView {
+public class ShowUserApartmentView extends Observable {
 
 
 	ShowAllApartmentView showAllApartmentView;

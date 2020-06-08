@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.EventQueue;
+import java.util.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -10,12 +11,14 @@ import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class ShowAllApartmentView {
+public class ShowAllApartmentView extends Observable {
+	
 	
 	SearchDetailsView searchDetailsView;
 	AddNewApartmentView addNewApartmentView;
-	ShowAllApartmentView showAllApartmentView;
 	ShowUserApartmentView showUserApartmentView;
 	MainView mainView;
 
@@ -24,6 +27,8 @@ public class ShowAllApartmentView {
 	private JTextField ApartmentType;
 	private JTextField LimitPrice;
 	private JTextField StartPrice;
+	private JLabel CityLabel;  /// example for all 
+	
 
 	/**
 	 * Launch the application.
@@ -45,11 +50,9 @@ public class ShowAllApartmentView {
 	 * Create the application.
 	 */
 	public ShowAllApartmentView(SearchDetailsView searchDetailsView,AddNewApartmentView addNewApartmentView,
-			ShowAllApartmentView showAllApartmentView,ShowUserApartmentView showUserApartmentView, MainView mainView) {
-		this.mainView = mainView;
+			ShowUserApartmentView showUserApartmentView) {
 		this.searchDetailsView = searchDetailsView;
 		this.addNewApartmentView = addNewApartmentView;
-		this.showAllApartmentView = showAllApartmentView;
 		this.showUserApartmentView = showUserApartmentView;
 		initialize();
 	}
@@ -72,7 +75,7 @@ public class ShowAllApartmentView {
 		City.setBounds(483, 35, 116, 22);
 		frame.getContentPane().add(City);
 		
-		JLabel CityLabel = new JLabel("\u05E2\u05D9\u05E8");
+		CityLabel = new JLabel("\u05E2\u05D9\u05E8"); /// example for all
 		CityLabel.setBounds(620, 38, 36, 16);
 		frame.getContentPane().add(CityLabel);
 		
@@ -179,9 +182,16 @@ public class ShowAllApartmentView {
 		SearchResultLabel.setBounds(308, 266, 143, 16);
 		frame.getContentPane().add(SearchResultLabel);
 		
-		JButton LoginOrLogoutButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8/\u05D4\u05EA\u05E0\u05EA\u05E7");
-		LoginOrLogoutButton.setBounds(38, 34, 128, 25);
-		frame.getContentPane().add(LoginOrLogoutButton);
+		JButton loginOrLogoutButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8/\u05D4\u05EA\u05E0\u05EA\u05E7");
+		loginOrLogoutButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				mainView.showMainView();
+				frame.setVisible(false);
+			}
+		});
+		loginOrLogoutButton.setBounds(38, 34, 128, 25);
+		frame.getContentPane().add(loginOrLogoutButton);
 		
 		JButton AddApartmentButton = new JButton("\u05D4\u05D5\u05E1\u05E4\u05EA \u05D3\u05D9\u05E8\u05D4 \u05D7\u05D3\u05E9\u05D4 - \u05DE\u05E0\u05D5\u05D9/\u05D0\u05D3\u05DE\u05D9\u05DF");
 		AddApartmentButton.setBounds(12, 68, 227, 25);
@@ -198,6 +208,14 @@ public class ShowAllApartmentView {
 		JButton PrintSearchResultButton = new JButton("\u05D4\u05D3\u05E4\u05E1\u05EA \u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9");
 		PrintSearchResultButton.setBounds(38, 179, 184, 25);
 		frame.getContentPane().add(PrintSearchResultButton);
+	}
+	
+	public void setMainView(MainView mainView) { // know who to return when event handler (back)
+		this.mainView = mainView;
+	}
+	
+	public void openShowAllApartment() {
+		frame.setVisible(true);
 	}
 
 }

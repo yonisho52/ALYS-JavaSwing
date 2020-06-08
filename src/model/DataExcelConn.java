@@ -1,8 +1,5 @@
 package model;
 
-import java.io.File;  
-import java.io.FileInputStream;  
-import java.io.FileOutputStream;
 import java.io.*;
 import java.util.*;
 import org.apache.poi.*;
@@ -22,6 +19,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class DataExcelConn extends Observable{
 	
+	
 	Sheet users,apartments;
 	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID"};
 	private static String[] apartmentsColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID"};
@@ -32,9 +30,11 @@ public class DataExcelConn extends Observable{
 	
 public DataExcelConn() {	
 	
-	//if(file.exists()) {
-	/////
-	//} else { 
+	if(file.exists()) {
+		
+	users=workBook.getSheetAt(0);
+	// get sheets, last row num
+	} else { 
 		workBook = new XSSFWorkbook();
 		CreationHelper createHelper = workBook.getCreationHelper();
 		users=workBook.createSheet("משתמשים");//creating new sheet
@@ -72,33 +72,64 @@ public DataExcelConn() {
 //		for(int i = 0; i < gamesSheetColumns.length; i++) {
 //			apartments.autoSizeColumn(i);}
 //			
-	    usersRow = 1;
-	    apartmentsRow = 1;
 	
-	//}
+	}   
 }
 	
 	
-	public void addNewUser(User detatils) {}
+
+	
+	public void addNewApartment() {}
 	public void checkExsistUser() {}
 	public void searchApartment() {}
 	public void showAllApartments() {}
 	public void showUserApartments() {}
 
 
-	public void addNewTenant(Tenant user) 
+	public void addNewTenant(Tenant tenant) 
 	{
-		System.out.println(user.userName);
+    	String excelFilePath = "DataBase.xlsx";
+    	FileInputStream inputStream;
+		try {
+			inputStream = new FileInputStream(new File(excelFilePath));
+	    	Workbook workBook = WorkbookFactory.create(inputStream);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+//    	Sheet sheet = workBook.getSheetAt(0);
+    	int rowCount = users.getLastRowNum();
+    	Row row = users.createRow(++rowCount);
+
+    	row.createCell(0).setCellValue(tenant.userName);
+    	row.createCell(1).setCellValue(tenant.password);
+
+    	//FileInputStream input = new FileInputStream("./Test.xls");
+    	//cell.getRichStringCellValue().toString(); - printing value to screen
+
+    	FileOutputStream output;
+		try {
+			output = new FileOutputStream("DataBase.xlsx");
+	    	workBook.write(output);
+	    	output.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println( " secssuce");
 	}
-public static void main(String[]args)
+	
+	public void closeFile()
 {
 	// Write the output to a file
-	DataExcelConn workbook = new DataExcelConn();
 	try {
-		workbook.fileOutputStream= new FileOutputStream("DataBase.xlsx");
-		workbook.workBook.write(workbook.fileOutputStream);
-		workbook.fileOutputStream.close();
-		workbook.workBook.close();
+		fileOutputStream= new FileOutputStream("DataBase.xlsx");
+		workBook.write(fileOutputStream);
+		fileOutputStream.close();
+		workBook.close();
     }
 	catch(Exception e) {e.printStackTrace();  
 	}

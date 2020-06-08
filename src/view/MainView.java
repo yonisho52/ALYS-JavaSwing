@@ -1,5 +1,7 @@
 package view;
 
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,12 +12,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Observable;
 
-public class MainView {
+public class MainView extends Observable {
 
 
 	RegisterView registerView;
 	ShowAllApartmentView showAllApartmentView;
+	
+	
 	
 	private JFrame frame;
 	private JTextField userNameTextField;
@@ -59,13 +66,26 @@ public class MainView {
 		initialize();
 	}
 
+	public class CloseTheExcel {
+		// for the controller 
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 674, 472);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				setChanged();
+				notifyObservers(new CloseTheExcel());
+				System.exit(0);
+			}
+		});
+
 		frame.getContentPane().setLayout(null);
 		
 		JButton loginButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8\u05D5\u05EA");
@@ -87,6 +107,12 @@ public class MainView {
 		frame.getContentPane().add(RegisterButton);
 		
 		JButton guestViewButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05DC\u05DC\u05D0 \u05DE\u05E0\u05D5\u05D9");
+		guestViewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {  ////// send to the function down becuase problem with the initialize function
+				openShowAllApartment(arg0);
+			}
+		});
 		guestViewButton.setBounds(198, 362, 183, 25);
 		frame.getContentPane().add(guestViewButton);
 		
@@ -119,5 +145,12 @@ public class MainView {
 	frame.setVisible(true);
 	this.frame.setEnabled(true);
 }
+	public void openShowAllApartment(MouseEvent arg0) {  //// this function
+		showAllApartmentView.setMainView(this);
+		userNameTextField.setText(""); // to eraize the field when you come back
+		this.frame.setVisible(false); 
+		showAllApartmentView.openShowAllApartment();
+	}
+	
 
 }

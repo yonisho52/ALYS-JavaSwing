@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.EventQueue;
+import java.util.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -9,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
 
-public class AddNewApartmentView {
+public class AddNewApartmentView extends Observable {
 	
 
 	ShowAllApartmentView showAllApartmentView;

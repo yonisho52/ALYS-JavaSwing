@@ -10,33 +10,41 @@ import controller.*;
 
 public class driver 
 {
-
+	
 	public static void main (String[] args) {
 		
 		DataExcelConn dataExcelConn = new DataExcelConn();
 
-		try {
-			FileOutputStream fileOut = new FileOutputStream("DataBase.xlsx");
-			dataExcelConn.workBook.write(fileOut);
-			dataExcelConn.workBook.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		RegisterView registerView = new RegisterView();
-
-		DataController dataController = new DataController(dataExcelConn,registerView);
+//		try {
+//			FileOutputStream fileOut = new FileOutputStream("DataBase.xlsx");
+//			dataExcelConn.workBook.write(fileOut);
+//			dataExcelConn.workBook.close();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
-		dataExcelConn.addObserver(dataController);
-		registerView.addObserver(dataController);
-		
-		
+		ShowUserApartmentView showUserApartmentView = new ShowUserApartmentView();
 		SearchDetailsView searchDetailsView = new SearchDetailsView();
 		AddNewApartmentView addNewApartmentView = new AddNewApartmentView();
-		ShowAllApartmentView showAllApartmentView = new ShowAllApartmentView();
-		ShowUserApartmentView showUserApartmentView = new ShowUserApartmentView();
+		///// 3 line above for the next line
+		ShowAllApartmentView showAllApartmentView = new ShowAllApartmentView(searchDetailsView, addNewApartmentView, showUserApartmentView);
+
+		RegisterView registerView = new RegisterView(showAllApartmentView);
 
 		MainView mainView = new MainView(registerView,showAllApartmentView);
+
+		DataController dataController = new DataController(dataExcelConn, registerView, searchDetailsView, 
+				 addNewApartmentView, showUserApartmentView,  mainView, showAllApartmentView);
+
 		
+		// add observer for the controller's watch
+		mainView.addObserver(dataController);
+		searchDetailsView.addObserver(dataController);
+		addNewApartmentView.addObserver(dataController);		
+		showUserApartmentView.addObserver(dataController);
+		showAllApartmentView.addObserver(dataController);		
+		dataExcelConn.addObserver(dataController);
+		registerView.addObserver(dataController);
 	}
 }
