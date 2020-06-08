@@ -3,6 +3,8 @@ package controller;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JTable;
+
 import model.*;
 import view.*;
 
@@ -51,6 +53,18 @@ public class DataController implements Observer{
 			if(arg1 instanceof MainView.CloseTheExcel)
 			{
 				dataExcelConn.closeFile();
+			}
+		}
+		if(arg0 instanceof ShowAllUsersView)
+			if(arg1 instanceof ShowAllUsersView.GetAllUsers)
+			{
+				//dataExcelConn.getAllUsers();
+			}
+		if(arg0 instanceof DataExcelConn)
+		{
+			if(arg1 instanceof JTable)
+			{
+				//showAllUsersView.crateAllUsers((JTable)arg1);
 			}
 		}
 	}

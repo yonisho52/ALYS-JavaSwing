@@ -2,6 +2,9 @@ package model;
 
 import java.io.*;
 import java.util.*;
+
+import javax.swing.JTable;
+
 import org.apache.poi.*;
 import org.apache.poi.ss.usermodel.*;  
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -26,17 +29,26 @@ public class DataExcelConn extends Observable{
 	int usersRow, apartmentsRow;
 	public Workbook workBook;
 	File file = new File("DataBase.xlsx");
+	FileInputStream fileInputStream;
+	Cell cellCompar;
+	DataFormatter dataFormatter = new DataFormatter();
 	
 public DataExcelConn() {	
 	
-//	if(file.exists()) {
-		
-//		usersRow=users.getLastRowNum();
-//		apartmentsRow = apartments.getLastRowNum();
-//		users=workBook.getSheetAt(0);
-//		apartments=workBook.getSheetAt(0);
-	
-//	}else { 
+	if(file.exists()) {
+		try {
+			fileInputStream = new FileInputStream(file);
+			workBook = WorkbookFactory.create(fileInputStream);
+			users=workBook.getSheetAt(0);
+			apartments=workBook.getSheetAt(1);
+			usersRow = users.getLastRowNum();
+			apartmentsRow = apartments.getLastRowNum();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}else { 
 		workBook = new XSSFWorkbook();
 		CreationHelper createHelper = workBook.getCreationHelper();
 		users=workBook.createSheet("משתמשים");//creating new sheet
@@ -75,7 +87,7 @@ public DataExcelConn() {
 //			apartments.autoSizeColumn(i);}
 //			
 	
-//	}   
+	}   
 }
 	
 	public void addNewApartment() {}
@@ -140,4 +152,50 @@ public DataExcelConn() {
 	catch(Exception e) {e.printStackTrace();  
 	}
 }
+	
+	public void getAllUsers() { // for 
+		
+		Row row;
+		Cell userName, password, firstName, lastName, email, phoneNumber, userID, adminToF;
+		String [][] data = new String[users.getLastRowNum()][8]; // for table
+		String [] record = new String[8]; // lines
+		int j = 0;
+		
+		for(int i=1; i<=users.getLastRowNum(); i++) 
+		{
+			row = users.getRow(i);
+			userName = row.getCell(0);
+			password = row.getCell(1);
+			firstName = row.getCell(2);
+			lastName = row.getCell(3);
+			email = row.getCell(4);
+			phoneNumber = row.getCell(5);
+			userID = row.getCell(6);
+			adminToF = row.getCell(7);
+
+			record[0] = dataFormatter.formatCellValue(userName);
+			record[1] = dataFormatter.formatCellValue(password);
+			record[2] = dataFormatter.formatCellValue(firstName);
+			record[3] = dataFormatter.formatCellValue(lastName);
+			record[4] = dataFormatter.formatCellValue(email);
+			record[5] = dataFormatter.formatCellValue(phoneNumber);
+			record[6] = dataFormatter.formatCellValue(userID);
+			record[7] = dataFormatter.formatCellValue(adminToF);
+
+			
+			data[j++] = record.clone();
+		}
+		
+		JTable jTable = new JTable(data, usersColumns);
+		//setChanged();
+		//notifyObservers(jTable);
+		
+
+	}
+	
+	
+	
+	
+	
+	
 }

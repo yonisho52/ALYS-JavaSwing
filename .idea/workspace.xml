@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="74e57253-ce65-4c7d-aa00-992d7eaa6400" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataBase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/controller/DataController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/controller/DataController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/DataExcelConn.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/DataExcelConn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/view/ShowAllApartmentView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/view/ShowAllApartmentView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DataController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/DataExcelConn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/DataExcelConn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ShowAllApartmentView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ShowAllApartmentView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ShowAllUsersView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ShowAllUsersView.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1d3DBsBfiyd1iCInkk0p82jQXl4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="74e57253-ce65-4c7d-aa00-992d7eaa6400" name="Default Changelist" comment="" />
+      <created>1591644750214</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1591644750214</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -4,12 +4,20 @@ import java.awt.EventQueue;
 import java.util.Observable;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JTable;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 public class ShowAllUsersView extends Observable{
 
 	private JFrame frame;
+	private JTable showUsersTable;
 
 	/**
 	 * Launch the application.
@@ -48,11 +56,53 @@ public class ShowAllUsersView extends Observable{
 		frame.getContentPane().add(deleteUserButton);
 		
 		JButton returnButton = new JButton("\u05D7\u05D6\u05D5\u05E8");
+		returnButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		returnButton.setBounds(27, 332, 97, 25);
 		frame.getContentPane().add(returnButton);
 		
-		JFormattedTextField usersTextField = new JFormattedTextField();
-		usersTextField.setBounds(45, 76, 697, 222);
-		frame.getContentPane().add(usersTextField);
+		showUsersTable = new JTable();
+		showUsersTable.setBounds(72, 51, 696, 239);
+		frame.getContentPane().add(showUsersTable);
 	}
+	
+	public void showAllUsersView() {
+		
+		//frame.setVisible(true);
+		
+		setChanged();
+		notifyObservers(new GetAllUsers());
+	}
+	
+	public void crateAllUsers(JTable usersTable) {
+		
+		//create table
+		JScrollPane scrollPane = new JScrollPane(usersTable);
+		frame.add(scrollPane);
+		
+		this.frame.setVisible(true);
+
+	}
+	
+
+	//inner class for the controller
+	public class GetAllUsers {
+		// controller notify
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
