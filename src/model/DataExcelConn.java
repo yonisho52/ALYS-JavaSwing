@@ -19,9 +19,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class DataExcelConn extends Observable{
 	
-	
 	Sheet users,apartments;
-	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID"};
+	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID","admin"};
 	private static String[] apartmentsColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID"};
 	FileOutputStream fileOutputStream;
 	int usersRow, apartmentsRow;
@@ -30,11 +29,14 @@ public class DataExcelConn extends Observable{
 	
 public DataExcelConn() {	
 	
-	//if(file.exists()) {
+//	if(file.exists()) {
 		
-	//users=workBook.getSheetAt(0);
-	// get sheets, last row num
-//	} else { 
+//		usersRow=users.getLastRowNum();
+//		apartmentsRow = apartments.getLastRowNum();
+//		users=workBook.getSheetAt(0);
+//		apartments=workBook.getSheetAt(0);
+	
+//	}else { 
 		workBook = new XSSFWorkbook();
 		CreationHelper createHelper = workBook.getCreationHelper();
 		users=workBook.createSheet("משתמשים");//creating new sheet
@@ -76,16 +78,13 @@ public DataExcelConn() {
 //	}   
 }
 	
-	
-
-	
 	public void addNewApartment() {}
 	public void checkExsistUser() {}
 	public void searchApartment() {}
 	public void showAllApartments() {}
 	public void showUserApartments() {}
 
-
+	
 	public void addNewTenant(Tenant tenant) 
 	{
     	String excelFilePath = "DataBase.xlsx";
@@ -105,6 +104,13 @@ public DataExcelConn() {
 
     	row.createCell(0).setCellValue(tenant.userName);
     	row.createCell(1).setCellValue(tenant.password);
+    	row.createCell(2).setCellValue(tenant.firstName);
+    	row.createCell(3).setCellValue(tenant.lastName);
+    	row.createCell(4).setCellValue(tenant.email);
+    	row.createCell(5).setCellValue(tenant.phoneNumber);
+    	row.createCell(6).setCellValue(tenant.userID);
+    	row.createCell(7).setCellValue(tenant.adminToF);
+
 
     	//FileInputStream input = new FileInputStream("./Test.xls");
     	//cell.getRichStringCellValue().toString(); - printing value to screen

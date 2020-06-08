@@ -12,7 +12,7 @@ public abstract class User extends Observable {
 	protected String email;
 	protected String phoneNumber;
 	protected int userID;
-      
+	protected boolean adminToF;
     
     //getters
     public String getFirstName() {return firstName;}
@@ -22,7 +22,8 @@ public abstract class User extends Observable {
     public String getuserName() {return userName;}
     public String getpassword() {return password;}
     public int getUserID() {return userID;}
-    
+    public boolean getAdminToF() {return adminToF;}
+
     //setters
     public void setFirstName(String firstName) {this.firstName = firstName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
@@ -31,4 +32,6 @@ public abstract class User extends Observable {
     public void setUserID(int userID) {this.userID = userID;}
     public void setuserName(String userName){this.userName=userName;}
     public void setpassword( String password) {this.password=password;}
+    public void setAdminToF( boolean adminToF) {this.adminToF=adminToF;}
+
 }

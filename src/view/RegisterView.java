@@ -22,7 +22,9 @@ public class RegisterView extends Observable {
 	private JTextField password;
 	private JTextField validatePassword;
 	private JTextField email;
-	private JTextField PhoneNumber;
+	private JTextField phoneNumber;
+	private JTextField firstName;
+	private JTextField lastName;
 
 	/**
 	 * Launch the application.
@@ -72,7 +74,7 @@ public class RegisterView extends Observable {
 				frame.setVisible(false);
 			}
 		});
-		cancelButton.setBounds(119, 305, 97, 25);
+		cancelButton.setBounds(119, 350, 97, 25);
 		frame.getContentPane().add(cancelButton);
 		
 		userName = new JTextField();
@@ -94,12 +96,14 @@ public class RegisterView extends Observable {
 		regButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				String users[] = {userName.getText().toString(),password.getText().toString()};
+				String newTenant[] = {userName.getText().toString(),password.getText().toString(),
+						firstName.getText().toString(),lastName.getText().toString(), email.getText().toString(),
+						phoneNumber.getText().toString()};
 				setChanged();
-				notifyObservers(users);
+				notifyObservers(newTenant);
 			}
 		});
-		regButton.setBounds(305, 305, 97, 25);
+		regButton.setBounds(305, 350, 97, 25);
 		frame.getContentPane().add(regButton);
 		
 		JLabel userNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9");
@@ -115,21 +119,39 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(validatePasswordLabel);
 		
 		email = new JTextField();
-		email.setBounds(192, 184, 116, 22);
+		email.setBounds(192, 256, 116, 22);
 		frame.getContentPane().add(email);
 		email.setColumns(10);
 		
-		JLabel EmailLabel = new JLabel("\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC");
-		EmailLabel.setBounds(322, 190, 56, 16);
-		frame.getContentPane().add(EmailLabel);
+		JLabel emailLabel = new JLabel("\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC");
+		emailLabel.setBounds(322, 262, 56, 16);
+		frame.getContentPane().add(emailLabel);
 		
 		JLabel phoneLabel = new JLabel("\u05E4\u05DC\u05D0\u05E4\u05D5\u05DF");
-		phoneLabel.setBounds(322, 219, 56, 16);
+		phoneLabel.setBounds(322, 291, 56, 16);
 		frame.getContentPane().add(phoneLabel);
 		
-		PhoneNumber = new JTextField();
-		PhoneNumber.setBounds(192, 219, 116, 22);
-		frame.getContentPane().add(PhoneNumber);
-		PhoneNumber.setColumns(10);
+		phoneNumber = new JTextField();
+		phoneNumber.setBounds(192, 291, 116, 22);
+		frame.getContentPane().add(phoneNumber);
+		phoneNumber.setColumns(10);
+		
+		JLabel firstNameLabel = new JLabel("\u05E9\u05DD \u05E4\u05E8\u05D8\u05D9");
+		firstNameLabel.setBounds(320, 190, 82, 16);
+		frame.getContentPane().add(firstNameLabel);
+		
+		firstName = new JTextField();
+		firstName.setColumns(10);
+		firstName.setBounds(192, 184, 116, 22);
+		frame.getContentPane().add(firstName);
+		
+		lastName = new JTextField();
+		lastName.setColumns(10);
+		lastName.setBounds(192, 219, 116, 22);
+		frame.getContentPane().add(lastName);
+		
+		JLabel lastNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
+		lastNameLabel.setBounds(320, 225, 82, 16);
+		frame.getContentPane().add(lastNameLabel);
 	}
 }
