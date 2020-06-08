@@ -22,18 +22,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class DataExcelConn extends Observable{
 	
-	
 	Sheet users,apartments;
 	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID"};
 	private static String[] apartmentsColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID"};
-
+	FileOutputStream fileOutputStream;
 	int usersRow, apartmentsRow;
 	public Workbook workBook;
 	File file = new File("DataBase.xlsx");
 	
-public DataExcelConn() {
-		
-	/*
+public DataExcelConn() {	
+	
 	//if(file.exists()) {
 	/////
 	//} else { 
@@ -76,13 +74,9 @@ public DataExcelConn() {
 //			
 	    usersRow = 1;
 	    apartmentsRow = 1;
-	*/
+	
 	//}
 }
-	
-
-	
-	
 	
 	
 	public void addNewUser(User detatils) {}
@@ -92,12 +86,21 @@ public DataExcelConn() {
 	public void showUserApartments() {}
 
 
-
-
-
-
 	public void addNewTenant(Tenant user) 
 	{
 		System.out.println(user.userName);
 	}
+public static void main(String[]args)
+{
+	// Write the output to a file
+	DataExcelConn workbook = new DataExcelConn();
+	try {
+		workbook.fileOutputStream= new FileOutputStream("DataBase.xlsx");
+		workbook.workBook.write(workbook.fileOutputStream);
+		workbook.fileOutputStream.close();
+		workbook.workBook.close();
+    }
+	catch(Exception e) {e.printStackTrace();  
+	}
+}
 }
