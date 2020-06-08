@@ -30,11 +30,11 @@ public class DataExcelConn extends Observable{
 	
 public DataExcelConn() {	
 	
-	if(file.exists()) {
+	//if(file.exists()) {
 		
-	users=workBook.getSheetAt(0);
+	//users=workBook.getSheetAt(0);
 	// get sheets, last row num
-	} else { 
+//	} else { 
 		workBook = new XSSFWorkbook();
 		CreationHelper createHelper = workBook.getCreationHelper();
 		users=workBook.createSheet("משתמשים");//creating new sheet
@@ -73,7 +73,7 @@ public DataExcelConn() {
 //			apartments.autoSizeColumn(i);}
 //			
 	
-	}   
+//	}   
 }
 	
 	

@@ -7,6 +7,7 @@ import model.*;
 import view.*;
 
 public class DataController implements Observer{
+	
 	public RegisterView registerView;
 	public DataExcelConn dataExcelConn;
 	public SearchDetailsView searchDetailsView;

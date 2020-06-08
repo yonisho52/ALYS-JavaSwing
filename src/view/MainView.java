@@ -62,7 +62,7 @@ public class MainView extends Observable {
 	public MainView() {
 		
 		
-		
+	
 		initialize();
 	}
 
@@ -96,15 +96,19 @@ public class MainView extends Observable {
 		loginButton.setBounds(284, 264, 97, 25);
 		frame.getContentPane().add(loginButton);
 		
-		JButton RegisterButton = new JButton("\u05D4\u05D9\u05E8\u05E9\u05DD");
-		RegisterButton.addMouseListener(new MouseAdapter() {
+		JButton registerButton = new JButton("\u05D4\u05D9\u05E8\u05E9\u05DD");
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		registerButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				openRegisterView(arg0);
 			}
 		});
-		RegisterButton.setBounds(284, 313, 97, 25);
-		frame.getContentPane().add(RegisterButton);
+		registerButton.setBounds(284, 313, 97, 25);
+		frame.getContentPane().add(registerButton);
 		
 		JButton guestViewButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05DC\u05DC\u05D0 \u05DE\u05E0\u05D5\u05D9");
 		guestViewButton.addMouseListener(new MouseAdapter() {
@@ -136,9 +140,9 @@ public class MainView extends Observable {
 	}
 
 	protected void openRegisterView(MouseEvent arg0) {
-		registerView.setMainView(this);//know who is the main view- in order to come back later
+		registerView.setMainView(this); //know who is the main view- in order to come back later
 	//	this.frame.setVisible(false);
-		this.frame.setEnabled(false);
+		this.frame.setEnabled(false); // lock the 'this' (main) window
 		registerView.showRegisterView();
 	}
 	public void showMainView() {
