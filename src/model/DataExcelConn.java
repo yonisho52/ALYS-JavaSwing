@@ -39,7 +39,8 @@ public DataExcelConn() {
 		try {
 			fileInputStream = new FileInputStream(file);
 			workBook = WorkbookFactory.create(fileInputStream);
-			users=workBook.getSheetAt(0);
+			users = workBook.getSheetAt(0);
+			System.out.println(workBook.getSheetAt(0).toString());
 			apartments=workBook.getSheetAt(1);
 			usersRow = users.getLastRowNum();
 			apartmentsRow = apartments.getLastRowNum();
@@ -96,7 +97,6 @@ public DataExcelConn() {
 	public void showAllApartments() {}
 	public void showUserApartments() {}
 
-	
 	public void addNewTenant(Tenant tenant) 
 	{
     	String excelFilePath = "DataBase.xlsx";
@@ -156,6 +156,9 @@ public DataExcelConn() {
 	public void getAllUsers() { // for 
 		
 		Row row;
+		int lastRow = users.getLastRowNum();
+		
+		System.out.println(lastRow);
 		Cell userName, password, firstName, lastName, email, phoneNumber, userID, adminToF;
 		String [][] data = new String[users.getLastRowNum()][8]; // for table
 		String [] record = new String[8]; // lines
@@ -182,6 +185,7 @@ public DataExcelConn() {
 			record[6] = dataFormatter.formatCellValue(userID);
 			record[7] = dataFormatter.formatCellValue(adminToF);
 
+			
 			
 			data[j++] = record.clone();
 		}

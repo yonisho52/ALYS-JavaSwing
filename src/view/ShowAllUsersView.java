@@ -82,10 +82,15 @@ public class ShowAllUsersView extends Observable{
 		
 		//create table
 		JScrollPane scrollPane = new JScrollPane(usersTable);
-	
-		frame.add(scrollPane);
-		//showUsersTable.add(scrollPane);
+		showUsersTable.add(scrollPane);
+		showUsersTable.setVisible(true);
+		//frame.add(scrollPane);
+		
+		frame.add(showUsersTable);
 		this.frame.setVisible(true);
+		
+		
+		
 	}
 	
 
