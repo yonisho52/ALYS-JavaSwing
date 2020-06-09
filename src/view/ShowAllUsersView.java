@@ -70,22 +70,22 @@ public class ShowAllUsersView extends Observable{
 		frame.getContentPane().add(showUsersTable);
 	}
 	
-	public void showAllUsersView() {
+	public void showAllUsersVeiw() {
 		
 		//frame.setVisible(true);
 		
 		setChanged();
-		notifyObservers(new GetAllUsers());
+		notifyObservers(new GetAllUsers()); // request to go to the excel file and give me all the users
 	}
 	
 	public void crateAllUsers(JTable usersTable) {
 		
 		//create table
 		JScrollPane scrollPane = new JScrollPane(usersTable);
+	
 		frame.add(scrollPane);
-		
+		//showUsersTable.add(scrollPane);
 		this.frame.setVisible(true);
-
 	}
 	
 

@@ -58,13 +58,16 @@ public class DataController implements Observer{
 		if(arg0 instanceof ShowAllUsersView)
 			if(arg1 instanceof ShowAllUsersView.GetAllUsers)
 			{
-				//dataExcelConn.getAllUsers();
+				dataExcelConn.getAllUsers();
+				
+				
+				
 			}
 		if(arg0 instanceof DataExcelConn)
 		{
 			if(arg1 instanceof JTable)
 			{
-				//showAllUsersView.crateAllUsers((JTable)arg1);
+				showAllUsersView.crateAllUsers((JTable)arg1);
 			}
 		}
 	}
