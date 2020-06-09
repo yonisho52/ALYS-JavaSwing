@@ -10,6 +10,7 @@ import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.awt.event.ActionEvent;
+import javax.swing.JTable;
 
 public class ShowUserApartmentView extends Observable {
 
@@ -17,6 +18,7 @@ public class ShowUserApartmentView extends Observable {
 	ShowAllApartmentView showAllApartmentView;
 	
 	private JFrame frame;
+	private JTable apartmentTable;
 
 	/**
 	 * Launch the application.
@@ -77,8 +79,8 @@ public class ShowUserApartmentView extends Observable {
 		deleteButton.setBounds(10, 111, 153, 25);
 		frame.getContentPane().add(deleteButton);
 		
-		JList apartmentList = new JList();
-		apartmentList.setBounds(12, 149, 618, 266);
-		frame.getContentPane().add(apartmentList);
+		apartmentTable = new JTable();
+		apartmentTable.setBounds(28, 172, 582, 231);
+		frame.getContentPane().add(apartmentTable);
 	}
 }

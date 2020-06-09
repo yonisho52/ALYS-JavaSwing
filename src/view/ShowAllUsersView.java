@@ -18,6 +18,7 @@ public class ShowAllUsersView extends Observable{
 
 	private JFrame frame;
 	private JTable showUsersTable;
+	ShowAllApartmentView showAllApartmentView;
 
 	/**
 	 * Launch the application.
@@ -69,6 +70,7 @@ public class ShowAllUsersView extends Observable{
 		showUsersTable.setBounds(72, 51, 696, 239);
 		frame.getContentPane().add(showUsersTable);
 	}
+
 	
 	public void showAllUsersVeiw() {
 		

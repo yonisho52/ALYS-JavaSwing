@@ -7,12 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JTable;
 
 public class SearchDetailsView extends Observable {
 	
 	ShowAllApartmentView showAllApartmentView;
 
 	private JFrame frame;
+	private JTable mostSearchedApartmentList;
 
 	/**
 	 * Launch the application.
@@ -53,7 +55,7 @@ public class SearchDetailsView extends Observable {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel mostSearchedApartmentsLabel = new JLabel("\u05D4\u05D3\u05D9\u05E8\u05D5\u05EA \u05E9\u05D7\u05D9\u05E4\u05E9\u05D5 \u05D4\u05DB\u05D9 \u05D4\u05E8\u05D1\u05D4");
-		mostSearchedApartmentsLabel.setBounds(328, 46, 172, 16);
+		mostSearchedApartmentsLabel.setBounds(160, 44, 255, 21);
 		frame.getContentPane().add(mostSearchedApartmentsLabel);
 		
 		JButton backButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
@@ -64,13 +66,9 @@ public class SearchDetailsView extends Observable {
 		printButton.setBounds(12, 80, 97, 25);
 		frame.getContentPane().add(printButton);
 		
-		JList list = new JList();
-		list.setBounds(32, 304, 255, -154);
-		frame.getContentPane().add(list);
 		
-		JList mostSearchedApartmentList = new JList();
-		mostSearchedApartmentList.setBounds(12, 146, 611, 271);
+		mostSearchedApartmentList = new JTable();
+		mostSearchedApartmentList.setBounds(42, 148, 548, 244);
 		frame.getContentPane().add(mostSearchedApartmentList);
 	}
-
 }

@@ -93,6 +93,10 @@ public class RegisterView extends Observable {
 		validatePassword.setColumns(10);
 		
 		JButton regButton = new JButton("\u05D4\u05D9\u05E8\u05E9\u05DD");
+		regButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		regButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

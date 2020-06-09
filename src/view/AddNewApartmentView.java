@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JScrollBar;
+import javax.swing.JTextArea;
 
 public class AddNewApartmentView extends Observable {
 	
@@ -41,10 +45,10 @@ public class AddNewApartmentView extends Observable {
 	 * Create the application.
 	 */
 	
-	public AddNewApartmentView(ShowAllApartmentView showAllApartmentView) {
-		this.showAllApartmentView = showAllApartmentView;
-		initialize();
-	}
+//	public AddNewApartmentView(ShowAllApartmentView showAllApartmentView) {
+//		this.showAllApartmentView = showAllApartmentView;
+//		initialize();
+//	}
 	
 	public AddNewApartmentView() {
 		initialize();
@@ -68,16 +72,16 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().add(cancelButton);
 		
 		JLabel addNewApartmentLabel = new JLabel("\u05D4\u05D5\u05E1\u05E4\u05EA \u05D3\u05D9\u05E8\u05D4 \u05D7\u05D3\u05E9\u05D4");
-		addNewApartmentLabel.setBounds(293, 28, 118, 16);
+		addNewApartmentLabel.setBounds(293, 28, 171, 16);
 		frame.getContentPane().add(addNewApartmentLabel);
 		
 		JLabel cityLabel = new JLabel("\u05E2\u05D9\u05E8");
 		cityLabel.setBounds(485, 85, 36, 16);
 		frame.getContentPane().add(cityLabel);
 		
-		JLabel apartmentTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D3\u05D9\u05E8\u05D4");
-		apartmentTypeLabel.setBounds(485, 119, 56, 16);
-		frame.getContentPane().add(apartmentTypeLabel);
+		JLabel addressLabel = new JLabel("\u05E8\u05D7\u05D5\u05D1");
+		addressLabel.setBounds(485, 119, 90, 16);
+		frame.getContentPane().add(addressLabel);
 		
 		City = new JTextField();
 		City.setBounds(348, 82, 116, 22);
@@ -166,5 +170,30 @@ public class AddNewApartmentView extends Observable {
 		JCheckBox petCheckBox = new JCheckBox("\u05D7\u05D9\u05D5\u05EA \u05DE\u05D7\u05DE\u05D3");
 		petCheckBox.setBounds(48, 187, 113, 25);
 		frame.getContentPane().add(petCheckBox);
+		
+		JComboBox propertyTypeComboBox = new JComboBox();
+		propertyTypeComboBox.setEditable(true);
+		propertyTypeComboBox.setBounds(312, 313, 171, 32);
+		frame.getContentPane().add(propertyTypeComboBox);
+		
+		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
+		propertyTypeLabel.setBounds(495, 319, 69, 20);
+		frame.getContentPane().add(propertyTypeLabel);
+		
+		JTextArea descriptiontextArea = new JTextArea();
+		descriptiontextArea.setBounds(15, 260, 146, 71);
+		frame.getContentPane().add(descriptiontextArea);
+		
+		JLabel descriptionLabel = new JLabel("\u05EA\u05D9\u05D0\u05D5\u05E8");
+		descriptionLabel.setBounds(175, 262, 69, 20);
+		frame.getContentPane().add(descriptionLabel);
+	}
+	public void showAddNewApartmentView()
+	{
+		frame.setVisible(true);
+	}
+	
+	public void setMain(ShowAllApartmentView showAllApartmentView) {
+		this.showAllApartmentView = showAllApartmentView;
 	}
 }
