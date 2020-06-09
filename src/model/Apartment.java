@@ -19,7 +19,7 @@ public abstract class Apartment implements Property {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-//how r u
+//how
 	@Override
 	public int getPropertyType() {
 		// TODO Auto-generated method stub
