@@ -187,8 +187,8 @@ public DataExcelConn() {
 		}
 		
 		JTable jTable = new JTable(data, usersColumns);
-		//setChanged();
-		//notifyObservers(jTable);
+		setChanged();
+		notifyObservers(jTable);
 		
 
 	}

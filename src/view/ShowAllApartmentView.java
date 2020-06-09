@@ -219,7 +219,7 @@ public class ShowAllApartmentView extends Observable {
 		showAllUsersButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				openShowAllApartment();
+				openShowAllUsersView();
 			}
 		});
 		showAllUsersButton.setBounds(22, 179, 182, 25);
@@ -232,12 +232,12 @@ public class ShowAllApartmentView extends Observable {
 	}
 	
 	public void openShowAllApartment() {
-		showAllUsersView.showAllUsersView();
+		//showAllUsersView.showAllUsersView();
 		frame.setVisible(true);
 	}
 
-//	public void openShowAllUsersView() {
-//		showAllUsersView.showAllUsers();
-//			
-//	}
+	public void openShowAllUsersView() {
+		showAllUsersView.showAllUsersVeiw();
+			
+	}
 }
