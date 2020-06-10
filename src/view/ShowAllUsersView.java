@@ -19,6 +19,7 @@ public class ShowAllUsersView extends Observable{
 	private JFrame frame;
 	private JTable showUsersTable;
 	ShowAllApartmentView showAllApartmentView;
+	ShowAllUsersView showAllUsersView;
 
 	/**
 	 * Launch the application.
@@ -36,9 +37,14 @@ public class ShowAllUsersView extends Observable{
 		});
 	}
 
+	public void setShowAllApartmentView(ShowAllApartmentView showAllApartmentView)
+	{
+		this.showAllApartmentView = showAllApartmentView;
+	}
 	/**
 	 * Create the application.
 	 */
+	
 	public ShowAllUsersView() {
 		initialize();
 	}
@@ -56,10 +62,12 @@ public class ShowAllUsersView extends Observable{
 		deleteUserButton.setBounds(136, 332, 97, 25);
 		frame.getContentPane().add(deleteUserButton);
 		
-		JButton returnButton = new JButton("\u05D7\u05D6\u05D5\u05E8");
+		JButton returnButton  = new JButton("\u05D7\u05D6\u05D5\u05E8");
 		returnButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				showAllApartmentView.openShowAllApartment();
+				frame.setVisible(false);
 				
 			}
 		});
@@ -72,13 +80,13 @@ public class ShowAllUsersView extends Observable{
 	}
 
 	
-	public void showAllUsersVeiw() {
+	public void showAllUsersView() {
 		
-		//frame.setVisible(true);
-		
+		frame.setVisible(true);
 		setChanged();
 		notifyObservers(new GetAllUsers()); // request to go to the excel file and give me all the users
 	}
+	
 	
 	public void crateAllUsers(JTable usersTable) {
 		

@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
 
 public class AddNewApartmentView extends Observable {
 	
-
 	ShowAllApartmentView showAllApartmentView;
 
 	private JFrame frame;
@@ -52,10 +51,26 @@ public class AddNewApartmentView extends Observable {
 //		initialize();
 //	}
 	
+	public void setShowAllApartmentView(ShowAllApartmentView showAllApartmentView)
+	{
+		this.showAllApartmentView = showAllApartmentView;
+	}
+	
+	public void showAddNewApartmentView()
+	{
+		frame.setVisible(true);
+		//this.frame.setEnabled(true);
+	}
+	
+	public void setMain(ShowAllApartmentView showAllApartmentView) {
+		this.showAllApartmentView = showAllApartmentView;
+	}
+	
 	public AddNewApartmentView() {
 		initialize();
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -196,15 +211,4 @@ public class AddNewApartmentView extends Observable {
 		descriptionLabel.setBounds(175, 262, 69, 20);
 		frame.getContentPane().add(descriptionLabel);
 	}
-	public void showAddNewApartmentView()
-	{
-		frame.setVisible(true);
-		//this.frame.setEnabled(true);
-	}
-	
-	public void setMain(ShowAllApartmentView showAllApartmentView) {
-		this.showAllApartmentView = showAllApartmentView;
-	}
-	
-
 }

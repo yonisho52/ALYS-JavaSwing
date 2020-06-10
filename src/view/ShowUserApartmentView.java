@@ -35,7 +35,12 @@ public class ShowUserApartmentView extends Observable {
 			}
 		});
 	}
-
+	
+	public void setShowAllApartmentView(ShowAllApartmentView showAllApartmentView)
+	{
+		this.showAllApartmentView = showAllApartmentView;
+	}
+	
 	/**
 	 * Create the application.
 	 */
@@ -66,6 +71,8 @@ public class ShowUserApartmentView extends Observable {
 		JButton backButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				showAllApartmentView.openShowAllApartment();
+				frame.setVisible(false);
 			}
 		});
 		backButton.setBounds(50, 37, 97, 25);
@@ -83,4 +90,10 @@ public class ShowUserApartmentView extends Observable {
 		apartmentTable.setBounds(28, 172, 582, 231);
 		frame.getContentPane().add(apartmentTable);
 	}
+	
+	public void showShowUserApartmentView()
+	{
+		frame.setVisible(true);
+	}
+	
 }

@@ -71,6 +71,8 @@ public class DataController implements Observer{
 				showAllUsersView.crateAllUsers((JTable)arg1);
 			}
 		}
+		
+		//update new if - instance of addNewApartment button - important!!!!!!!!!!!!!!!!!!!!!!!!!!! (we think)
 	}
 
 }

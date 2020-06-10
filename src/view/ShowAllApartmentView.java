@@ -204,16 +204,28 @@ public class ShowAllApartmentView extends Observable {
 		addApartmentButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
-				addNewApartmentView.showAddNewApartmentView();
-				frame.setVisible(false);
-				
+				openAddNewApartmentView(arg0);
 			}
 		});
 		addApartmentButton.setBounds(35, 205, 267, 25);
 		frame.getContentPane().add(addApartmentButton);
 		
 		JButton watchApartmentButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05D3\u05D9\u05E8\u05D5\u05EA \u05E9\u05DC\u05DA - \u05DE\u05E0\u05D5\u05D9");
+		watchApartmentButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		
+		watchApartmentButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0)
+			{
+				openShowUserApartmentView(arg0);
+				showUserApartmentView.showShowUserApartmentView();
+				frame.setVisible(false);
+			}
+		});
+		
 		watchApartmentButton.setBounds(53, 244, 212, 25);
 		frame.getContentPane().add(watchApartmentButton);
 		
@@ -229,7 +241,7 @@ public class ShowAllApartmentView extends Observable {
 		showAllUsersButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				openShowAllUsersView();
+				openShowAllUserView(arg0);
 			}
 		});
 		showAllUsersButton.setBounds(53, 319, 212, 25);
@@ -254,7 +266,26 @@ public class ShowAllApartmentView extends Observable {
 
 	}
 	
+	public void openAddNewApartmentView(MouseEvent arg0)
+	{
+		addNewApartmentView.setShowAllApartmentView(this);
+		this.frame.setEnabled(false);
+		addNewApartmentView.showAddNewApartmentView();
+	}
 	
+	public void openShowAllUserView(MouseEvent arg0)
+	{
+		showAllUsersView.setShowAllApartmentView(this);
+		this.frame.setEnabled(false);
+		showAllUsersView.showAllUsersView();
+	}
+	
+	public void openShowUserApartmentView(MouseEvent arg0)
+	{
+		showUserApartmentView.setShowAllApartmentView(this);
+		this.frame.setEnabled(false);
+		showUserApartmentView.showShowUserApartmentView();
+	}
 	
 	public void setMainView(MainView mainView) { // know who to return when event handler (back)
 		this.mainView = mainView;
@@ -265,9 +296,7 @@ public class ShowAllApartmentView extends Observable {
 		this.frame.setEnabled(true);
 	}
 	
-	
 	public void openShowAllUsersView() {
-		showAllUsersView.showAllUsersVeiw();	
+		showAllUsersView.showAllUsersView();	
 	}
-
 }
