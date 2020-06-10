@@ -72,6 +72,8 @@ public class AddNewApartmentView extends Observable {
 		JButton cancelButton = new JButton("\u05D1\u05D9\u05D8\u05D5\u05DC");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				showAllApartmentView.openShowAllApartment();
+				frame.setVisible(false);
 			}
 		});
 		cancelButton.setBounds(237, 390, 97, 25);
@@ -197,9 +199,12 @@ public class AddNewApartmentView extends Observable {
 	public void showAddNewApartmentView()
 	{
 		frame.setVisible(true);
+		//this.frame.setEnabled(true);
 	}
 	
 	public void setMain(ShowAllApartmentView showAllApartmentView) {
 		this.showAllApartmentView = showAllApartmentView;
 	}
+	
+
 }
