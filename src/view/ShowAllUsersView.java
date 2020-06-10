@@ -13,12 +13,13 @@ import javax.swing.JTable;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import javax.swing.JPanel;
 
 public class ShowAllUsersView extends Observable{
 
 	private JFrame frame;
-	private JTable showUsersTable;
 	ShowAllApartmentView showAllApartmentView;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -66,9 +67,9 @@ public class ShowAllUsersView extends Observable{
 		returnButton.setBounds(27, 332, 97, 25);
 		frame.getContentPane().add(returnButton);
 		
-		showUsersTable = new JTable();
-		showUsersTable.setBounds(72, 51, 696, 239);
-		frame.getContentPane().add(showUsersTable);
+		panel = new JPanel();
+		panel.setBounds(38, 43, 757, 189);
+		frame.getContentPane().add(panel);
 	}
 
 	
@@ -81,17 +82,18 @@ public class ShowAllUsersView extends Observable{
 	}
 	
 	public void crateAllUsers(JTable usersTable) {
+//		JFrame tableFrame=new JFrame();
+//		//create table
+//		JScrollPane scrollPane = new JScrollPane(usersTable);
+//		tableFrame.getContentPane().add(scrollPane);
+//		tableFrame.setSize(500,700);
+//		tableFrame.setVisible(true);
 		
-		//create table
-		JScrollPane scrollPane = new JScrollPane(usersTable);
-		showUsersTable.add(scrollPane);
-		showUsersTable.setVisible(true);
-		//frame.add(scrollPane);
 		
-		frame.add(showUsersTable);
+		
+		JScrollPane scrollPane_1 = new JScrollPane(usersTable);
+		panel.add(scrollPane_1);
 		this.frame.setVisible(true);
-		
-		
 		
 	}
 	
@@ -100,9 +102,6 @@ public class ShowAllUsersView extends Observable{
 	public class GetAllUsers {
 		// controller notify
 	}
-	
-	
-	
 }
 
 

@@ -24,7 +24,7 @@ public class MainView extends Observable {
 	private JFrame frame;
 	private JTextField userNameTextField;
 	private JTextField passTextField;
-
+	private JLabel failLabel;
 	/**
 	 * Launch the application.
 	 */
@@ -86,6 +86,18 @@ public class MainView extends Observable {
 		frame.getContentPane().setLayout(null);
 		
 		JButton loginButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8\u05D5\u05EA");
+		loginButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+			//	String [] user = {userNameTextField.toString(),passTextField.toString()};
+				String [] user = {userNameTextField.getText(),passTextField.getText()};
+				System.out.println();
+				setChanged();
+				notifyObservers(user);
+				
+			}
+		});
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -111,7 +123,7 @@ public class MainView extends Observable {
 		guestViewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {  ////// send to the function down becuase problem with the initialize function
-				openShowAllApartment(arg0);
+				openShowAllApartment();
 			}
 		});
 		guestViewButton.setBounds(198, 362, 183, 25);
@@ -134,6 +146,11 @@ public class MainView extends Observable {
 		passTextField.setColumns(10);
 		passTextField.setBounds(270, 117, 116, 22);
 		frame.getContentPane().add(passTextField);
+		
+		failLabel = new JLabel("\u05E0\u05DB\u05E9\u05DC");
+		failLabel.setBounds(306, 184, 46, 14);
+		frame.getContentPane().add(failLabel);
+		failLabel.setVisible(false);
 	}
 
 	protected void openRegisterView(MouseEvent arg0) {
@@ -146,12 +163,39 @@ public class MainView extends Observable {
 	frame.setVisible(true);
 	this.frame.setEnabled(true);
 }
-	public void openShowAllApartment(MouseEvent arg0) {  //// this function
+	public void openShowAllApartment() {  //// this function
 		showAllApartmentView.setMainView(this);
 		userNameTextField.setText(""); // to eraize the field when you come back
 		this.frame.setVisible(false); 
 		showAllApartmentView.openShowAllApartment();
 	}
 	
-
+	public void loginValid(boolean valid)
+	{
+		if(valid)
+		{
+			openShowAllApartment(); //////from here send userName
+		}
+		else
+		{
+			failLabel.setVisible(true);
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

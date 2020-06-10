@@ -251,6 +251,8 @@ public class ShowAllApartmentView extends Observable {
 		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
 		propertyTypeLabel.setBounds(620, 283, 69, 20);
 		frame.getContentPane().add(propertyTypeLabel);
+		
+		
 
 	}
 	

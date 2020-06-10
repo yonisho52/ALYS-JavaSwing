@@ -48,6 +48,7 @@ public class DataController implements Observer{
 				userId++;
 			}
 		}
+		
 		if(arg0 instanceof MainView) 
 		{
 			if(arg1 instanceof MainView.CloseTheExcel)
@@ -59,9 +60,6 @@ public class DataController implements Observer{
 			if(arg1 instanceof ShowAllUsersView.GetAllUsers)
 			{
 				dataExcelConn.getAllUsers();
-				
-				
-				
 			}
 		if(arg0 instanceof DataExcelConn)
 		{
@@ -70,6 +68,51 @@ public class DataController implements Observer{
 				showAllUsersView.crateAllUsers((JTable)arg1);
 			}
 		}
+		
+		if(arg0 instanceof MainView)
+		{
+			if(arg1 instanceof String[])
+			{
+				String [] user = (String[])arg1;
+				dataExcelConn.checkValidPass(user[0], user[1]);
+			}
+		}
+		
+		if(arg0 instanceof DataExcelConn)
+		{
+			if(arg1 instanceof DataExcelConn.CheckValidPassClass)
+			{
+				boolean answer = ((DataExcelConn.CheckValidPassClass) arg1).validPass;
+				mainView.loginValid(answer);
+			}
+		}
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
