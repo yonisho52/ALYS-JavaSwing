@@ -38,6 +38,9 @@ public class DataController implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		
+		/// view to data
+		
 		if(arg0 instanceof RegisterView)
 		{
 			if(arg1 instanceof String[])
@@ -61,15 +64,6 @@ public class DataController implements Observer{
 			{
 				dataExcelConn.getAllUsers();
 			}
-		if(arg0 instanceof DataExcelConn)
-		{
-			if(arg1 instanceof JTable)
-			{
-				showAllUsersView.crateAllUsers((JTable)arg1);
-			}
-		}
-		
-		
 		
 		//update new if - instance of addNewApartment button - important!!!!!!!!!!!!!!!!!!!!!!!!!!! (we think) - wrong
 		
@@ -82,12 +76,33 @@ public class DataController implements Observer{
 			}
 		}
 		
+		
+		
+		
+		///// data to view
+		
+		if(arg0 instanceof DataExcelConn)
+		{
+			if(arg1 instanceof JTable)
+			{
+				showAllUsersView.crateAllUsers((JTable)arg1);
+			}
+		}
+		
 		if(arg0 instanceof DataExcelConn)
 		{
 			if(arg1 instanceof DataExcelConn.CheckValidPassClass)
 			{
 				boolean answer = ((DataExcelConn.CheckValidPassClass) arg1).validPass;
 				mainView.loginValid(answer);
+			}
+		}
+		
+		if(arg0 instanceof DataExcelConn)
+		{
+			if(arg1 instanceof String)
+			{
+				//showAll
 			}
 		}
 	}

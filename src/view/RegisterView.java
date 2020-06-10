@@ -167,6 +167,6 @@ public class RegisterView extends Observable {
 	public void openShowAllApartmentView(MouseEvent arg0) {
 	
 		this.frame.setVisible(false); 
-		showAllApartmentView.openShowAllApartment();
+		showAllApartmentView.openShowAllApartment(userName.getText());
 	}
 }

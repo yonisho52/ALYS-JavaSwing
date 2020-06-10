@@ -123,7 +123,7 @@ public class MainView extends Observable {
 		guestViewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {  ////// send to the function down becuase problem with the initialize function
-				openShowAllApartment();
+				openShowAllApartment(null);
 			}
 		});
 		guestViewButton.setBounds(198, 362, 183, 25);
@@ -163,18 +163,20 @@ public class MainView extends Observable {
 	frame.setVisible(true);
 	this.frame.setEnabled(true);
 }
-	public void openShowAllApartment() {  //// this function
+	public void openShowAllApartment(String userName) {  //// this function
 		showAllApartmentView.setMainView(this);
 		userNameTextField.setText(""); // to eraize the field when you come back
 		this.frame.setVisible(false); 
-		showAllApartmentView.openShowAllApartment();
+		showAllApartmentView.openShowAllApartment(userName);
 	}
 	
 	public void loginValid(boolean valid)
 	{
+		System.out.println(" enetred ");
 		if(valid)
 		{
-			openShowAllApartment(); //////from here send userName
+			openShowAllApartment(userNameTextField.getText()); //////from here send userName
+			System.out.println(userNameTextField.getText().toString() + "sssssssssssss");
 		}
 		else
 		{

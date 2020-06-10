@@ -75,7 +75,7 @@ public class SearchDetailsView extends Observable {
 		JButton backButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showAllApartmentView.openShowAllApartment();
+				showAllApartmentView.openShowAllApartment(null); ///////////////
 				frame.setVisible(false);
 			}
 		});

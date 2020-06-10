@@ -244,8 +244,8 @@ public DataExcelConn() {
 					}
 				}
 		}
-		// not suppose to go into this
-		System.out.println(" there is a problem in DataExcelConn.java checkValidPass");
+		setChanged();
+		notifyObservers(new CheckValidPassClass(false));
 		 
 	}
 	
@@ -317,9 +317,9 @@ public DataExcelConn() {
 		
 	}
 
-	public void getConnectedUser()
+	public String getConnectedUser()
 	{
-		//////////////KIRIL 
+		return connectedUser;
 	}
 
 	
