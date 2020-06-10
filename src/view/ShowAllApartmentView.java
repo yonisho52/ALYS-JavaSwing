@@ -290,7 +290,7 @@ public class ShowAllApartmentView extends Observable {
 	{
 		showAllUsersView.setShowAllApartmentView(this);
 		this.frame.setEnabled(false);
-		showAllUsersView.showAllUsersView();
+		showAllUsersView.showAllUsersVeiw();
 	}
 	
 	public void openShowUserApartmentView(MouseEvent arg0)
@@ -316,6 +316,7 @@ public class ShowAllApartmentView extends Observable {
 	}
 	
 	public void openShowAllUsersView() {
-		showAllUsersView.showAllUsersView();	
+		showAllUsersView.showAllUsersVeiw();	
 	}
+	
 }

@@ -69,6 +69,10 @@ public class DataController implements Observer{
 			}
 		}
 		
+		
+		
+		//update new if - instance of addNewApartment button - important!!!!!!!!!!!!!!!!!!!!!!!!!!! (we think) - wrong
+		
 		if(arg0 instanceof MainView)
 		{
 			if(arg1 instanceof String[])

@@ -20,7 +20,7 @@ public class ShowAllUsersView extends Observable{
 	private JFrame frame;
 	ShowAllApartmentView showAllApartmentView;
 	private JPanel panel;
-
+	ShowAllUsersView showAllUsersView;
 	/**
 	 * Launch the application.
 	 */
@@ -36,7 +36,10 @@ public class ShowAllUsersView extends Observable{
 			}
 		});
 	}
-
+	public void setShowAllApartmentView(ShowAllApartmentView showAllApartmentView)
+	{
+		this.showAllApartmentView = showAllApartmentView;
+	}
 	/**
 	 * Create the application.
 	 */
@@ -75,7 +78,7 @@ public class ShowAllUsersView extends Observable{
 	
 	public void showAllUsersVeiw() {
 		
-		//frame.setVisible(true);
+		frame.setVisible(true);
 		
 		setChanged();
 		notifyObservers(new GetAllUsers()); // request to go to the excel file and give me all the users
