@@ -40,7 +40,6 @@ public class driver
 		DataController dataController = new DataController(dataExcelConn, registerView, searchDetailsView, 
 				 addNewApartmentView, showUserApartmentView,  mainView, showAllApartmentView, showAllUsersView);
 		
-		
 		// add observer for the controller's watch
 		mainView.addObserver(dataController);
 		searchDetailsView.addObserver(dataController);

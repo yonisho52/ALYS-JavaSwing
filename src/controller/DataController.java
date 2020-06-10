@@ -9,17 +9,17 @@ import model.*;
 import view.*;
 
 public class DataController implements Observer{
-	
+
 	static int userId=1;
 	
+	public MainView mainView;
 	public RegisterView registerView;
-	public DataExcelConn dataExcelConn;
 	public SearchDetailsView searchDetailsView;
 	public AddNewApartmentView addNewApartmentView;
 	public ShowUserApartmentView showUserApartmentView;
-	public MainView mainView;
 	public ShowAllApartmentView showAllApartmentView;
-	public ShowAllUsersView showAllUsersView;
+	public ShowAllUsersView showAllUsersView; 
+	public DataExcelConn dataExcelConn;
 
 	
 	public DataController(DataExcelConn dataExcelConn,RegisterView registerView, SearchDetailsView searchDetailsView, 
@@ -37,8 +37,9 @@ public class DataController implements Observer{
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		if(arg0 instanceof RegisterView)
+	public void update(Observable arg0, Object arg1) // arg0 from where , arg1 which type
+	{
+		if(arg0 instanceof RegisterView) //view to model
 		{
 			if(arg1 instanceof String[])
 			{
@@ -48,14 +49,14 @@ public class DataController implements Observer{
 				userId++;
 			}
 		}
-		if(arg0 instanceof MainView) 
+		if(arg0 instanceof MainView) //view to model
 		{
 			if(arg1 instanceof MainView.CloseTheExcel)
 			{
 				dataExcelConn.closeFile();
 			}
 		}
-		if(arg0 instanceof ShowAllUsersView)
+		if(arg0 instanceof ShowAllUsersView) //view to model
 			if(arg1 instanceof ShowAllUsersView.GetAllUsers)
 			{
 				dataExcelConn.getAllUsers();
@@ -63,7 +64,7 @@ public class DataController implements Observer{
 				
 				
 			}
-		if(arg0 instanceof DataExcelConn)
+		if(arg0 instanceof DataExcelConn) // model to view
 		{
 			if(arg1 instanceof JTable)
 			{
