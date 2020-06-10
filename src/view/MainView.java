@@ -41,7 +41,7 @@ public class MainView extends Observable {
 		});
 	}
 
-	/**
+	/*
 	 * Create the application.
 	 */
 	
@@ -145,7 +145,7 @@ public class MainView extends Observable {
 	public void showMainView() {
 	frame.setVisible(true);
 	this.frame.setEnabled(true);
-}
+	}
 	public void openShowAllApartment(MouseEvent arg0) {  //// this function
 		showAllApartmentView.setMainView(this);
 		userNameTextField.setText(""); // to eraize the field when you come back

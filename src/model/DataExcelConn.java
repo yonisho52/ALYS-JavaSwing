@@ -19,7 +19,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 // show user apartments
 
 
-
 public class DataExcelConn extends Observable{
 	
 	Sheet users,apartments;
@@ -197,9 +196,7 @@ public DataExcelConn() {
 
 	}
 	
-	
-	
-	
+
 	
 	
 }
