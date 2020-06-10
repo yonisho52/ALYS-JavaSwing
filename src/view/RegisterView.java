@@ -41,7 +41,7 @@ public class RegisterView extends Observable {
 			}
 		});
 	}
-
+	//check push
 	/**
 	 * Create the application.
 	 */

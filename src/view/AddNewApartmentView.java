@@ -13,6 +13,8 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AddNewApartmentView extends Observable {
 	
@@ -68,6 +70,10 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().add(addButton);
 		
 		JButton cancelButton = new JButton("\u05D1\u05D9\u05D8\u05D5\u05DC");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		cancelButton.setBounds(237, 390, 97, 25);
 		frame.getContentPane().add(cancelButton);
 		
