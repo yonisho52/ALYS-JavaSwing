@@ -114,7 +114,6 @@ public class RegisterView extends Observable {
 				// after login show allApartmentView on the same user that register
 				openShowAllApartmentView(arg0);
 
-				
 			}
 		});
 		regButton.setBounds(305, 350, 97, 25);
@@ -177,6 +176,6 @@ public class RegisterView extends Observable {
 	public void openShowAllApartmentView(MouseEvent arg0) {
 	
 		this.frame.setVisible(false); 
-		showAllApartmentView.openShowAllApartment();
+		showAllApartmentView.openShowAllApartment(userName.getText());
 	}
 }

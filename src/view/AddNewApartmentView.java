@@ -91,7 +91,7 @@ public class AddNewApartmentView extends Observable {
 		cancelButton.setBackground(Color.PINK);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				showAllApartmentView.openShowAllApartment();
+				showAllApartmentView.openShowAllApartment(null); ///////
 				frame.setVisible(false);
 			}
 		});

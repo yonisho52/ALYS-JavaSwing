@@ -9,17 +9,17 @@ import model.*;
 import view.*;
 
 public class DataController implements Observer{
-
+	
 	static int userId=1;
 	
-	public MainView mainView;
 	public RegisterView registerView;
+	public DataExcelConn dataExcelConn;
 	public SearchDetailsView searchDetailsView;
 	public AddNewApartmentView addNewApartmentView;
 	public ShowUserApartmentView showUserApartmentView;
+	public MainView mainView;
 	public ShowAllApartmentView showAllApartmentView;
-	public ShowAllUsersView showAllUsersView; 
-	public DataExcelConn dataExcelConn;
+	public ShowAllUsersView showAllUsersView;
 
 	
 	public DataController(DataExcelConn dataExcelConn,RegisterView registerView, SearchDetailsView searchDetailsView, 
@@ -37,9 +37,11 @@ public class DataController implements Observer{
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) // arg0 from where , arg1 which type
-	{
-		if(arg0 instanceof RegisterView) //view to model
+	public void update(Observable arg0, Object arg1) {
+		
+		/// view to data
+		
+		if(arg0 instanceof RegisterView)
 		{
 			if(arg1 instanceof String[])
 			{
@@ -49,22 +51,37 @@ public class DataController implements Observer{
 				userId++;
 			}
 		}
-		if(arg0 instanceof MainView) //view to model
+		
+		if(arg0 instanceof MainView) 
 		{
 			if(arg1 instanceof MainView.CloseTheExcel)
 			{
 				dataExcelConn.closeFile();
 			}
 		}
-		if(arg0 instanceof ShowAllUsersView) //view to model
+		if(arg0 instanceof ShowAllUsersView)
 			if(arg1 instanceof ShowAllUsersView.GetAllUsers)
 			{
 				dataExcelConn.getAllUsers();
-				
-				
-				
 			}
-		if(arg0 instanceof DataExcelConn) // model to view
+		
+		//update new if - instance of addNewApartment button - important!!!!!!!!!!!!!!!!!!!!!!!!!!! (we think) - wrong
+		
+		if(arg0 instanceof MainView)
+		{
+			if(arg1 instanceof String[])
+			{
+				String [] user = (String[])arg1;
+				dataExcelConn.checkValidPass(user[0], user[1]);
+			}
+		}
+		
+		
+		
+		
+		///// data to view
+		
+		if(arg0 instanceof DataExcelConn)
 		{
 			if(arg1 instanceof JTable)
 			{
@@ -72,7 +89,49 @@ public class DataController implements Observer{
 			}
 		}
 		
-		//update new if - instance of addNewApartment button - important!!!!!!!!!!!!!!!!!!!!!!!!!!! (we think)
+		if(arg0 instanceof DataExcelConn)
+		{
+			if(arg1 instanceof DataExcelConn.CheckValidPassClass)
+			{
+				boolean answer = ((DataExcelConn.CheckValidPassClass) arg1).validPass;
+				mainView.loginValid(answer);
+			}
+		}
+		
+		if(arg0 instanceof DataExcelConn)
+		{
+			if(arg1 instanceof String)
+			{
+				//showAll
+			}
+		}
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

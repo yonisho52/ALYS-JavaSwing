@@ -79,7 +79,7 @@ public class SearchDetailsView extends Observable {
 		backButton.setBackground(Color.PINK);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showAllApartmentView.openShowAllApartment();
+				showAllApartmentView.openShowAllApartment(null); ///////////////
 				frame.setVisible(false);
 			}
 		});

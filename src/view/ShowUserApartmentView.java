@@ -76,7 +76,7 @@ public class ShowUserApartmentView extends Observable {
 		backButton.setBackground(Color.PINK);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				showAllApartmentView.openShowAllApartment();
+				showAllApartmentView.openShowAllApartment(null); /////////////////
 				frame.setVisible(false);
 			}
 		});

@@ -36,7 +36,8 @@ public class ShowAllApartmentView extends Observable {
 	private JTextField StartPrice;
 	private JLabel CityLabel;  /// example for all 
 	private JTable searchResultTable;
-	
+	JLabel userNameLabel;
+	protected String connectedUser;
 
 	/**
 	 * Launch the application.
@@ -290,7 +291,19 @@ public class ShowAllApartmentView extends Observable {
 		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
 		propertyTypeLabel.setBounds(662, 271, 69, 20);
 		frame.getContentPane().add(propertyTypeLabel);
-
+		
+		userNameLabel = new JLabel("New label");
+		userNameLabel.setBounds(712, 11, 102, 25);
+		frame.getContentPane().add(userNameLabel);
+		if(connectedUser!=null)
+		{
+		userNameLabel.setText(connectedUser.toString());
+		}
+		else
+		{
+			userNameLabel.setText("guest");
+		}
+		
 	}
 	
 	public void openAddNewApartmentView(MouseEvent arg0)
@@ -304,7 +317,7 @@ public class ShowAllApartmentView extends Observable {
 	{
 		showAllUsersView.setShowAllApartmentView(this);
 		this.frame.setEnabled(false);
-		showAllUsersView.showAllUsersView();
+		showAllUsersView.showAllUsersVeiw();
 	}
 	
 	public void openShowUserApartmentView(MouseEvent arg0)
@@ -324,12 +337,9 @@ public class ShowAllApartmentView extends Observable {
 		this.mainView = mainView;
 	}
 	
-	public void openShowAllApartment() {
+	public void openShowAllApartment(String userName) {
+		this.connectedUser = userName;
 		frame.setVisible(true);
 		this.frame.setEnabled(true);
-	}
-	
-	public void openShowAllUsersView() {
-		showAllUsersView.showAllUsersView();	
 	}
 }
