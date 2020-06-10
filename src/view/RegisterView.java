@@ -11,6 +11,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
 import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Color;
 
 public class RegisterView extends Observable {
 
@@ -67,7 +69,8 @@ public class RegisterView extends Observable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton cancelButton = new JButton("\u05D1\u05D9\u05D8\u05D5\u05DC");
+		JButton cancelButton = new JButton("\u05D7\u05D6\u05D5\u05E8");
+		cancelButton.setBackground(Color.PINK);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showMainView();
@@ -94,6 +97,7 @@ public class RegisterView extends Observable {
 		validatePassword.setColumns(10);
 		
 		JButton regButton = new JButton("\u05D4\u05D9\u05E8\u05E9\u05DD");
+		regButton.setBackground(Color.PINK);
 		regButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -163,6 +167,11 @@ public class RegisterView extends Observable {
 		JLabel lastNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
 		lastNameLabel.setBounds(320, 225, 118, 16);
 		frame.getContentPane().add(lastNameLabel);
+		
+		JLabel lblNewLabel = new JLabel("\u05D4\u05E8\u05E9\u05DE\u05D4");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel.setBounds(222, 28, 86, 20);
+		frame.getContentPane().add(lblNewLabel);
 	}
 	
 	public void openShowAllApartmentView(MouseEvent arg0) {

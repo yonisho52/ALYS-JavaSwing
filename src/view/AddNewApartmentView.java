@@ -15,6 +15,8 @@ import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
 
 public class AddNewApartmentView extends Observable {
 	
@@ -81,20 +83,23 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().setLayout(null);
 		
 		JButton addButton = new JButton("\u05D4\u05D5\u05E1\u05E4\u05D4");
-		addButton.setBounds(411, 390, 97, 25);
+		addButton.setBackground(Color.PINK);
+		addButton.setBounds(266, 375, 97, 25);
 		frame.getContentPane().add(addButton);
 		
-		JButton cancelButton = new JButton("\u05D1\u05D9\u05D8\u05D5\u05DC");
+		JButton cancelButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
+		cancelButton.setBackground(Color.PINK);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				showAllApartmentView.openShowAllApartment();
 				frame.setVisible(false);
 			}
 		});
-		cancelButton.setBounds(237, 390, 97, 25);
+		cancelButton.setBounds(48, 418, 97, 25);
 		frame.getContentPane().add(cancelButton);
 		
 		JLabel addNewApartmentLabel = new JLabel("\u05D4\u05D5\u05E1\u05E4\u05EA \u05D3\u05D9\u05E8\u05D4 \u05D7\u05D3\u05E9\u05D4");
+		addNewApartmentLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		addNewApartmentLabel.setBounds(293, 28, 171, 16);
 		frame.getContentPane().add(addNewApartmentLabel);
 		
@@ -117,7 +122,7 @@ public class AddNewApartmentView extends Observable {
 		apartmentType.setColumns(10);
 		
 		JLabel numOfRoomatesLabel = new JLabel("\u05E1\u05D4\"\u05DB \u05E9\u05D5\u05EA\u05E4\u05D9\u05DD");
-		numOfRoomatesLabel.setBounds(485, 158, 90, 16);
+		numOfRoomatesLabel.setBounds(485, 158, 116, 16);
 		frame.getContentPane().add(numOfRoomatesLabel);
 		
 		JSpinner numOfRommatesSpinner = new JSpinner();
@@ -125,7 +130,7 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().add(numOfRommatesSpinner);
 		
 		JLabel missingRoomatesLabel = new JLabel("\u05E9\u05D5\u05EA\u05E4\u05D9\u05DD \u05D7\u05E1\u05E8\u05D9\u05DD");
-		missingRoomatesLabel.setBounds(485, 187, 97, 16);
+		missingRoomatesLabel.setBounds(485, 187, 116, 16);
 		frame.getContentPane().add(missingRoomatesLabel);
 		
 		JSpinner missingRoomatesSpinner = new JSpinner();
@@ -150,7 +155,7 @@ public class AddNewApartmentView extends Observable {
 		StartPrice.setColumns(10);
 		
 		JLabel limitPriceLabel = new JLabel("\u05E2\u05D3 \u05DE\u05D7\u05D9\u05E8");
-		limitPriceLabel.setBounds(485, 277, 56, 16);
+		limitPriceLabel.setBounds(485, 277, 90, 16);
 		frame.getContentPane().add(limitPriceLabel);
 		
 		LimitPrice = new JTextField();

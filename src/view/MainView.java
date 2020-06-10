@@ -15,6 +15,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
+import java.awt.Color;
+import java.awt.Font;
 
 public class MainView extends Observable {
 
@@ -86,14 +88,16 @@ public class MainView extends Observable {
 		frame.getContentPane().setLayout(null);
 		
 		JButton loginButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8\u05D5\u05EA");
+		loginButton.setBackground(Color.PINK);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		loginButton.setBounds(284, 264, 97, 25);
+		loginButton.setBounds(224, 175, 169, 25);
 		frame.getContentPane().add(loginButton);
 		
 		JButton registerButton = new JButton("\u05D4\u05D9\u05E8\u05E9\u05DD");
+		registerButton.setBackground(Color.PINK);
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -104,36 +108,42 @@ public class MainView extends Observable {
 				openRegisterView(arg0);
 			}
 		});
-		registerButton.setBounds(284, 313, 97, 25);
+		registerButton.setBounds(212, 313, 169, 25);
 		frame.getContentPane().add(registerButton);
 		
 		JButton guestViewButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05DC\u05DC\u05D0 \u05DE\u05E0\u05D5\u05D9");
+		guestViewButton.setBackground(Color.PINK);
 		guestViewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {  ////// send to the function down becuase problem with the initialize function
 				openShowAllApartment(arg0);
 			}
 		});
-		guestViewButton.setBounds(198, 362, 183, 25);
+		guestViewButton.setBounds(212, 362, 169, 25);
 		frame.getContentPane().add(guestViewButton);
 		
 		JLabel userName = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9");
-		userName.setBounds(398, 70, 120, 30);
+		userName.setBounds(343, 74, 120, 30);
 		frame.getContentPane().add(userName);
 		
 		JLabel password = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0");
-		password.setBounds(408, 120, 56, 16);
+		password.setBounds(364, 120, 56, 16);
 		frame.getContentPane().add(password);
 		
 		userNameTextField = new JTextField();
-		userNameTextField.setBounds(270, 74, 116, 22);
+		userNameTextField.setBounds(212, 74, 116, 22);
 		frame.getContentPane().add(userNameTextField);
 		userNameTextField.setColumns(10);
 		
 		passTextField = new JTextField();
 		passTextField.setColumns(10);
-		passTextField.setBounds(270, 117, 116, 22);
+		passTextField.setBounds(212, 117, 116, 22);
 		frame.getContentPane().add(passTextField);
+		
+		JLabel lblNewLabel = new JLabel("\u05E2\u05D3\u05D9\u05D9\u05DF \u05DC\u05D0 \u05E0\u05E8\u05E9\u05DE\u05EA?");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(224, 280, 157, 20);
+		frame.getContentPane().add(lblNewLabel);
 	}
 
 	protected void openRegisterView(MouseEvent arg0) {

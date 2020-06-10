@@ -13,6 +13,9 @@ import javax.swing.JTable;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class ShowAllUsersView extends Observable{
 
@@ -59,10 +62,12 @@ public class ShowAllUsersView extends Observable{
 		frame.getContentPane().setLayout(null);
 		
 		JButton deleteUserButton = new JButton("\u05DE\u05D7\u05E7");
-		deleteUserButton.setBounds(136, 332, 97, 25);
+		deleteUserButton.setBackground(Color.PINK);
+		deleteUserButton.setBounds(453, 335, 97, 25);
 		frame.getContentPane().add(deleteUserButton);
 		
 		JButton returnButton  = new JButton("\u05D7\u05D6\u05D5\u05E8");
+		returnButton.setBackground(Color.PINK);
 		returnButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -71,12 +76,18 @@ public class ShowAllUsersView extends Observable{
 				
 			}
 		});
-		returnButton.setBounds(27, 332, 97, 25);
+		returnButton.setBounds(224, 335, 97, 25);
 		frame.getContentPane().add(returnButton);
 		
 		showUsersTable = new JTable();
-		showUsersTable.setBounds(72, 51, 696, 239);
+		showUsersTable.setBackground(Color.PINK);
+		showUsersTable.setBounds(72, 67, 623, 239);
 		frame.getContentPane().add(showUsersTable);
+		
+		JLabel lblNewLabel = new JLabel("\u05EA\u05E6\u05D5\u05D2\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel.setBounds(283, 28, 155, 20);
+		frame.getContentPane().add(lblNewLabel);
 	}
 
 	
@@ -96,7 +107,7 @@ public class ShowAllUsersView extends Observable{
 		showUsersTable.setVisible(true);
 		//frame.add(scrollPane);
 		
-		frame.add(showUsersTable);
+		frame.getContentPane().add(showUsersTable);
 		this.frame.setVisible(true);
 		
 		
@@ -108,9 +119,6 @@ public class ShowAllUsersView extends Observable{
 	public class GetAllUsers {
 		// controller notify
 	}
-	
-	
-	
 }
 
 
