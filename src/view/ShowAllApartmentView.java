@@ -230,6 +230,17 @@ public class ShowAllApartmentView extends Observable {
 		frame.getContentPane().add(watchApartmentButton);
 		
 		JButton watchSearchResultButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E0\u05EA\u05D5\u05E0\u05D9 \u05D7\u05D9\u05E4\u05D5\u05E9 - \u05D0\u05D3\u05DE\u05D9\u05DF");
+		watchSearchResultButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		watchSearchResultButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				openSearchDetailsView(arg0);
+				searchDetailsView.showSearchDetailsView();
+				frame.setVisible(false);
+			}});
 		watchSearchResultButton.setBounds(47, 278, 218, 25);
 		frame.getContentPane().add(watchSearchResultButton);
 		
@@ -285,6 +296,12 @@ public class ShowAllApartmentView extends Observable {
 		showUserApartmentView.setShowAllApartmentView(this);
 		this.frame.setEnabled(false);
 		showUserApartmentView.showShowUserApartmentView();
+	}
+	public void openSearchDetailsView(MouseEvent arg0)
+	{
+		searchDetailsView.setShowAllApartmentView(this);
+		this.frame.setEnabled(false);
+		searchDetailsView.showSearchDetailsView();
 	}
 	
 	public void setMainView(MainView mainView) { // know who to return when event handler (back)
