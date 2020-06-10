@@ -8,10 +8,13 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SearchDetailsView extends Observable {
 	
 	ShowAllApartmentView showAllApartmentView;
+	
 
 	private JFrame frame;
 	private JTable mostSearchedApartmentList;
@@ -32,6 +35,11 @@ public class SearchDetailsView extends Observable {
 		});
 	}
 
+	
+	public void setShowAllApartmentView(ShowAllApartmentView showAllApartmentView)
+	{
+		this.showAllApartmentView = showAllApartmentView;
+	}
 	/**
 	 * Create the application.
 	 */
@@ -40,6 +48,12 @@ public class SearchDetailsView extends Observable {
 	
 		this.showAllApartmentView = showAllApartmentView;
 		initialize();
+	}
+	
+	public void showSearchDetailsView()
+	{
+		frame.setVisible(true);
+		//this.frame.setEnabled(true);
 	}
 	public SearchDetailsView() {
 		initialize();
@@ -59,6 +73,12 @@ public class SearchDetailsView extends Observable {
 		frame.getContentPane().add(mostSearchedApartmentsLabel);
 		
 		JButton backButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showAllApartmentView.openShowAllApartment();
+				frame.setVisible(false);
+			}
+		});
 		backButton.setBounds(12, 42, 97, 25);
 		frame.getContentPane().add(backButton);
 		

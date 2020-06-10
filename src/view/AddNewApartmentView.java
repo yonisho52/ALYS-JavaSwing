@@ -13,10 +13,11 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AddNewApartmentView extends Observable {
 	
-
 	ShowAllApartmentView showAllApartmentView;
 
 	private JFrame frame;
@@ -50,10 +51,26 @@ public class AddNewApartmentView extends Observable {
 //		initialize();
 //	}
 	
+	public void setShowAllApartmentView(ShowAllApartmentView showAllApartmentView)
+	{
+		this.showAllApartmentView = showAllApartmentView;
+	}
+	
+	public void showAddNewApartmentView()
+	{
+		frame.setVisible(true);
+		//this.frame.setEnabled(true);
+	}
+	
+	public void setMain(ShowAllApartmentView showAllApartmentView) {
+		this.showAllApartmentView = showAllApartmentView;
+	}
+	
 	public AddNewApartmentView() {
 		initialize();
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -68,6 +85,12 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().add(addButton);
 		
 		JButton cancelButton = new JButton("\u05D1\u05D9\u05D8\u05D5\u05DC");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				showAllApartmentView.openShowAllApartment();
+				frame.setVisible(false);
+			}
+		});
 		cancelButton.setBounds(237, 390, 97, 25);
 		frame.getContentPane().add(cancelButton);
 		
@@ -187,13 +210,5 @@ public class AddNewApartmentView extends Observable {
 		JLabel descriptionLabel = new JLabel("\u05EA\u05D9\u05D0\u05D5\u05E8");
 		descriptionLabel.setBounds(175, 262, 69, 20);
 		frame.getContentPane().add(descriptionLabel);
-	}
-	public void showAddNewApartmentView()
-	{
-		frame.setVisible(true);
-	}
-	
-	public void setMain(ShowAllApartmentView showAllApartmentView) {
-		this.showAllApartmentView = showAllApartmentView;
 	}
 }

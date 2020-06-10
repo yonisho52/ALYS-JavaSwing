@@ -41,7 +41,7 @@ public class RegisterView extends Observable {
 			}
 		});
 	}
-
+	//check push
 	/**
 	 * Create the application.
 	 */
@@ -74,6 +74,7 @@ public class RegisterView extends Observable {
 				frame.setVisible(false);
 			}
 		});
+		
 		cancelButton.setBounds(119, 350, 97, 25);
 		frame.getContentPane().add(cancelButton);
 		
@@ -115,7 +116,7 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(regButton);
 		
 		JLabel userNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9");
-		userNameLabel.setBounds(322, 82, 80, 16);
+		userNameLabel.setBounds(322, 82, 116, 16);
 		frame.getContentPane().add(userNameLabel);
 		
 		JLabel passwordLabel = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0");
@@ -123,7 +124,7 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(passwordLabel);
 		
 		JLabel validatePasswordLabel = new JLabel("\u05D0\u05D9\u05DE\u05D5\u05EA \u05E1\u05D9\u05E1\u05DE\u05D0");
-		validatePasswordLabel.setBounds(320, 155, 82, 16);
+		validatePasswordLabel.setBounds(320, 155, 97, 16);
 		frame.getContentPane().add(validatePasswordLabel);
 		
 		email = new JTextField();
@@ -159,12 +160,12 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(lastName);
 		
 		JLabel lastNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
-		lastNameLabel.setBounds(320, 225, 82, 16);
+		lastNameLabel.setBounds(320, 225, 118, 16);
 		frame.getContentPane().add(lastNameLabel);
 	}
 	
 	public void openShowAllApartmentView(MouseEvent arg0) {
-		
+	
 		this.frame.setVisible(false); 
 		showAllApartmentView.openShowAllApartment();
 	}
