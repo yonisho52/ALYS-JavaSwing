@@ -93,8 +93,9 @@ public class DataController implements Observer{
 		{
 			if(arg1 instanceof DataExcelConn.CheckValidPassClass)
 			{
-				boolean answer = ((DataExcelConn.CheckValidPassClass) arg1).validPass;
-				mainView.loginValid(answer);
+				boolean validUser = ((DataExcelConn.CheckValidPassClass) arg1).validPass;
+				boolean admin = ((DataExcelConn.CheckValidPassClass) arg1).userType;
+				mainView.loginValid(validUser,admin);
 			}
 		}
 		

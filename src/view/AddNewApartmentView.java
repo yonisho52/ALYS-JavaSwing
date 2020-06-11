@@ -27,6 +27,9 @@ public class AddNewApartmentView extends Observable {
 	private JTextField apartmentType;
 	private JTextField StartPrice;
 	private JTextField LimitPrice;
+	
+	protected String connectedUser;
+	protected boolean adminBool;
 
 	/**
 	 * Launch the application.
@@ -58,8 +61,10 @@ public class AddNewApartmentView extends Observable {
 		this.showAllApartmentView = showAllApartmentView;
 	}
 	
-	public void showAddNewApartmentView()
+	public void showAddNewApartmentView(String userName, boolean admin)
 	{
+		this.adminBool = admin;
+		this.connectedUser = userName;
 		frame.setVisible(true);
 		//this.frame.setEnabled(true);
 	}
@@ -91,7 +96,7 @@ public class AddNewApartmentView extends Observable {
 		cancelButton.setBackground(Color.PINK);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				showAllApartmentView.openShowAllApartment(null); ///////
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool); ///////
 				frame.setVisible(false);
 			}
 		});

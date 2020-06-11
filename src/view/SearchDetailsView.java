@@ -20,6 +20,9 @@ public class SearchDetailsView extends Observable {
 
 	private JFrame frame;
 	private JTable mostSearchedApartmentList;
+	
+	protected String connectedUser;
+	protected boolean adminBool;
 
 	/**
 	 * Launch the application.
@@ -52,8 +55,10 @@ public class SearchDetailsView extends Observable {
 		initialize();
 	}
 	
-	public void showSearchDetailsView()
+	public void showSearchDetailsView(String userName, boolean admin)
 	{
+		this.adminBool = admin;
+		this.connectedUser = userName;
 		frame.setVisible(true);
 		//this.frame.setEnabled(true);
 	}
@@ -79,7 +84,7 @@ public class SearchDetailsView extends Observable {
 		backButton.setBackground(Color.PINK);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showAllApartmentView.openShowAllApartment(null); ///////////////
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool); ///////////////
 				frame.setVisible(false);
 			}
 		});

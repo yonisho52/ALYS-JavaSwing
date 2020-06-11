@@ -16,13 +16,18 @@ import org.apache.poi.ss.usermodel.Row;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JPanel;
 
 public class ShowAllUsersView extends Observable{
 
 	private JFrame frame;
-	private JTable showUsersTable;
 	ShowAllApartmentView showAllApartmentView;
 	ShowAllUsersView showAllUsersView;
+	JPanel panel;
+	
+	protected String connectedUser;
+	protected boolean adminBool;
+
 
 	/**
 	 * Launch the application.
@@ -71,7 +76,7 @@ public class ShowAllUsersView extends Observable{
 		returnButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				showAllApartmentView.openShowAllApartment(null);
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool);
 				frame.setVisible(false);
 				
 			}
@@ -79,20 +84,20 @@ public class ShowAllUsersView extends Observable{
 		returnButton.setBounds(224, 335, 97, 25);
 		frame.getContentPane().add(returnButton);
 		
-		showUsersTable = new JTable();
-		showUsersTable.setBackground(Color.PINK);
-		showUsersTable.setBounds(72, 67, 623, 239);
-		frame.getContentPane().add(showUsersTable);
-		
 		JLabel lblNewLabel = new JLabel("\u05EA\u05E6\u05D5\u05D2\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel.setBounds(283, 28, 155, 20);
 		frame.getContentPane().add(lblNewLabel);
+		
+		panel = new JPanel();
+		panel.setBounds(57, 69, 679, 195);
+		frame.getContentPane().add(panel);
 	}
 
 	
-	public void showAllUsersView() {
-		
+	public void showAllUsersView(String userName, boolean admin) {
+		this.adminBool = admin;
+		this.connectedUser = userName;
 		frame.setVisible(true);
 		setChanged();
 		notifyObservers(new GetAllUsers()); // request to go to the excel file and give me all the users
@@ -101,17 +106,18 @@ public class ShowAllUsersView extends Observable{
 	
 	public void crateAllUsers(JTable usersTable) {
 		
-		//create table
-		JScrollPane scrollPane = new JScrollPane(usersTable);
-		showUsersTable.add(scrollPane);
-		showUsersTable.setVisible(true);
-		//frame.add(scrollPane);
+//		JFrame tableFrame=new JFrame();
+//		//create table
+//		JScrollPane scrollPane = new JScrollPane(usersTable);
+//		tableFrame.getContentPane().add(scrollPane);
+//		tableFrame.setSize(500,700);
+//		tableFrame.setVisible(true);
 		
-		frame.getContentPane().add(showUsersTable);
+		
+		
+		JScrollPane scrollPane_1 = new JScrollPane(usersTable);
+		panel.add(scrollPane_1);
 		this.frame.setVisible(true);
-		
-		
-		
 	}
 	
 

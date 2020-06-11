@@ -38,10 +38,12 @@ public class DataExcelConn extends Observable{
 	{
 		/// inner class for checking if the user name and pass are correct;
 		public boolean validPass;
+		public boolean userType;
 		public CheckValidPassClass() {}
-		public CheckValidPassClass(boolean answer)
+		public CheckValidPassClass(boolean valid, boolean admin)
 		{
-			this.validPass=answer;
+			this.validPass = valid;
+			this.userType = admin;
 		}
 	}
 	
@@ -217,36 +219,43 @@ public DataExcelConn() {
 	public void checkValidPass(String userName, String pass) { /// if the userName's pass is valid return *true, if not return *false = wrong combination  --- for login
 		
 		Row row;
-		Cell userNameDB, passDB;
+		Cell userNameDB, passDB, adminDB;
 		int lastRow = users.getLastRowNum();
+		
 		for(int i=1;i<=lastRow;i++) {
 			row=users.getRow(i);
 			userNameDB = row.getCell(0);
-			System.out.println(userName + " " + userNameDB.toString());
+			//System.out.println(userName + " " + userNameDB.toString());
 			//if(userName == userNameDB.toString())
 			if(userName.equals(userNameDB.toString()))
-			
 				{
 				passDB = row.getCell(1);
-				System.out.println(userName + " " + userNameDB.toString());
+				adminDB = row.getCell(7);
+				//System.out.println(userName + " " + userNameDB.toString());
 				//if(pass == passDB.toString())
 				if(pass.equals(passDB.toString())) 
-				
 				{
 					connectedUser = new String(userName); //Save the connected users name
-					setChanged();
-					notifyObservers(new CheckValidPassClass(true));
+					if(adminDB.toString()=="FALSE") 
+					{
+						setChanged();
+						notifyObservers(new CheckValidPassClass(true,false));
+					}
+					else 
+					{
+						setChanged();
+						notifyObservers(new CheckValidPassClass(true,true));
+					}
 				} 
 				else 
 					{
 					setChanged();
-					notifyObservers(new CheckValidPassClass(false));
+					notifyObservers(new CheckValidPassClass(false,false));
 					}
 				}
 		}
 		setChanged();
-		notifyObservers(new CheckValidPassClass(false));
-		 
+		notifyObservers(new CheckValidPassClass(false,false));
 	}
 	
 	public boolean checkIfAdmin(String userName) {  // if the user is admin return *true, if not return *false  --- for showAllApartmentView
