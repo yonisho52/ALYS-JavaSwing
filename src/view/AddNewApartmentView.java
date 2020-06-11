@@ -25,11 +25,11 @@ public class AddNewApartmentView extends Observable {
 	private JFrame frame;
 	private JTextField City;
 	private JTextField apartmentType;
-	private JTextField StartPrice;
-	private JTextField LimitPrice;
+	private JTextField priceTextField;
 	
 	protected String connectedUser;
 	protected boolean adminBool;
+	private JTextField floorNumGroundtextField;
 
 	/**
 	 * Launch the application.
@@ -83,13 +83,13 @@ public class AddNewApartmentView extends Observable {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 692, 529);
+		frame.setBounds(100, 100, 738, 562);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton addButton = new JButton("\u05D4\u05D5\u05E1\u05E4\u05D4");
 		addButton.setBackground(Color.PINK);
-		addButton.setBounds(266, 375, 97, 25);
+		addButton.setBounds(175, 418, 97, 25);
 		frame.getContentPane().add(addButton);
 		
 		JButton cancelButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
@@ -150,23 +150,14 @@ public class AddNewApartmentView extends Observable {
 		roomsSpinner.setBounds(428, 213, 36, 22);
 		frame.getContentPane().add(roomsSpinner);
 		
-		JLabel startPriceLabel = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
-		startPriceLabel.setBounds(485, 245, 56, 16);
-		frame.getContentPane().add(startPriceLabel);
+		JLabel priceLabel = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
+		priceLabel.setBounds(485, 245, 56, 16);
+		frame.getContentPane().add(priceLabel);
 		
-		StartPrice = new JTextField();
-		StartPrice.setBounds(348, 242, 116, 22);
-		frame.getContentPane().add(StartPrice);
-		StartPrice.setColumns(10);
-		
-		JLabel limitPriceLabel = new JLabel("\u05E2\u05D3 \u05DE\u05D7\u05D9\u05E8");
-		limitPriceLabel.setBounds(485, 277, 90, 16);
-		frame.getContentPane().add(limitPriceLabel);
-		
-		LimitPrice = new JTextField();
-		LimitPrice.setBounds(348, 274, 116, 22);
-		frame.getContentPane().add(LimitPrice);
-		LimitPrice.setColumns(10);
+		priceTextField = new JTextField();
+		priceTextField.setBounds(348, 242, 116, 22);
+		frame.getContentPane().add(priceTextField);
+		priceTextField.setColumns(10);
 		
 		JCheckBox elevatorCheckBox = new JCheckBox("\u05DE\u05E2\u05DC\u05D9\u05EA");
 		elevatorCheckBox.setBounds(165, 81, 113, 25);
@@ -206,11 +197,11 @@ public class AddNewApartmentView extends Observable {
 		
 		JComboBox propertyTypeComboBox = new JComboBox();
 		propertyTypeComboBox.setEditable(true);
-		propertyTypeComboBox.setBounds(312, 313, 171, 32);
+		propertyTypeComboBox.setBounds(312, 280, 171, 32);
 		frame.getContentPane().add(propertyTypeComboBox);
 		
 		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
-		propertyTypeLabel.setBounds(495, 319, 69, 20);
+		propertyTypeLabel.setBounds(495, 286, 69, 20);
 		frame.getContentPane().add(propertyTypeLabel);
 		
 		JTextArea descriptiontextArea = new JTextArea();
@@ -220,5 +211,42 @@ public class AddNewApartmentView extends Observable {
 		JLabel descriptionLabel = new JLabel("\u05EA\u05D9\u05D0\u05D5\u05E8");
 		descriptionLabel.setBounds(175, 262, 69, 20);
 		frame.getContentPane().add(descriptionLabel);
+		
+		JLabel floorNumLabel = new JLabel("\u05DB\u05DE\u05D5\u05EA \u05E7\u05D5\u05DE\u05D5\u05EA");
+		floorNumLabel.setBounds(595, 344, 69, 16);
+		frame.getContentPane().add(floorNumLabel);
+		
+		floorNumGroundtextField = new JTextField();
+		floorNumGroundtextField.setColumns(10);
+		floorNumGroundtextField.setBounds(458, 341, 116, 22);
+		frame.getContentPane().add(floorNumGroundtextField);
+		
+		JLabel label_5 = new JLabel("\u05DB\u05E9\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1 \u05D1\u05D9\u05EA \u05E7\u05E8\u05E7\u05E2");
+		label_5.setBounds(505, 317, 127, 16);
+		frame.getContentPane().add(label_5);
+		
+		JLabel floorNumLabel_1 = new JLabel("\u05E7\u05D5\u05DE\u05D4");
+		floorNumLabel_1.setBounds(584, 395, 56, 16);
+		frame.getContentPane().add(floorNumLabel_1);
+		
+		JLabel floorNumLabel_1_2 = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
+		floorNumLabel_1_2.setBounds(584, 455, 56, 16);
+		frame.getContentPane().add(floorNumLabel_1_2);
+		
+		JLabel label_5_1 = new JLabel("\u05DB\u05E9\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1 \u05D1\u05D9\u05EA \u05D1\u05D1\u05E0\u05D9\u05D9\u05DF");
+		label_5_1.setBounds(505, 371, 127, 16);
+		frame.getContentPane().add(label_5_1);
+		
+		JCheckBox gardenGroundCheckBox = new JCheckBox("\u05D2\u05D9\u05E0\u05D4");
+		gardenGroundCheckBox.setBounds(527, 423, 113, 25);
+		frame.getContentPane().add(gardenGroundCheckBox);
+		
+		JSpinner floorsBuildingSpinner = new JSpinner();
+		floorsBuildingSpinner.setBounds(528, 391, 36, 22);
+		frame.getContentPane().add(floorsBuildingSpinner);
+		
+		JSpinner apartmentNumberGroundSpinner = new JSpinner();
+		apartmentNumberGroundSpinner.setBounds(528, 453, 36, 22);
+		frame.getContentPane().add(apartmentNumberGroundSpinner);
 	}
 }
