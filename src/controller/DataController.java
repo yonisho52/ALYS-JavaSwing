@@ -52,6 +52,15 @@ public class DataController implements Observer{
 			}
 		}
 		
+		if(arg0 instanceof RegisterView)   //// for register validation
+		{
+			if(arg1 instanceof String)
+			{
+				String userName = (String)arg1;
+				dataExcelConn.checkExsistUser(userName);
+			}
+		}
+		
 		if(arg0 instanceof MainView) 
 		{
 			if(arg1 instanceof MainView.CloseTheExcel)
@@ -67,7 +76,7 @@ public class DataController implements Observer{
 		
 		//update new if - instance of addNewApartment button - important!!!!!!!!!!!!!!!!!!!!!!!!!!! (we think) - wrong
 		
-		if(arg0 instanceof MainView)
+		if(arg0 instanceof MainView) 
 		{
 			if(arg1 instanceof String[])
 			{
@@ -76,20 +85,29 @@ public class DataController implements Observer{
 			}
 		}
 		
-		
-		
+
 		
 		///// data to view
 		
 		if(arg0 instanceof DataExcelConn)
 		{
-			if(arg1 instanceof JTable)
+			if(arg1 instanceof DataExcelConn.UsersTable)
 			{
-				showAllUsersView.crateAllUsers((JTable)arg1);
+				JTable jTable = ((DataExcelConn.UsersTable) arg1).usersTable;
+				showAllUsersView.crateAllUsers(jTable);
 			}
 		}
 		
-		if(arg0 instanceof DataExcelConn)
+		if(arg0 instanceof DataExcelConn)   /// not connected to view
+		{
+			if(arg1 instanceof DataExcelConn.ApartmentsTable)
+			{
+				JTable jTable = ((DataExcelConn.ApartmentsTable) arg1).apartmentsTable;
+	//			showAllUsersView.crateAllUsers(jTable);
+			}
+		}
+		
+		if(arg0 instanceof DataExcelConn)   
 		{
 			if(arg1 instanceof DataExcelConn.CheckValidPassClass)
 			{
@@ -99,13 +117,30 @@ public class DataController implements Observer{
 			}
 		}
 		
-		if(arg0 instanceof DataExcelConn)
+		if(arg0 instanceof DataExcelConn)    //// for register validation /// not connected to view
 		{
-			if(arg1 instanceof String)
+			if(arg1 instanceof DataExcelConn.ExistsUser)
 			{
-				//showAll
+				boolean exsistUser = ((DataExcelConn.ExistsUser) arg1).exixst;
+
+
 			}
 		}
+		
+		if(arg0 instanceof DataExcelConn)     /// not connected to view
+		{
+			if(arg1 instanceof DataExcelConn.UserApartments)
+			{
+				JTable jTable = ((DataExcelConn.UserApartments) arg1).userApartmentTable;
+
+
+			}
+		}
+		
+		
+		
+		
+		
 	}
 
 }

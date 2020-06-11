@@ -13,6 +13,8 @@ import java.util.Observable;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class RegisterView extends Observable {
 
@@ -82,6 +84,12 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(cancelButton);
 		
 		userName = new JTextField();
+		userName.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				System.out.println("foucus out");
+			}
+		});
 		userName.setBounds(192, 79, 116, 22);
 		frame.getContentPane().add(userName);
 		userName.setColumns(10);

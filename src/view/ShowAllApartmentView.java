@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JPanel;
 
 public class ShowAllApartmentView extends Observable {
 	
@@ -35,7 +36,6 @@ public class ShowAllApartmentView extends Observable {
 	private JTextField LimitPrice;
 	private JTextField StartPrice;
 	private JLabel CityLabel;  /// example for all 
-	private JTable searchResultTable;
 	private JLabel adminLabel;
 	
 	private JLabel userNameLabel;
@@ -285,11 +285,6 @@ public class ShowAllApartmentView extends Observable {
 		showAllUsersButton.setBounds(10, 475, 227, 25);
 		frame.getContentPane().add(showAllUsersButton);
 		
-		searchResultTable = new JTable();
-		searchResultTable.setBackground(Color.PINK);
-		searchResultTable.setBounds(281, 361, 472, 191);
-		frame.getContentPane().add(searchResultTable);
-		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(563, 283, -84, 8);
 		frame.getContentPane().add(comboBox);
@@ -311,6 +306,10 @@ public class ShowAllApartmentView extends Observable {
 		adminLabel = new JLabel("אדמין");
 		adminLabel.setBounds(712, 36, 46, 14);
 		frame.getContentPane().add(adminLabel);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(299, 372, 491, 202);
+		frame.getContentPane().add(panel);
 //		changeTheUser();
 //		if(connectedUser==null)
 //		{
@@ -404,11 +403,4 @@ public class ShowAllApartmentView extends Observable {
 		mainView.showMainView();
 		frame.setVisible(false);
 	}
-	
-
-	
-	
-	
-	
-
 }

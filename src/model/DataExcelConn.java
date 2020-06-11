@@ -39,11 +39,47 @@ public class DataExcelConn extends Observable{
 		/// inner class for checking if the user name and pass are correct;
 		public boolean validPass;
 		public boolean userType;
-		public CheckValidPassClass() {}
 		public CheckValidPassClass(boolean valid, boolean admin)
 		{
 			this.validPass = valid;
 			this.userType = admin;
+		}
+	}
+	
+	public class ExistsUser
+	{
+		/// inner class for checking if the user name exists;
+		public boolean exixst;
+		public ExistsUser(boolean valid)
+		{
+			this.exixst = valid;
+		}
+	}
+	
+	public class UsersTable
+	{
+		public JTable usersTable;
+		public UsersTable(JTable table)
+		{
+			this.usersTable = table;
+		}
+	}
+	
+	public class ApartmentsTable
+	{
+		public JTable apartmentsTable;
+		public ApartmentsTable(JTable table)
+		{
+			this.apartmentsTable = table;
+		}
+	}
+	
+	public class UserApartments
+	{
+		public JTable userApartmentTable;
+		public UserApartments(JTable table)
+		{
+			this.userApartmentTable = table;
 		}
 	}
 	
@@ -106,7 +142,7 @@ public DataExcelConn() {
 	
 	public void addNewApartment() {}
 	public void searchApartment() {}
-	public void showUserApartments() {}
+	
 
 	public void addNewTenant(Tenant tenant) 
 	{
@@ -199,21 +235,27 @@ public DataExcelConn() {
 		
 		JTable jTable = new JTable(data, usersColumns);
 		setChanged();
-		notifyObservers(jTable);
+		notifyObservers(new UsersTable(jTable));
 	}
 	
 	
-	public boolean checkExsistUser(String userName) { /// if the userName exists return *true, if not exists return *false  --- for register
+	public void checkExsistUser(String userName) { /// if the userName exists return *true, if not exists return *false  --- for register
 		
 		Row row;
 		Cell userNameDB;
+		int lastRow = users.getLastRowNum();
 		
-		for(int i=1;i<=users.getLastRowNum();i++) {
+		for(int i=1;i<=lastRow;i++) {
 			row=users.getRow(i);
 			userNameDB = row.getCell(0);
-			if(userName.equals(userNameDB.toString())) return true;
+			if(userName.equals(userNameDB.toString()))
+			{
+				setChanged();
+				notifyObservers(new ExistsUser(true));
+			}
 		}
-		return false;
+		setChanged();
+		notifyObservers(new ExistsUser(false));
 	}
 
 	public void checkValidPass(String userName, String pass) { /// if the userName's pass is valid return *true, if not return *false = wrong combination  --- for login
@@ -249,8 +291,9 @@ public DataExcelConn() {
 				} 
 				else 
 					{
-					setChanged();
-					notifyObservers(new CheckValidPassClass(false,false));
+					break;
+//					setChanged();
+//					notifyObservers(new CheckValidPassClass(false,false));
 					}
 				}
 		}
@@ -276,62 +319,107 @@ public DataExcelConn() {
 	}
 	
 	
-	public void showAllApartments() {
+	public void getAllApartments() {
 		
-//		Row row;
-//		int lastRow = apartments.getLastRowNum();
-//		Cell userName, city, street, totalRommate, missRommate, roomNum, price, propertyKind, elevator, parking, airCon, balcon, dimension, storage, accessDis, furnish, pet;
-//		String [][] data = new String[lastRow][17]; // for table
-//		String [] record = new String[17]; // lines
-//		int j = 0;
-//		
-//		for(int i=1; i<=lastRow; i++) 
-//		{
-//			row = apartments.getRow(i);
-//			userName = apartments.getCell(0);
-//			city = apartments.getCell(1);
-//			street = apartments.getCell(2);
-//			totalRommate = apartments.getCell(3);
-//			missRommate = apartments.getCell(4);
-//			roomNum = apartments.getCell(5);
-//			price = apartments.getCell(6);
-//			propertyKind = apartments.getCell(7);
-//			elevator = apartments.getCell(8);
-//			parking = apartments.getCell(9);
-//			airCon = apartments.getCell(10);
-//			balcon = apartments.getCell(11);
-//			dimension = apartments.getCell(12);
-//			storage = apartments.getCell(13);
-//			accessDis = apartments.getCell(14);
-//			furnish = apartments.getCell(15);
-//			pet = apartments.getCell(16);
-//
-//		   till here 
-//
-//			record[0] = dataFormatter.formatCellValue(userName);
-//			record[1] = dataFormatter.formatCellValue(password);
-//			record[2] = dataFormatter.formatCellValue(firstName);
-//			record[3] = dataFormatter.formatCellValue(lastName);
-//			record[4] = dataFormatter.formatCellValue(email);
-//			record[5] = dataFormatter.formatCellValue(phoneNumber);
-//			record[6] = dataFormatter.formatCellValue(userID);
-//			record[7] = dataFormatter.formatCellValue(adminToF);
-//
-//			data[j++] = record.clone();
-//		}
-//		
-//		JTable jTable = new JTable(data, usersColumns);
-//		setChanged();
-//		notifyObservers(jTable);
+		Row row;
+		int lastRow = apartments.getLastRowNum();
+		Cell userName, city, street, totalRommate, missRommate, roomNum, price, propertyKind, elevator, parking, airCon, balcon, dimension, storage, accessDis, furnish, pet;
+		String [][] data = new String[lastRow][17]; // for table
+		String [] record = new String[17]; // lines
+		int j = 0;
+		
+		for(int i=1; i<=lastRow; i++) 
+		{
+			row = apartments.getRow(i);
+			userName = row.getCell(0);
+			city = row.getCell(1);
+			street = row.getCell(2);
+			totalRommate = row.getCell(3);
+			missRommate = row.getCell(4);
+			roomNum = row.getCell(5);
+			price = row.getCell(6);
+			propertyKind = row.getCell(7);
+			elevator = row.getCell(8);
+			parking = row.getCell(9);
+			airCon = row.getCell(10);
+			balcon = row.getCell(11);
+			dimension = row.getCell(12);
+			storage = row.getCell(13);
+			accessDis = row.getCell(14);
+			furnish = row.getCell(15);
+			pet = row.getCell(16);
+
+
+			record[0] = dataFormatter.formatCellValue(userName);
+			record[1] = dataFormatter.formatCellValue(city);
+			record[2] = dataFormatter.formatCellValue(street);
+			record[3] = dataFormatter.formatCellValue(totalRommate);
+			record[4] = dataFormatter.formatCellValue(missRommate);
+			record[5] = dataFormatter.formatCellValue(roomNum);
+			record[6] = dataFormatter.formatCellValue(price);
+			record[7] = dataFormatter.formatCellValue(propertyKind);
+			record[8] = dataFormatter.formatCellValue(elevator);
+			record[9] = dataFormatter.formatCellValue(parking);
+			record[10] = dataFormatter.formatCellValue(airCon);
+			record[11] = dataFormatter.formatCellValue(balcon);
+			record[12] = dataFormatter.formatCellValue(dimension);
+			record[13] = dataFormatter.formatCellValue(storage);
+			record[14] = dataFormatter.formatCellValue(accessDis);
+			record[15] = dataFormatter.formatCellValue(furnish);
+			record[16] = dataFormatter.formatCellValue(pet);
+
+
+			data[j++] = record.clone();
+		}
+		
+		JTable jTable = new JTable(data, apartmentsColumns);
+		setChanged();
+		notifyObservers(new ApartmentsTable(jTable));
 		
 	}
 
-	public String getConnectedUser()
-	{
-		return connectedUser;
+	public void showUserApartments(String userName) {
+		
+		Row row;
+		int lastRow = apartments.getLastRowNum();
+		Cell userNameDB, city, street, totalRommate, missRommate, roomNum, price, propertyKind, elevator, parking, airCon, balcon, dimension, storage, accessDis, furnish, pet;
+		String [][] data = new String[lastRow][17]; // for table
+		String [] record = new String[17]; // lines
+		int j = 0;
+		
+		for(int i=1; i<=lastRow; i++)
+		{
+			row = apartments.getRow(i);
+			userNameDB = row.getCell(0);
+			if(userName.equals(userNameDB.toString())) 
+			{
+					record[0] = (row.getCell(0)).toString();
+					record[1] = (row.getCell(1)).toString();
+					record[2] = (row.getCell(2)).toString();
+					record[3] = (row.getCell(3)).toString();
+					record[4] = (row.getCell(4)).toString();
+					record[5] = (row.getCell(5)).toString();
+					record[6] = (row.getCell(6)).toString();
+					record[7] = (row.getCell(7)).toString();
+					record[8] = (row.getCell(8)).toString();
+					record[9] = (row.getCell(9)).toString();
+					record[10] = (row.getCell(10)).toString();
+					record[11] = (row.getCell(11)).toString();
+					record[12] = (row.getCell(12)).toString();
+					record[13] = (row.getCell(13)).toString();
+					record[14] = (row.getCell(14)).toString();
+					record[15] = (row.getCell(15)).toString();
+					record[16] = (row.getCell(16)).toString();
+					record[17] = (row.getCell(17)).toString();
+					
+					data[j++] = record.clone();
+			}
+		}
+		
+		JTable jTable = new JTable(data, apartmentsColumns);
+		setChanged();
+		notifyObservers(new UserApartments(jTable));
 	}
-
-	
 }
 
 
