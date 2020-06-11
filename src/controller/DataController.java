@@ -122,8 +122,7 @@ public class DataController implements Observer{
 			if(arg1 instanceof DataExcelConn.ExistsUser)
 			{
 				boolean exsistUser = ((DataExcelConn.ExistsUser) arg1).exixst;
-
-
+				registerView.userValid(exsistUser); 
 			}
 		}
 		

@@ -29,6 +29,26 @@ public class RegisterView extends Observable {
 	private JTextField phoneNumber;
 	private JTextField firstName;
 	private JTextField lastName;
+	JTextField passwordLabel;
+	private JLabel validatePasswordLabel;
+	
+	private JLabel existUser;
+	private JLabel PasswordEnterLabel_1;
+	
+	private JLabel mismatchPassword;
+	private JLabel star1;
+	private JLabel star2;
+	private JLabel star3;
+	private JLabel star4;
+	private JLabel star5;
+	private JLabel star6;
+	private JLabel missingText;
+	
+	protected boolean userbool , passwordbool , firstNamebool , lastNamebool , phonebool;
+	private JLabel firstnamelable;
+	private JLabel lastnamelable;
+	private JLabel phonelable;
+	
 
 	/**
 	 * Launch the application.
@@ -87,7 +107,9 @@ public class RegisterView extends Observable {
 		userName.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				System.out.println("foucus out");
+				
+				setChanged();
+				notifyObservers(userName.getText());
 			}
 		});
 		userName.setBounds(192, 79, 116, 22);
@@ -95,11 +117,27 @@ public class RegisterView extends Observable {
 		userName.setColumns(10);
 		
 		password = new JTextField();
+		password.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfEmptyPassword();
+			}
+		});
 		password.setBounds(192, 114, 116, 22);
 		frame.getContentPane().add(password);
 		password.setColumns(10);
 		
 		validatePassword = new JTextField();
+		validatePassword.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if (!(password.getText().equals(validatePassword.getText()) ))
+				{
+					mismatchPassword.setVisible(true);
+				}
+				checkIfEmptyPasswordValid();
+			}
+		});
 		validatePassword.setBounds(192, 149, 116, 22);
 		frame.getContentPane().add(validatePassword);
 		validatePassword.setColumns(10);
@@ -116,11 +154,13 @@ public class RegisterView extends Observable {
 				String newTenant[] = {userName.getText().toString(),password.getText().toString(),
 						firstName.getText().toString(),lastName.getText().toString(), email.getText().toString(),
 						phoneNumber.getText().toString()};
+				
 				setChanged();
 				notifyObservers(newTenant);
 				
 				// after login show allApartmentView on the same user that register
 				openShowAllApartmentView(arg0);
+				
 
 			}
 		});
@@ -128,14 +168,14 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(regButton);
 		
 		JLabel userNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9");
-		userNameLabel.setBounds(322, 82, 116, 16);
+		userNameLabel.setBounds(322, 82, 82, 16);
 		frame.getContentPane().add(userNameLabel);
 		
 		JLabel passwordLabel = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0");
 		passwordLabel.setBounds(320, 117, 58, 16);
 		frame.getContentPane().add(passwordLabel);
 		
-		JLabel validatePasswordLabel = new JLabel("\u05D0\u05D9\u05DE\u05D5\u05EA \u05E1\u05D9\u05E1\u05DE\u05D0");
+		validatePasswordLabel = new JLabel("\u05D0\u05D9\u05DE\u05D5\u05EA \u05E1\u05D9\u05E1\u05DE\u05D0");
 		validatePasswordLabel.setBounds(320, 155, 97, 16);
 		frame.getContentPane().add(validatePasswordLabel);
 		
@@ -153,6 +193,12 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(phoneLabel);
 		
 		phoneNumber = new JTextField();
+		phoneNumber.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfEmptyphone();
+			}
+		});
 		phoneNumber.setBounds(192, 291, 116, 22);
 		frame.getContentPane().add(phoneNumber);
 		phoneNumber.setColumns(10);
@@ -162,28 +208,194 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(firstNameLabel);
 		
 		firstName = new JTextField();
+		firstName.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfEmptyfirstName();
+			}
+		});
 		firstName.setColumns(10);
 		firstName.setBounds(192, 184, 116, 22);
 		frame.getContentPane().add(firstName);
 		
 		lastName = new JTextField();
+		lastName.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfEmptylastName();
+			}
+		});
 		lastName.setColumns(10);
 		lastName.setBounds(192, 219, 116, 22);
 		frame.getContentPane().add(lastName);
 		
 		JLabel lastNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
-		lastNameLabel.setBounds(320, 225, 118, 16);
+		lastNameLabel.setBounds(320, 225, 82, 16);
 		frame.getContentPane().add(lastNameLabel);
 		
 		JLabel lblNewLabel = new JLabel("\u05D4\u05E8\u05E9\u05DE\u05D4");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel.setBounds(222, 28, 86, 20);
 		frame.getContentPane().add(lblNewLabel);
+		
+		existUser = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9 \u05EA\u05E4\u05D5\u05E1/\u05E8\u05D9\u05E7");
+		existUser.setForeground(Color.RED);
+		existUser.setBounds(36, 82, 144, 16);
+		existUser.setVisible(false);
+		existUser.setFont(existUser.getFont().deriveFont(existUser.getFont().getStyle() | Font.BOLD));
+		frame.getContentPane().add(existUser);
+		
+		mismatchPassword = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0 \u05DC\u05D0 \u05EA\u05D5\u05D0\u05DE\u05EA. \u05E8\u05D9\u05E7\u05D4");
+		mismatchPassword.setForeground(Color.RED);
+		mismatchPassword.setBounds(24, 152, 154, 16);
+		mismatchPassword.setVisible(false);
+		mismatchPassword.setFont(mismatchPassword.getFont().deriveFont(mismatchPassword.getFont().getStyle() | Font.BOLD));
+		frame.getContentPane().add(mismatchPassword);
+		
+		star1 = new JLabel("*");
+		star1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		star1.setForeground(Color.RED);
+		star1.setBounds(418, 82, 18, 16);
+		frame.getContentPane().add(star1);
+		
+		star2 = new JLabel("*");
+		star2.setForeground(Color.RED);
+		star2.setFont(new Font("Tahoma", Font.BOLD, 17));
+		star2.setBounds(418, 117, 18, 16);
+		frame.getContentPane().add(star2);
+		
+		star3 = new JLabel("*");
+		star3.setForeground(Color.RED);
+		star3.setFont(new Font("Tahoma", Font.BOLD, 17));
+		star3.setBounds(418, 155, 18, 16);
+		frame.getContentPane().add(star3);
+		
+		star4 = new JLabel("*");
+		star4.setForeground(Color.RED);
+		star4.setFont(new Font("Tahoma", Font.BOLD, 17));
+		star4.setBounds(418, 188, 18, 16);
+		frame.getContentPane().add(star4);
+		
+		star5 = new JLabel("*");
+		star5.setFont(new Font("Tahoma", Font.BOLD, 17));
+		star5.setForeground(Color.RED);
+		star5.setBounds(418, 220, 18, 16);
+		frame.getContentPane().add(star5);
+		
+		star6 = new JLabel("*");
+		star6.setForeground(Color.RED);
+		star6.setFont(new Font("Tahoma", Font.BOLD, 17));
+		star6.setBounds(418, 291, 29, 16);
+		frame.getContentPane().add(star6);
+		
+		missingText = new JLabel("\u05E0\u05D0 \u05DC\u05DE\u05DC\u05D0 \u05D0\u05EA \u05D4\u05E4\u05E8\u05D8\u05D9\u05DD \u05D4\u05DE\u05E1\u05D5\u05DE\u05E0\u05D9\u05DD \u05D1\u05DB\u05D5\u05DB\u05D1\u05D9\u05EA!");
+		missingText.setForeground(Color.RED);
+		missingText.setBounds(142, 321, 260, 16);
+		missingText.setVisible(false);
+		missingText.setFont(missingText.getFont().deriveFont(missingText.getFont().getStyle() | Font.BOLD));
+		frame.getContentPane().add(missingText);
+		
+		PasswordEnterLabel_1 = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E1\u05D9\u05E1\u05DE\u05D0");
+		PasswordEnterLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		PasswordEnterLabel_1.setForeground(Color.RED);
+		PasswordEnterLabel_1.setBounds(93, 119, 82, 16);
+		PasswordEnterLabel_1.setVisible(false);
+		frame.getContentPane().add(PasswordEnterLabel_1);
+		
+		firstnamelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E9\u05DD \u05E4\u05E8\u05D8\u05D9");
+		firstnamelable.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		firstnamelable.setForeground(Color.RED);
+		firstnamelable.setBounds(78, 190, 97, 16);
+		firstnamelable.setVisible(false);
+		
+		frame.getContentPane().add(firstnamelable);
+		
+		lastnamelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
+		lastnamelable.setForeground(Color.RED);
+		lastnamelable.setBounds(59, 222, 116, 16);
+		frame.getContentPane().add(lastnamelable);
+		lastnamelable.setVisible(false);
+		
+		phonelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05D8\u05DC\u05E4\u05D5\u05DF");
+		phonelable.setForeground(Color.RED);
+		phonelable.setBounds(78, 291, 97, 16);
+		frame.getContentPane().add(phonelable);
+		phonelable.setVisible(false);
 	}
 	
 	public void openShowAllApartmentView(MouseEvent arg0) {
 	
+		if(firstNamebool && lastNamebool && passwordbool && phonebool && userbool)
+		{
 		this.frame.setVisible(false); 
-		showAllApartmentView.openShowAllApartment(userName.getText(),false);
+		showAllApartmentView.openShowAllApartment(userName.getText(),false);	
+		}
+	}
+	
+	
+	public void userValid(boolean exist)
+	{
+		if ((exist) || userName.getText().toString().equals(""))
+		{
+			this.userbool = false;
+			existUser.setVisible(true);
+		}
+		else
+			this.userbool = true;
+	}
+	
+	public void checkIfEmptyPassword()
+	{
+		if(password.getText().toString().equals(""))	
+		{
+			
+			PasswordEnterLabel_1.setVisible(true);
+			this.phonebool = false;
+		}
+			
+	}
+	public void checkIfEmptyPasswordValid()
+	{
+		if(validatePassword.getText().toString().equals(""))	
+		{
+			
+			mismatchPassword.setVisible(true);
+		}
+			
+	}
+	
+	public void checkIfEmptyfirstName()
+	{
+		if(firstName.getText().toString().equals(""))	
+		{
+			firstnamelable.setVisible(true);
+			this.firstNamebool = false;
+		}
+			
+	}
+	
+	public void checkIfEmptylastName()
+	{
+		if(lastName.getText().toString().equals(""))	
+		{
+			lastnamelable.setVisible(true);
+			this.lastNamebool = false;
+		}
+			
+	}
+	public void checkIfEmptyphone()
+	{
+		if(phoneNumber.getText().toString().equals(""))	
+		{
+			phonelable.setVisible(true);
+			this.phonebool =false;
+		}
+			
 	}
 }
+
+
+
+
+
+

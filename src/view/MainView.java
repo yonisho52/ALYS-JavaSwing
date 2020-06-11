@@ -94,7 +94,6 @@ public class MainView extends Observable {
 			public void mouseClicked(MouseEvent e) {
 				//	String [] user = {userNameTextField.toString(),passTextField.toString()};
 				String [] user = {userNameTextField.getText(),passTextField.getText()};
-				System.out.println(" user and pass send from the login button ");
 				setChanged();
 				notifyObservers(user);
 			}
