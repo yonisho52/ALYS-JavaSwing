@@ -24,7 +24,7 @@ public class DataExcelConn extends Observable{
 	
 	Sheet users,apartments;
 	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID","admin"};
-	private static String[] apartmentsColumns = {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","סוג הנכס","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+	private static String[] apartmentsColumns = {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","סוג הנכס","תיאור","מעלית","מעלית","מעלית","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
 	FileOutputStream fileOutputStream;
 	int usersRow, apartmentsRow;
 	public Workbook workBook;
@@ -140,9 +140,8 @@ public DataExcelConn() {
 	}   
 }
 	
-	public void addNewApartment() {}
-	public void searchApartment() {}
 	
+
 
 	public void addNewTenant(Tenant tenant) 
 	{
@@ -184,7 +183,7 @@ public DataExcelConn() {
 			e.printStackTrace();
 		}
 
-		System.out.println( " secssuce");
+	//	System.out.println( " secssuce");
 	}
 	
 	public void closeFile()
@@ -379,10 +378,11 @@ public DataExcelConn() {
 	}
 
 	public void showUserApartments(String userName) {
+
 		
 		Row row;
 		int lastRow = apartments.getLastRowNum();
-		Cell userNameDB, city, street, totalRommate, missRommate, roomNum, price, propertyKind, elevator, parking, airCon, balcon, dimension, storage, accessDis, furnish, pet;
+		Cell userNameDB;
 		String [][] data = new String[lastRow][17]; // for table
 		String [] record = new String[17]; // lines
 		int j = 0;
@@ -420,6 +420,61 @@ public DataExcelConn() {
 		setChanged();
 		notifyObservers(new UserApartments(jTable));
 	}
+
+	public void addNewApartment() {  // not finished 
+
+		String excelFilePath = "DataBase.xlsx";
+    	FileInputStream inputStream;
+		try {
+			inputStream = new FileInputStream(new File(excelFilePath));
+	    	Workbook workBook = WorkbookFactory.create(inputStream);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+//    	Sheet sheet = workBook.getSheetAt(0);
+    	int rowCount = apartments.getLastRowNum();
+    	Row row = apartments.createRow(++rowCount);
+
+//    	row.createCell(0).setCellValue(tenant.userName);
+//    	row.createCell(1).setCellValue(tenant.password);
+//    	row.createCell(2).setCellValue(tenant.firstName);
+//    	row.createCell(3).setCellValue(tenant.lastName);
+//    	row.createCell(4).setCellValue(tenant.email);
+//    	row.createCell(5).setCellValue(tenant.phoneNumber);
+//    	row.createCell(6).setCellValue(tenant.userID);
+//    	row.createCell(7).setCellValue(tenant.adminToF);
+
+
+    	//FileInputStream input = new FileInputStream("./Test.xls");
+    	//cell.getRichStringCellValue().toString(); - printing value to screen
+
+    	FileOutputStream output;
+		try {
+			output = new FileOutputStream("DataBase.xlsx");
+	    	workBook.write(output);
+	    	output.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println( " secssuce");
+	}
+
+	
+	public void searchApartment() {
+		
+	}
+	
+	
+	public void betweenPriceApartment(int start, int end) {
+		
+		
+	}
+	
 }
 
 
