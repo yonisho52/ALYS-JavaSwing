@@ -32,6 +32,7 @@ public class DataExcelConn extends Observable{
 	FileInputStream fileInputStream;
 	Cell cellCompar;
 	DataFormatter dataFormatter = new DataFormatter();
+	static DataExcelConn dataExcelConn = new DataExcelConn();
 	protected String connectedUser = null; //Save log which user connected
 	
 	public class CheckValidPassClass
@@ -46,6 +47,13 @@ public class DataExcelConn extends Observable{
 		}
 	}
 	
+	public static DataExcelConn getDataExcelConn() 
+	{
+
+		return dataExcelConn;
+	}
+
+
 	public class ExistsUser
 	{
 		/// inner class for checking if the user name exists;
@@ -83,7 +91,8 @@ public class DataExcelConn extends Observable{
 		}
 	}
 	
-public DataExcelConn() {	
+	private DataExcelConn() 
+	{	
 	
 	if(file.exists()) {
 		try {
@@ -474,6 +483,11 @@ public DataExcelConn() {
 		
 		
 	}
+	
+	
+	
+	
+	
 	
 }
 

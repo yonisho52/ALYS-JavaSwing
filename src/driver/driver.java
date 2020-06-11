@@ -14,7 +14,8 @@ public class driver
 	
 	public static void main (String[] args)  {
 		
-		DataExcelConn dataExcelConn = new DataExcelConn();
+		DataExcelConn dataExcelConn = DataExcelConn.getDataExcelConn();
+		//DataExcelConn dataExcelConn = new DataExcelConn();
 
 //		try {
 //			FileOutputStream fileOut = new FileOutputStream("DataBase.xlsx");
