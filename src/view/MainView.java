@@ -160,7 +160,7 @@ public class MainView extends Observable {
 		showAllApartmentView.setMainView(this);
 		userNameTextField.setText(""); // to eraize the field when you come back
 		this.frame.setVisible(false); 
-		showAllApartmentView.openShowAllApartment();
+		showAllApartmentView.openShowAllApartment(userNameTextField.getText());
 	}
 	
 

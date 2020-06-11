@@ -71,7 +71,7 @@ public class ShowAllUsersView extends Observable{
 		returnButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				showAllApartmentView.openShowAllApartment();
+				showAllApartmentView.openShowAllApartment(null);
 				frame.setVisible(false);
 				
 			}
