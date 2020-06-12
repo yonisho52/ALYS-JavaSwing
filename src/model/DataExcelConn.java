@@ -91,6 +91,17 @@ public class DataExcelConn extends Observable{
 		}
 	}
 	
+	public class ShowAllApartments
+	{
+		public JTable allApartmentTable;
+		public ShowAllApartments(JTable table)
+		{
+			this.allApartmentTable = table;
+		}
+	}
+	
+	
+	
 	private DataExcelConn() 
 	{	
 	
@@ -334,63 +345,49 @@ public class DataExcelConn extends Observable{
 		
 		Row row;
 		int lastRow = apartments.getLastRowNum();
-		Cell userName, city, street, totalRommate, missRommate, roomNum, price, description, propertyKind, floorNumbers, floor, 
-		garden, apartmentNumber, elevator, parking, airCon, balcon, dimension, storage, accessDis, furnish, pet;
-		String [][] data = new String[lastRow][17]; // for table
-		String [] record = new String[17]; // lines
+
+
+		String [][] data = new String[lastRow][23]; // for table
+		String [] record = new String[23]; // lines
 		int j = 0;
 		
 		for(int i=1; i<=lastRow; i++) 
 		{
 			row = apartments.getRow(i);
-			//userName = row.getCell(0);
-			city = row.getCell(1);
-			street = row.getCell(2);
-			totalRommate = row.getCell(3);
-			missRommate = row.getCell(4);
-			roomNum = row.getCell(5);
-			price = row.getCell(6);
-			propertyKind = row.getCell(7);
-			elevator = row.getCell(8);
-			elevator = row.getCell(9);
-			elevator = row.getCell(10);
-			elevator = row.getCell(11);
-			elevator = row.getCell(12);
-			parking = row.getCell(13);
-			airCon = row.getCell(14);
-			balcon = row.getCell(15);
-			dimension = row.getCell(16);
-			storage = row.getCell(17);
-			accessDis = row.getCell(18);
-			furnish = row.getCell(19);
-			pet = row.getCell(20);
+			String [] userDetails = userDetailsForApartemnt(row.getCell(0).toString());
 
-
-		//	record[0] = dataFormatter.formatCellValue(userName);
-			record[1] = dataFormatter.formatCellValue(city);
-			record[2] = dataFormatter.formatCellValue(street);
-			record[3] = dataFormatter.formatCellValue(totalRommate);
-			record[4] = dataFormatter.formatCellValue(missRommate);
-			record[5] = dataFormatter.formatCellValue(roomNum);
-			record[6] = dataFormatter.formatCellValue(price);
-			record[7] = dataFormatter.formatCellValue(propertyKind);
-			record[8] = dataFormatter.formatCellValue(elevator);
-			record[9] = dataFormatter.formatCellValue(parking);
-			record[10] = dataFormatter.formatCellValue(airCon);
-			record[11] = dataFormatter.formatCellValue(balcon);
-			record[12] = dataFormatter.formatCellValue(dimension);
-			record[13] = dataFormatter.formatCellValue(storage);
-			record[14] = dataFormatter.formatCellValue(accessDis);
-			record[15] = dataFormatter.formatCellValue(furnish);
-			record[16] = dataFormatter.formatCellValue(pet);
-
-
+			record[0] = userDetails[0];
+			record[1] = userDetails[1];	
+			record[2] = dataFormatter.formatCellValue(row.getCell(1));
+			record[3] = dataFormatter.formatCellValue(row.getCell(2));
+			record[4] = dataFormatter.formatCellValue(row.getCell(3));
+			record[5] = dataFormatter.formatCellValue(row.getCell(4));
+			record[6] = dataFormatter.formatCellValue(row.getCell(5));
+			record[7] = dataFormatter.formatCellValue(row.getCell(6));
+			record[8] = dataFormatter.formatCellValue(row.getCell(7));
+			record[9] = dataFormatter.formatCellValue(row.getCell(8));
+			record[10] = dataFormatter.formatCellValue(row.getCell(9));
+			record[11] = dataFormatter.formatCellValue(row.getCell(10));
+			record[12] = dataFormatter.formatCellValue(row.getCell(11));
+			record[13] = dataFormatter.formatCellValue(row.getCell(12));
+			record[14] = dataFormatter.formatCellValue(row.getCell(13));
+			record[15] = dataFormatter.formatCellValue(row.getCell(14));
+			record[16] = dataFormatter.formatCellValue(row.getCell(15));
+			record[17] = dataFormatter.formatCellValue(row.getCell(16));
+			record[18] = dataFormatter.formatCellValue(row.getCell(17));
+			record[19] = dataFormatter.formatCellValue(row.getCell(18));
+			record[20] = dataFormatter.formatCellValue(row.getCell(19));
+			record[21] = dataFormatter.formatCellValue(row.getCell(20));
+			record[22] = dataFormatter.formatCellValue(row.getCell(21));
+		
+			
 			data[j++] = record.clone();
 		}
-	//	String[] apartmentsColumns = {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
-		JTable jTable = new JTable(data, apartmentsColumns);
+
+		String[] allApartmentsColumns = {"שם השוכר","טלפון","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+		JTable jTable = new JTable(data, allApartmentsColumns);
 		setChanged();
-		notifyObservers(new ApartmentsTable(jTable));
+		notifyObservers(new ShowAllApartments(jTable));
 		
 	}
 
@@ -500,7 +497,26 @@ public class DataExcelConn extends Observable{
 		
 	}
 	
-	
+	public String [] userDetailsForApartemnt(String userName)  /// 0 - name and last name, 2 - phone number
+	{
+		
+		Row row;
+		Cell userNameDB;
+		String [] userDetails = new String[2];
+		for(int i=1;i<=users.getLastRowNum();i++)
+		{
+			row=users.getRow(i);
+			userNameDB = row.getCell(0);
+			if(userName.equals(userNameDB.toString())) 
+			{
+				userDetails[0] = row.getCell(2).toString() + " " + row.getCell(3).toString();
+				userDetails[1] = row.getCell(5).toString();
+				break;
+			}
+		}
+		return userDetails;
+		
+	}
 	
 	
 	

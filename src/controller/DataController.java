@@ -67,6 +67,7 @@ public class DataController implements Observer{
 			{
 				dataExcelConn.closeFile();
 			}
+			
 		}
 		if(arg0 instanceof ShowAllUsersView)
 			if(arg1 instanceof ShowAllUsersView.GetAllUsers)
@@ -82,6 +83,14 @@ public class DataController implements Observer{
 			{
 				String [] user = (String[])arg1;
 				dataExcelConn.checkValidPass(user[0], user[1]);
+			}
+		}
+		
+		if(arg0 instanceof MainView) 
+		{
+			if(arg1 instanceof MainView.CreateAllApartmentTable)
+			{
+				dataExcelConn.getAllApartments();
 			}
 		}
 		
@@ -145,6 +154,15 @@ public class DataController implements Observer{
 		}
 		
 		
+		
+		if(arg0 instanceof DataExcelConn)     /// not connected to view
+		{
+			if(arg1 instanceof DataExcelConn.ShowAllApartments)
+			{
+				JTable jTable = ((DataExcelConn.ShowAllApartments) arg1).allApartmentTable;
+				showAllApartmentView.createAllApartment(jTable);
+			}
+		}
 		
 		
 		

@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class ShowAllApartmentView extends Observable {
 	
@@ -37,6 +38,7 @@ public class ShowAllApartmentView extends Observable {
 	private JTextField StartPrice;
 	private JLabel CityLabel;  /// example for all 
 	private JLabel adminLabel;
+	private JPanel panel;
 	
 	private JLabel userNameLabel;
 	private JButton loginOrLogoutButton;
@@ -307,7 +309,7 @@ public class ShowAllApartmentView extends Observable {
 		adminLabel.setBounds(712, 36, 46, 14);
 		frame.getContentPane().add(adminLabel);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBounds(299, 372, 491, 202);
 		frame.getContentPane().add(panel);
 //		changeTheUser();
@@ -402,5 +404,12 @@ public class ShowAllApartmentView extends Observable {
 		this.connectedUser=null;
 		mainView.showMainView();
 		frame.setVisible(false);
+	}
+	
+	public void createAllApartment(JTable apartmentTable)
+	{
+		JScrollPane scrollPane_1 = new JScrollPane(apartmentTable);
+		panel.add(scrollPane_1);
+		this.frame.setVisible(true);
 	}
 }

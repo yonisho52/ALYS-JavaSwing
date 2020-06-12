@@ -70,6 +70,10 @@ public class MainView extends Observable {
 		// for the controller 
 	}
 	
+	public class CreateAllApartmentTable {
+		// for the controller 
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -173,11 +177,15 @@ public class MainView extends Observable {
 	frame.setVisible(true);
 	this.frame.setEnabled(true);
 	}
+	
 	public void openShowAllApartment(String userName, boolean userType) {  //// userType - true = admin
 		showAllApartmentView.setMainView(this);
 		userNameTextField.setText(""); // to eraize the field when you come back
 		this.frame.setVisible(false); 
 		showAllApartmentView.openShowAllApartment(userName,userType);
+		setChanged();
+		notifyObservers(new CreateAllApartmentTable());
+		
 	}
 	
 	public void loginValid(boolean valid, boolean admin) {
