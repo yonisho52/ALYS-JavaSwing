@@ -174,8 +174,8 @@ public class MainView extends Observable {
 		registerView.showRegisterView();
 	}
 	public void showMainView() {
-	frame.setVisible(true);
-	this.frame.setEnabled(true);
+		frame.setVisible(true);
+		this.frame.setEnabled(true);
 	}
 	
 	public void openShowAllApartment(String userName, boolean userType) {  //// userType - true = admin

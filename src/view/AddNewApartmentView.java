@@ -22,6 +22,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.DefaultComboBoxModel;
 
 public class AddNewApartmentView extends Observable {
 	
@@ -58,12 +60,6 @@ public class AddNewApartmentView extends Observable {
 	
 	protected boolean apartmentType=false;  // ground = false, building = true
 
-	
-	
-
-	
-	
-	
 	
 	/**
 	 * Launch the application.
@@ -171,6 +167,7 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().add(numOfRoomatesLabel);
 		
 		numOfRommatesSpinner = new JSpinner();
+		numOfRommatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		numOfRommatesSpinner.setBounds(428, 155, 36, 22);
 		frame.getContentPane().add(numOfRommatesSpinner);
 		
@@ -179,6 +176,7 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().add(missingRoomatesLabel);
 		
 		missingRoomatesSpinner = new JSpinner();
+		missingRoomatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		missingRoomatesSpinner.setBounds(428, 184, 36, 22);
 		frame.getContentPane().add(missingRoomatesSpinner);
 		
@@ -187,6 +185,7 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().add(roomsLabel);
 		
 		roomsSpinner = new JSpinner();
+		roomsSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		roomsSpinner.setBounds(428, 213, 36, 22);
 		frame.getContentPane().add(roomsSpinner);
 		
@@ -237,6 +236,7 @@ public class AddNewApartmentView extends Observable {
 		
 		String apartmentType[] = {"דירת קרקע","דירה בבנין"};
 		propertyTypeComboBox = new JComboBox(apartmentType);
+		propertyTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"דירת קרקע", "דירה בבניין"}));
 		propertyTypeComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				groundOrBuilding(propertyTypeComboBox.getItemAt(propertyTypeComboBox.getSelectedIndex()).toString());
@@ -288,16 +288,19 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().add(gardenGroundCheckBox);
 		
 		floorsBuildingSpinner = new JSpinner();
+		floorsBuildingSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		floorsBuildingSpinner.setBounds(528, 391, 36, 22);
 		floorsBuildingSpinner.setVisible(false);
 		frame.getContentPane().add(floorsBuildingSpinner);
 		
 		apartmentNumberGroundSpinner = new JSpinner();
+		apartmentNumberGroundSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		apartmentNumberGroundSpinner.setBounds(528, 453, 36, 22);
 		apartmentNumberGroundSpinner.setVisible(false);
 		frame.getContentPane().add(apartmentNumberGroundSpinner);
 		
 		floorCountGroundSpinner = new JSpinner();
+		floorCountGroundSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		floorCountGroundSpinner.setBounds(528, 340, 36, 25);
 		frame.getContentPane().add(floorCountGroundSpinner);
 	}

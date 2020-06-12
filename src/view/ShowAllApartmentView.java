@@ -21,6 +21,8 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.SpinnerNumberModel;
 
 public class ShowAllApartmentView extends Observable {
 	
@@ -140,14 +142,17 @@ public class ShowAllApartmentView extends Observable {
 		frame.getContentPane().add(StartPrice);
 		
 		JSpinner roomsSpinner = new JSpinner();
+		roomsSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		roomsSpinner.setBounds(563, 166, 36, 22);
 		frame.getContentPane().add(roomsSpinner);
 		
 		JSpinner missingRoomatesSpinner = new JSpinner();
+		missingRoomatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		missingRoomatesSpinner.setBounds(563, 137, 36, 22);
 		frame.getContentPane().add(missingRoomatesSpinner);
 		
 		JSpinner numOfRommatesspinner = new JSpinner();
+		numOfRommatesspinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		numOfRommatesspinner.setBounds(563, 108, 36, 22);
 		frame.getContentPane().add(numOfRommatesspinner);
 		
@@ -243,8 +248,6 @@ public class ShowAllApartmentView extends Observable {
 			public void mouseClicked(MouseEvent arg0)
 			{
 				openShowUserApartmentView(arg0);
-				showUserApartmentView.showShowUserApartmentView(connectedUser,adminBool);
-				frame.setVisible(false);
 			}
 		});
 		
@@ -261,8 +264,8 @@ public class ShowAllApartmentView extends Observable {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				openSearchDetailsView(arg0);
-				searchDetailsView.showSearchDetailsView(connectedUser,adminBool);
-				frame.setVisible(false);
+				//searchDetailsView.showSearchDetailsView(connectedUser,adminBool);
+				//frame.setVisible(false);
 			}});
 		watchSearchResultButton.setBounds(10, 434, 227, 25);
 		frame.getContentPane().add(watchSearchResultButton);
@@ -292,6 +295,7 @@ public class ShowAllApartmentView extends Observable {
 		frame.getContentPane().add(comboBox);
 		
 		JComboBox propertyTypecomboBox = new JComboBox();
+		propertyTypecomboBox.setModel(new DefaultComboBoxModel(new String[] {"דירת קרקע", "דירה בבניין"}));
 		propertyTypecomboBox.setEditable(true);
 		propertyTypecomboBox.setBounds(508, 265, 116, 32);
 		frame.getContentPane().add(propertyTypecomboBox);
