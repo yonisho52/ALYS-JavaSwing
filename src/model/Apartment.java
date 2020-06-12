@@ -123,7 +123,7 @@ public abstract class Apartment implements Property {
 	}
 
 	@Override
-	public int setPropertyID() {
+	public int setPropertyID(int apartmentId) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

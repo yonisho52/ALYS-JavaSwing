@@ -29,7 +29,7 @@ public interface Property {
 
 	
 	//setters
-	public int setPropertyID();
+	public int setPropertyID(int apartmentId);
 	public String setUserId(String userName);
 	public int setSearchCount();
 	public String setCity(String city);

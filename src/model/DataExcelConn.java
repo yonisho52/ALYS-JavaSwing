@@ -189,9 +189,6 @@ public class DataExcelConn extends Observable{
     	row.createCell(6).setCellValue(tenant.adminToF);
 
 
-    	//FileInputStream input = new FileInputStream("./Test.xls");
-    	//cell.getRichStringCellValue().toString(); - printing value to screen
-
     	FileOutputStream output;
 		try {
 			output = new FileOutputStream("DataBase.xlsx");
@@ -423,7 +420,7 @@ public class DataExcelConn extends Observable{
 		notifyObservers(new UserApartments(jTable));
 	}
 
-	public void addNewApartment() {  // not finished 
+	public void addNewApartmentGround(Ground ground) {  // not finished 
 
 		String excelFilePath = "DataBase.xlsx";
     	FileInputStream inputStream;
@@ -439,19 +436,29 @@ public class DataExcelConn extends Observable{
 //    	Sheet sheet = workBook.getSheetAt(0);
     	int rowCount = apartments.getLastRowNum();
     	Row row = apartments.createRow(++rowCount);
+    	int n=0;
+    	row.createCell(n++).setCellValue(ground.getUserId());
+    	row.createCell(n++).setCellValue(ground.getPropertyID());
+    	row.createCell(n++).setCellValue(ground.getSearchCount());
+    	row.createCell(n++).setCellValue(ground.getCity());
+    	row.createCell(n++).setCellValue(ground.getAddress());
+    	row.createCell(n++).setCellValue(ground.getNumOfRoomMate());
+    	row.createCell(n++).setCellValue(ground.getRoomMateMiss());
+    	row.createCell(n++).setCellValue(ground.getRooms());
+    	row.createCell(n++).setCellValue(ground.getPrice());
+    	row.createCell(n++).setCellValue(ground.getDescription());
+    	row.createCell(n++).setCellValue(ground.getPropertyType());
+    	row.createCell(n++).setCellValue(ground.getElevator());
+    	row.createCell(n++).setCellValue(ground.getParking());
+    	row.createCell(n++).setCellValue(ground.getAirCon());
+    	row.createCell(n++).setCellValue(ground.getPatio());
+    	row.createCell(n++).setCellValue(ground.getMamad());
+    	row.createCell(n++).setCellValue(ground.getStorage());
+    	row.createCell(n++).setCellValue(ground.getAccesible());
+    	row.createCell(n++).setCellValue(ground.getFurniture());
+    	row.createCell(n++).setCellValue(ground.getPet());
+    	
 
-//    	row.createCell(0).setCellValue(tenant.userName);
-//    	row.createCell(1).setCellValue(tenant.password);
-//    	row.createCell(2).setCellValue(tenant.firstName);
-//    	row.createCell(3).setCellValue(tenant.lastName);
-//    	row.createCell(4).setCellValue(tenant.email);
-//    	row.createCell(5).setCellValue(tenant.phoneNumber);
-//    	row.createCell(6).setCellValue(tenant.userID);
-//    	row.createCell(7).setCellValue(tenant.adminToF);
-
-
-    	//FileInputStream input = new FileInputStream("./Test.xls");
-    	//cell.getRichStringCellValue().toString(); - printing value to screen
 
     	FileOutputStream output;
 		try {
@@ -466,16 +473,27 @@ public class DataExcelConn extends Observable{
 		System.out.println( " secssuce");
 	}
 
+	public int getTheLastApartmentId()
+	{
+		Row row;
+		Cell lastIdDB;
+		int lastRow = apartments.getLastRowNum();
+		int lastId;
+		row = apartments.getRow(lastRow);
+		lastIdDB = row.getCell(1); // id cell
+		lastId = Integer.parseInt(lastIdDB.toString());
+		lastId++;
+		return lastId;
+	}
+	
 	
 	public void searchApartment() {
 		
 	}
 	
 	
-	public void betweenPriceApartment(int start, int end) {
-		
-		
-	}
+	
+
 	
 	public String [] userDetailsForApartemnt(String userName)  /// 0 - name and last name, 2 - phone number
 	{
@@ -498,20 +516,11 @@ public class DataExcelConn extends Observable{
 		
 	}
 	
-	public int getTheLastApartmentId()
-	{
-		
-		Row row;
-		Cell idNum;
-		int lastRow = apartments.getLastRowNum();
-		row = apartments.getRow(lastRow);
-		idNum = row.getCell(0); // id cell
-		
-		
 
+	
+	public void betweenPriceApartment(int start, int end) {
 		
 		
-		return 0;
 	}
 	
 	

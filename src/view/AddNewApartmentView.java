@@ -297,7 +297,7 @@ public class AddNewApartmentView extends Observable {
 		apartmentNumberGroundSpinner.setVisible(false);
 		frame.getContentPane().add(apartmentNumberGroundSpinner);
 		
-		JSpinner floorCountGroundSpinner = new JSpinner();
+		floorCountGroundSpinner = new JSpinner();
 		floorCountGroundSpinner.setBounds(528, 340, 36, 25);
 		frame.getContentPane().add(floorCountGroundSpinner);
 	}
@@ -358,7 +358,7 @@ public class AddNewApartmentView extends Observable {
 				floorsBuildingSpinner.getValue().toString(), String.valueOf(gardenGroundCheckBox.isSelected()), apartmentNumberGroundSpinner.getValue().toString(), 
 				String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), String.valueOf(airCheckBox.isSelected()), 
 				String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()), String.valueOf(storageCheckBox.isSelected()), 
-				String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected())};
+				String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected()), connectedUser};
 		
 		setChanged();
 		notifyObservers(new AddBuilding(buildingApartment));
@@ -371,7 +371,7 @@ public class AddNewApartmentView extends Observable {
 					floorCountGroundSpinner.getValue().toString(),String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), 
 					String.valueOf(airCheckBox.isSelected()), String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()),
 					String.valueOf(storageCheckBox.isSelected()), String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), 
-					String.valueOf(petCheckBox.isSelected())};
+					String.valueOf(petCheckBox.isSelected()), connectedUser};
 			
 			setChanged();
 			notifyObservers(new AddGround(groundApartment));

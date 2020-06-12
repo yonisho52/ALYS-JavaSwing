@@ -106,7 +106,7 @@ public class DataController implements Observer{
 //				floorCountGroundSpinner.getValue().toString(),String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), 
 //				String.valueOf(airCheckBox.isSelected()), String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()),
 //				String.valueOf(storageCheckBox.isSelected()), String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), 
-//				String.valueOf(petCheckBox.isSelected())};
+//				String.valueOf(petCheckBox.isSelected()), connectedUser};
 		
 		
 		if(arg0 instanceof AddNewApartmentView)
@@ -116,6 +116,27 @@ public class DataController implements Observer{
 				//String[]arr = (String[])arg1; // unpack the arg
 				String[] arr = ((AddNewApartmentView.AddGround) arg1).ground;
 				Ground newGround = new Ground();
+				newGround.setPropertyID(dataExcelConn.getTheLastApartmentId());
+				newGround.setUserId(arr[17]);
+				newGround.setSearchCount();
+				newGround.setCity(arr[0]);
+				newGround.setAddress(arr[1]);
+				newGround.setNumOfRoomMate(Integer.parseInt(arr[2]));
+				newGround.setRoomMateMiss(Integer.parseInt(arr[3]));
+				newGround.setRooms(Integer.parseInt(arr[4]));
+				newGround.setPrice(Integer.parseInt(arr[5]));
+				newGround.setDescription(arr[6]);
+				newGround.setPropertyType();
+				newGround.setElevator(Boolean.parseBoolean(arr[8]));
+				newGround.setParking(Boolean.parseBoolean(arr[9]));
+				newGround.setAirCon(Boolean.parseBoolean(arr[10]));
+				newGround.setPatio(Boolean.parseBoolean(arr[11]));
+				newGround.setMamad(Boolean.parseBoolean(arr[12]));
+				newGround.setStorage(Boolean.parseBoolean(arr[13]));
+				newGround.setAccesible(Boolean.parseBoolean(arr[14]));
+				newGround.setFurniture(Boolean.parseBoolean(arr[15]));
+				newGround.setPet(Boolean.parseBoolean(arr[16]));
+				
 				
 				//dataExcelConn.addNewTenant(newTenant);
 				//userId++;
