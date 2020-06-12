@@ -65,6 +65,24 @@ public class RegisterView extends Observable {
 			}
 		});
 	}
+	
+	public class CheckExsistUser
+	{
+		public String userNameCheck;
+		public CheckExsistUser(String userCheck)
+		{
+			this.userNameCheck = userCheck;
+		}
+	}
+	
+	public class AddUser
+	{
+		public String [] userName;
+		public AddUser(String [] user)
+		{
+			this.userName = user;
+		}
+	}
 	//check push
 	/**
 	 * Create the application.
@@ -109,7 +127,7 @@ public class RegisterView extends Observable {
 			public void focusLost(FocusEvent e) {
 				
 				setChanged();
-				notifyObservers(userName.getText());
+				notifyObservers(new CheckExsistUser(userName.getText()));
 			}
 		});
 		userName.setBounds(192, 79, 116, 22);
@@ -131,10 +149,10 @@ public class RegisterView extends Observable {
 		validatePassword.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				if (!(password.getText().equals(validatePassword.getText()) ))
-				{
-					mismatchPassword.setVisible(true);
-				}
+//				if (!(password.getText().equals(validatePassword.getText()) ))
+//				{
+//					mismatchPassword.setVisible(true);
+//				}
 				checkIfEmptyPasswordValid();
 			}
 		});
@@ -151,12 +169,12 @@ public class RegisterView extends Observable {
 		regButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				String newTenant[] = {userName.getText().toString(),password.getText().toString(),
-						firstName.getText().toString(),lastName.getText().toString(), email.getText().toString(),
-						phoneNumber.getText().toString()};
-				
-				setChanged();
-				notifyObservers(newTenant);
+//				String newTenant[] = {userName.getText().toString(),password.getText().toString(),
+//						firstName.getText().toString(),lastName.getText().toString(), email.getText().toString(),
+//						phoneNumber.getText().toString()};
+//				
+//				setChanged();
+//				notifyObservers(newTenant);
 				
 				// after login show allApartmentView on the same user that register
 				openShowAllApartmentView(arg0);
@@ -327,40 +345,59 @@ public class RegisterView extends Observable {
 	
 		if(firstNamebool && lastNamebool && passwordbool && phonebool && userbool)
 		{
-		this.frame.setVisible(false); 
-		showAllApartmentView.openShowAllApartment(userName.getText(),false);	
+			String newTenant[] = {userName.getText().toString(),password.getText().toString(),
+			firstName.getText().toString(),lastName.getText().toString(), email.getText().toString(),
+			phoneNumber.getText().toString()};
+			setChanged();
+			notifyObservers(new AddUser(newTenant));
+			this.frame.setVisible(false); 
+			showAllApartmentView.openShowAllApartment(userName.getText(),false);	
+		}
+		else 
+		{
+			
 		}
 	}
 	
 	
-	public void userValid(boolean exist)
+	public void userValid(boolean exist)   /// exist = false - the user name are free
 	{
-		if ((exist) || userName.getText().toString().equals(""))
+		if ((exist) || (userName.getText().toString().equals("")))
 		{
 			this.userbool = false;
-			existUser.setVisible(true);
+			this.existUser.setVisible(true);
 		}
-		else
+		else 
+		{
 			this.userbool = true;
+			existUser.setVisible(false);
+		}
 	}
 	
 	public void checkIfEmptyPassword()
 	{
-		if(password.getText().toString().equals(""))	
-		{
-			
-			PasswordEnterLabel_1.setVisible(true);
-			this.phonebool = false;
-		}
+		if(password.getText().toString().equals("")) {PasswordEnterLabel_1.setVisible(true);}
+		else {PasswordEnterLabel_1.setVisible(false);}
 			
 	}
 	public void checkIfEmptyPasswordValid()
 	{
-		if(validatePassword.getText().toString().equals(""))	
+		if (!(password.getText().equals(validatePassword.getText()) ) || validatePassword.getText().toString().equals("") )
 		{
-			
 			mismatchPassword.setVisible(true);
+			this.passwordbool = false;
+
 		}
+		else 
+			{
+				mismatchPassword.setVisible(false);
+				this.passwordbool = true;
+			}
+//		if(validatePassword.getText().toString().equals(""))	
+//		{
+//			
+//			mismatchPassword.setVisible(true);
+//		}
 			
 	}
 	
@@ -370,6 +407,11 @@ public class RegisterView extends Observable {
 		{
 			firstnamelable.setVisible(true);
 			this.firstNamebool = false;
+		}
+		else
+		{
+			firstnamelable.setVisible(false);
+			this.firstNamebool = true;
 		}
 			
 	}
@@ -381,6 +423,11 @@ public class RegisterView extends Observable {
 			lastnamelable.setVisible(true);
 			this.lastNamebool = false;
 		}
+		else
+		{
+			lastnamelable.setVisible(false);
+			this.lastNamebool = true;
+		}
 			
 	}
 	public void checkIfEmptyphone()
@@ -389,6 +436,11 @@ public class RegisterView extends Observable {
 		{
 			phonelable.setVisible(true);
 			this.phonebool =false;
+		}
+		else
+		{
+			phonelable.setVisible(false);
+			this.phonebool =true;
 		}
 			
 	}

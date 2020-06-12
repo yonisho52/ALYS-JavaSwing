@@ -7,6 +7,7 @@ import javax.swing.JTable;
 
 import model.*;
 import view.*;
+import view.RegisterView.CheckExsistUser;
 
 public class DataController implements Observer{
 	
@@ -43,23 +44,22 @@ public class DataController implements Observer{
 		
 		if(arg0 instanceof RegisterView)
 		{
-			if(arg1 instanceof String[])
+			if(arg1 instanceof RegisterView.AddUser)
 			{
-				String[]arr = (String[])arg1; // unpack the arg
+				//String[]arr = (String[])arg1; // unpack the arg
+				String[] arr = ((RegisterView.AddUser) arg1).userName;
 				Tenant newTenant = new Tenant(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], userId, false);
 				dataExcelConn.addNewTenant(newTenant);
 				userId++;
 			}
-		}
-		
-		if(arg0 instanceof RegisterView)   //// for register validation
-		{
-			if(arg1 instanceof String)
+			if(arg1 instanceof RegisterView.CheckExsistUser)   //// for register validation
 			{
-				String userName = (String)arg1;
+				String userName = ((RegisterView.CheckExsistUser) arg1).userNameCheck;
+
 				dataExcelConn.checkExsistUser(userName);
 			}
 		}
+
 		
 		if(arg0 instanceof MainView) 
 		{

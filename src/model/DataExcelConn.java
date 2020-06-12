@@ -251,6 +251,7 @@ public class DataExcelConn extends Observable{
 		
 		Row row;
 		Cell userNameDB;
+		boolean exist = false;
 		int lastRow = users.getLastRowNum();
 		
 		for(int i=1;i<=lastRow;i++) {
@@ -258,12 +259,12 @@ public class DataExcelConn extends Observable{
 			userNameDB = row.getCell(0);
 			if(userName.equals(userNameDB.toString()))
 			{
-				setChanged();
-				notifyObservers(new ExistsUser(true));
+				exist = true;
+				break;
 			}
 		}
 		setChanged();
-		notifyObservers(new ExistsUser(false));
+		notifyObservers(new ExistsUser(exist));
 	}
 
 	public void checkValidPass(String userName, String pass) { /// if the userName's pass is valid return *true, if not return *false = wrong combination  --- for login
