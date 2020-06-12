@@ -18,10 +18,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 // show all apartments
 // show user apartments
 
-
-
-public class DataExcelConn extends Observable{
-	
+public class DataExcelConn extends Observable
+{
 	Sheet users,apartments;
 	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","admin"};
 	private static String[] apartmentsColumns = {"שם משתמש","id","כמות חיפושים","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
@@ -32,7 +30,7 @@ public class DataExcelConn extends Observable{
 	FileInputStream fileInputStream;
 	Cell cellCompar;
 	DataFormatter dataFormatter = new DataFormatter();
-	static DataExcelConn dataExcelConn = new DataExcelConn();
+	static DataExcelConn dataExcelConn = new DataExcelConn(); //for singleton DP
 	protected String connectedUser = null; //Save log which user connected
 	
 	public class CheckValidPassClass
@@ -49,7 +47,6 @@ public class DataExcelConn extends Observable{
 	
 	public static DataExcelConn getDataExcelConn() 
 	{
-
 		return dataExcelConn;
 	}
 
@@ -100,55 +97,61 @@ public class DataExcelConn extends Observable{
 		}
 	}
 	
-	
-	
 	private DataExcelConn() 
 	{	
+		if(file.exists()) 
+		{
+			try 
+			{
+				fileInputStream = new FileInputStream(file);
+				workBook = WorkbookFactory.create(fileInputStream);
+				users = workBook.getSheetAt(0);
+				apartments=workBook.getSheetAt(1);
+				usersRow = users.getLastRowNum();
+				apartmentsRow = apartments.getLastRowNum();
 	
-	if(file.exists()) {
-		try {
-			fileInputStream = new FileInputStream(file);
-			workBook = WorkbookFactory.create(fileInputStream);
-			users = workBook.getSheetAt(0);
-			apartments=workBook.getSheetAt(1);
-			usersRow = users.getLastRowNum();
-			apartmentsRow = apartments.getLastRowNum();
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
 		}
-	}else { 
-		workBook = new XSSFWorkbook();
-		CreationHelper createHelper = workBook.getCreationHelper();
-		users=workBook.createSheet("משתמשים");//creating new sheet
-		apartments=workBook.createSheet("נכסים");//creating new sheet
-		 // Create a Font for styling header cells
-	    Font headerFont = workBook.createFont();
-	    headerFont.setBold(true);
-	    headerFont.setFontHeightInPoints((short) 14);
-	    headerFont.setColor(IndexedColors.RED.getIndex());
-	
-	    // Create a CellStyle with the font
-	    CellStyle headerCellStyle = workBook.createCellStyle();
-	    headerCellStyle.setFont(headerFont);
-	    
-	    // Create a Row for each sheet
-	    Row headerRowCL = users.createRow(0);
-	    Row headerRowGH = apartments.createRow(0);
-	
-	    // Create cells in both Sheets
-	    for(int i = 0; i < usersColumns.length; i++) {
-	        Cell cell = headerRowCL.createCell(i);
-	        cell.setCellValue(usersColumns[i]);
-	        cell.setCellStyle(headerCellStyle);
-	    }
-	    for(int i = 0; i < apartmentsColumns.length; i++) {
-	        Cell cell = headerRowGH.createCell(i);
-	        cell.setCellValue(apartmentsColumns[i]);
-	        cell.setCellStyle(headerCellStyle);
-	    }
-	    
+		
+		else 
+		{ 
+			workBook = new XSSFWorkbook();
+			CreationHelper createHelper = workBook.getCreationHelper();
+			users=workBook.createSheet("משתמשים");//creating new sheet
+			apartments=workBook.createSheet("נכסים");//creating new sheet
+			 // Create a Font for styling header cells
+		    Font headerFont = workBook.createFont();
+		    headerFont.setBold(true);
+		    headerFont.setFontHeightInPoints((short) 14);
+		    headerFont.setColor(IndexedColors.RED.getIndex());
+		
+		    // Create a CellStyle with the font
+		    CellStyle headerCellStyle = workBook.createCellStyle();
+		    headerCellStyle.setFont(headerFont);
+		    
+		    // Create a Row for each sheet
+		    Row headerRowCL = users.createRow(0);
+		    Row headerRowGH = apartments.createRow(0);
+		
+		    // Create cells in both Sheets
+		    for(int i = 0; i < usersColumns.length; i++) 
+		    {
+		        Cell cell = headerRowCL.createCell(i);
+		        cell.setCellValue(usersColumns[i]);
+		        cell.setCellStyle(headerCellStyle);
+		    }
+		    
+		    for(int i = 0; i < apartmentsColumns.length; i++) 
+		    {
+		        Cell cell = headerRowGH.createCell(i);
+		        cell.setCellValue(apartmentsColumns[i]);
+		        cell.setCellStyle(headerCellStyle);
+		    }
+		    
 	 // Create Cell Style for formatting Date
 //	    dateCellStyle = workBook.createCellStyle();
 //	    dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
@@ -156,27 +159,25 @@ public class DataExcelConn extends Observable{
 //		for(int i = 0; i < gamesSheetColumns.length; i++) {
 //			apartments.autoSizeColumn(i);}
 //			
-	
-	}   
+		}
 }
 	
-	
-
-
 	public void addNewTenant(Tenant tenant) 
 	{
     	String excelFilePath = "DataBase.xlsx";
     	FileInputStream inputStream;
-		try {
+		try 
+		{
 			inputStream = new FileInputStream(new File(excelFilePath));
 	    	Workbook workBook = WorkbookFactory.create(inputStream);
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 
-//    	Sheet sheet = workBook.getSheetAt(0);
+    	//Sheet sheet = workBook.getSheetAt(0);
     	int rowCount = users.getLastRowNum();
     	Row row = users.createRow(++rowCount);
 
@@ -190,33 +191,37 @@ public class DataExcelConn extends Observable{
 
 
     	FileOutputStream output;
-		try {
+		try 
+		{
 			output = new FileOutputStream("DataBase.xlsx");
 	    	workBook.write(output);
 	    	output.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
-
-	//	System.out.println( " secssuce");
 	}
 	
 	public void closeFile()
-{
-	// Write the output to a file
-	try {
-		fileOutputStream= new FileOutputStream("DataBase.xlsx");
-		workBook.write(fileOutputStream);
-		fileOutputStream.close();
-		workBook.close();
-    }
-	catch(Exception e) {e.printStackTrace();  
-	}
-}
-	
-	public void getAllUsers() { // for 
+	{
+		// Write the output to a file
+		try 
+		{
+			fileOutputStream= new FileOutputStream("DataBase.xlsx");
+			workBook.write(fileOutputStream);
+			fileOutputStream.close();
+			workBook.close();
+	    }
 		
+		catch(Exception e) 
+		{
+			e.printStackTrace();  
+		}
+	}
+	
+	public void getAllUsers() 
+	{
 		Row row;
 		int lastRow = users.getLastRowNum();
 		Cell userName, password, firstName, lastName, email, phoneNumber, adminToF;
@@ -252,28 +257,30 @@ public class DataExcelConn extends Observable{
 	}
 	
 	
-	public void checkExsistUser(String userName) { /// if the userName exists return *true, if not exists return *false  --- for register
-		
+	public void checkExsistUser(String userName) /// if the userName exists return *true, if not exists return *false  --- for register
+	{ 
 		Row row;
 		Cell userNameDB;
 		boolean exist = false;
 		int lastRow = users.getLastRowNum();
 		
-		for(int i=1;i<=lastRow;i++) {
+		for(int i=1;i<=lastRow;i++) 
+		{
 			row=users.getRow(i);
 			userNameDB = row.getCell(0);
-			if(userName.equals(userNameDB.toString()))
+			if (userName.equals(userNameDB.toString()))
 			{
 				exist = true;
 				break;
 			}
 		}
+		
 		setChanged();
 		notifyObservers(new ExistsUser(exist));
 	}
 
-	public void checkValidPass(String userName, String pass) { /// if the userName's pass is valid return *true, if not return *false = wrong combination  --- for login
-		
+	public void checkValidPass(String userName, String pass) /// if the userName's pass is valid return *true, if not return *false = wrong combination  --- for login
+	{
 		Row row;
 		Cell userNameDB, passDB, adminDB;
 		int lastRow = users.getLastRowNum();
@@ -284,7 +291,7 @@ public class DataExcelConn extends Observable{
 			//System.out.println(userName + " " + userNameDB.toString());
 			//if(userName == userNameDB.toString())
 			if(userName.equals(userNameDB.toString()))
-				{
+			{
 				passDB = row.getCell(1);
 				adminDB = row.getCell(6);
 				//System.out.println(userName + " " + userNameDB.toString());
@@ -296,36 +303,37 @@ public class DataExcelConn extends Observable{
 					{
 						validFlag = true;
 						adminFlag = false;
-//						setChanged();
-//						notifyObservers(new CheckValidPassClass(true,false));
+						//setChanged();
+						//notifyObservers(new CheckValidPassClass(true,false));
 					}
 					else 
 					{
 						validFlag = true;
 						adminFlag = true;
-//						setChanged();
-//						notifyObservers(new CheckValidPassClass(true,true));
+						//setChanged();
+						//notifyObservers(new CheckValidPassClass(true,true));
 					}
 				} 
-//				else 
-//					{
-//					validFlag = false;
-//					adminFlag = false;
-//					setChanged();
-//					notifyObservers(new CheckValidPassClass(false,false));
-//					}
+				//else 
+					//{
+					//validFlag = false;
+					//adminFlag = false;
+					//setChanged();
+					//notifyObservers(new CheckValidPassClass(false,false));
+					//}
 				}
 		}
 		setChanged();
 		notifyObservers(new CheckValidPassClass(validFlag,adminFlag));
 	}
 	
-	public boolean checkIfAdmin(String userName) {  // if the user is admin return *true, if not return *false  --- for showAllApartmentView
-		
+	public boolean checkIfAdmin(String userName) // if the user is admin return *true, if not return *false  --- for showAllApartmentView
+	{  
 		Row row;
 		Cell userNameDB, adminDB;
 		
-		for(int i=1;i<=users.getLastRowNum();i++) {
+		for(int i=1;i<=users.getLastRowNum();i++) 
+		{
 			row=users.getRow(i);
 			userNameDB = row.getCell(0);
 			if(userName.equals(userNameDB.toString())) {
@@ -334,17 +342,16 @@ public class DataExcelConn extends Observable{
 				else return false;
 			}
 		}
+		
 		return false;
 	}
 	
-	
-	public void getAllApartments() {
-		
+	public void getAllApartments() 
+	{
 		// {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
 		
 		Row row;
 		int lastRow = apartments.getLastRowNum();
-
 
 		String [][] data = new String[lastRow][23]; // for table
 		String [] record = new String[23]; // lines
@@ -379,7 +386,6 @@ public class DataExcelConn extends Observable{
 			record[21] = dataFormatter.formatCellValue(row.getCell(20));
 			record[22] = dataFormatter.formatCellValue(row.getCell(21));
 		
-			
 			data[j++] = record.clone();
 		}
 
@@ -387,11 +393,10 @@ public class DataExcelConn extends Observable{
 		JTable jTable = new JTable(data, allApartmentsColumns);
 		setChanged();
 		notifyObservers(new ShowAllApartments(jTable));
-		
 	}
 
-	public void showUserApartments(String userName) {
-
+	public void showUserApartments(String userName) 
+	{
 		Row row;
 		int lastRow = apartments.getLastRowNum();
 		Cell userNameDB;
@@ -412,28 +417,31 @@ public class DataExcelConn extends Observable{
 					data[j++] = record.clone();
 			}
 		}
+		
 		//{"שם משתמש","id","כמות חיפושים","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
 		String[] UserapartmentsColumns = {"id","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
 		JTable jTable = new JTable(data, UserapartmentsColumns);
-//		jTable.setBounds(10, 159, 1030, 309);
+		//jTable.setBounds(10, 159, 1030, 309);
 		setChanged();
 		notifyObservers(new UserApartments(jTable));
 	}
 
-	public void addNewApartmentGround(Ground ground) {  // not finished 
-
+	public void addNewApartmentGround(Ground ground) // not finished 
+	{  
 		String excelFilePath = "DataBase.xlsx";
     	FileInputStream inputStream;
-		try {
+		try 
+		{
 			inputStream = new FileInputStream(new File(excelFilePath));
 	    	Workbook workBook = WorkbookFactory.create(inputStream);
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 
-//    	Sheet sheet = workBook.getSheetAt(0);
+    	//Sheet sheet = workBook.getSheetAt(0);
     	int rowCount = apartments.getLastRowNum();
     	Row row = apartments.createRow(++rowCount);
     	int n=0;
@@ -458,15 +466,15 @@ public class DataExcelConn extends Observable{
     	row.createCell(n++).setCellValue(ground.getFurniture());
     	row.createCell(n++).setCellValue(ground.getPet());
     	
-
-
     	FileOutputStream output;
-		try {
+		try 
+		{
 			output = new FileOutputStream("DataBase.xlsx");
 	    	workBook.write(output);
 	    	output.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 
@@ -486,18 +494,13 @@ public class DataExcelConn extends Observable{
 		return lastId;
 	}
 	
-	
-	public void searchApartment() {
+	public void searchApartment() 
+	{
 		
 	}
 	
-	
-	
-
-	
 	public String [] userDetailsForApartemnt(String userName)  /// 0 - name and last name, 2 - phone number
 	{
-		
 		Row row;
 		Cell userNameDB;
 		String [] userDetails = new String[2];
@@ -513,27 +516,10 @@ public class DataExcelConn extends Observable{
 			}
 		}
 		return userDetails;
-		
 	}
 	
-
-	
-	public void betweenPriceApartment(int start, int end) {
-		
+	public void betweenPriceApartment(int start, int end) 
+	{
 		
 	}
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-

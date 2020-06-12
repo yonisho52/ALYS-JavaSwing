@@ -1,28 +1,38 @@
 package model;
 
-public class Building extends Apartment{
-
+public class Building extends Apartment
+{
 	private int floor;
 	private boolean garden;
 	private int apartmentNumber;
 
-	
-	public int getFloor() {
+	public int getFloor() 
+	{
 		return floor;
 	}
-	public void setFloor(int floor) {
+	
+	public void setFloor(int floor) 
+	{
 		this.floor = floor;
 	}
-	public boolean isGarden() {
+	
+	public boolean isGarden() 
+	{
 		return garden;
 	}
-	public void setGarden(boolean garden) {
+	
+	public void setGarden(boolean garden) 
+	{
 		this.garden = garden;
 	}
-	public int getApartmentNumber() {
+	
+	public int getApartmentNumber() 
+	{
 		return apartmentNumber;
 	}
-	public void setApartmentNumber(int apartmentNumber) {
+	
+	public void setApartmentNumber(int apartmentNumber) 
+	{
 		this.apartmentNumber = apartmentNumber;
 	}
 }

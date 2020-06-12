@@ -2,9 +2,8 @@ package model;
 
 import java.util.Observable;
 
-
-public abstract class User extends Observable {
-
+public abstract class User extends Observable 
+{
 	protected String userName;
 	protected String password;
 	protected String firstName;
@@ -30,5 +29,4 @@ public abstract class User extends Observable {
     public void setuserName(String userName){this.userName=userName;}
     public void setpassword( String password) {this.password=password;}
     public void setAdminToF( boolean adminToF) {this.adminToF=adminToF;}
-
 }

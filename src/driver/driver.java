@@ -10,9 +10,8 @@ import controller.*;
 
 public class driver 
 {
-	
-	
-	public static void main (String[] args)  {
+	public static void main (String[] args)  
+	{
 		
 		DataExcelConn dataExcelConn = DataExcelConn.getDataExcelConn();
 		//DataExcelConn dataExcelConn = new DataExcelConn();
@@ -50,6 +49,5 @@ public class driver
 		dataExcelConn.addObserver(dataController);
 		registerView.addObserver(dataController);
 		showAllUsersView.addObserver(dataController);
-
 	}
 }

@@ -1,247 +1,244 @@
 package model;
 
-public abstract class Apartment implements Property {
-
+public abstract class Apartment implements Property 
+{
 	@Override
-	public int getPropertyID() {
-		// TODO Auto-generated method stub
+	public int getPropertyID() 
+	{
 		return 0;
 	}
 
 	@Override
-	public String getUserId() {
-		// TODO Auto-generated method stub
+	public String getUserId() 
+	{
 		return null;
 	}
 
 	@Override
-	public int getSearchCount() {
-		// TODO Auto-generated method stub
+	public int getSearchCount() 
+	{
 		return 0;
 	}
 
 	@Override
-	public String getCity() {
-		// TODO Auto-generated method stub
+	public String getCity() 
+	{
 		return null;
 	}
 
 	@Override
-	public String getAddress() {
-		// TODO Auto-generated method stub
+	public String getAddress() 
+	{
 		return null;
 	}
 
 	@Override
-	public int getNumOfRoomMate() {
-		// TODO Auto-generated method stub
+	public int getNumOfRoomMate() 
+	{
 		return 0;
 	}
 
 	@Override
-	public int getRoomMateMiss() {
-		// TODO Auto-generated method stub
+	public int getRoomMateMiss() 
+	{
 		return 0;
 	}
 
 	@Override
-	public int getRooms() {
-		// TODO Auto-generated method stub
+	public int getRooms() 
+	{
 		return 0;
 	}
 
 	@Override
-	public double getPrice() {
-		// TODO Auto-generated method stub
+	public double getPrice() 
+	{
 		return 0;
 	}
 
 	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
+	public String getDescription() 
+	{
 		return null;
 	}
 
 	@Override
-	public String getPropertyType() {
-		// TODO Auto-generated method stub
+	public String getPropertyType() 
+	{
 		return null;
 	}
 
 	@Override
-	public boolean getElevator() {
-		// TODO Auto-generated method stub
+	public boolean getElevator() 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean getParking() {
-		// TODO Auto-generated method stub
+	public boolean getParking() 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean getAirCon() {
-		// TODO Auto-generated method stub
+	public boolean getAirCon() 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean getPatio() {
-		// TODO Auto-generated method stub
+	public boolean getPatio() 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean getMamad() {
-		// TODO Auto-generated method stub
+	public boolean getMamad() 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean getStorage() {
-		// TODO Auto-generated method stub
+	public boolean getStorage() 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean getAccesible() {
-		// TODO Auto-generated method stub
+	public boolean getAccesible() 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean getFurniture() {
-		// TODO Auto-generated method stub
+	public boolean getFurniture() 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean getPet() {
-		// TODO Auto-generated method stub
+	public boolean getPet() 
+	{
 		return false;
 	}
 
 	@Override
-	public int setPropertyID(int apartmentId) {
-		// TODO Auto-generated method stub
+	public int setPropertyID(int apartmentId) 
+	{
 		return 0;
 	}
 
 	@Override
-	public String setUserId(String userName) {
-		// TODO Auto-generated method stub
+	public String setUserId(String userName) 
+	{
 		return null;
 	}
 
 	@Override
-	public int setSearchCount() {
-		// TODO Auto-generated method stub
+	public int setSearchCount() 
+	{
 		return 0;
 	}
 
 	@Override
-	public String setCity(String city) {
-		// TODO Auto-generated method stub
+	public String setCity(String city) 
+	{
 		return null;
 	}
 
 	@Override
-	public String setAddress(String address) {
-		// TODO Auto-generated method stub
+	public String setAddress(String address) 
+	{
 		return null;
 	}
 
 	@Override
-	public int setNumOfRoomMate(int NnumOfRoomMate) {
-		// TODO Auto-generated method stub
+	public int setNumOfRoomMate(int NnumOfRoomMate) 
+	{
 		return 0;
 	}
 
 	@Override
-	public int setRoomMateMiss(int roomMateMiss) {
-		// TODO Auto-generated method stub
+	public int setRoomMateMiss(int roomMateMiss) 
+	{
 		return 0;
 	}
 
 	@Override
-	public int setRooms(int numOfRooms) {
-		// TODO Auto-generated method stub
+	public int setRooms(int numOfRooms) 
+	{
 		return 0;
 	}
 
 	@Override
-	public double setPrice(double price) {
-		// TODO Auto-generated method stub
+	public double setPrice(double price) 
+	{
 		return 0;
 	}
 
 	@Override
-	public String setDescription(String description) {
-		// TODO Auto-generated method stub
+	public String setDescription(String description) 
+	{
 		return null;
 	}
 
 	@Override
-	public String setPropertyType() {
-		// TODO Auto-generated method stub
+	public String setPropertyType() 
+	{
 		return null;
 	}
 
 	@Override
-	public boolean setElevator(boolean elevator) {
-		// TODO Auto-generated method stub
+	public boolean setElevator(boolean elevator) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean setParking(boolean parking) {
-		// TODO Auto-generated method stub
+	public boolean setParking(boolean parking) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean setAirCon(boolean airCon) {
-		// TODO Auto-generated method stub
+	public boolean setAirCon(boolean airCon) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean setPatio(boolean patio) {
-		// TODO Auto-generated method stub
+	public boolean setPatio(boolean patio) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean setMamad(boolean mamad) {
-		// TODO Auto-generated method stub
+	public boolean setMamad(boolean mamad) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean setStorage(boolean storage) {
-		// TODO Auto-generated method stub
+	public boolean setStorage(boolean storage) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean setAccesible(boolean accesible) {
-		// TODO Auto-generated method stub
+	public boolean setAccesible(boolean accesible) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean setFurniture(boolean furniture) {
-		// TODO Auto-generated method stub
+	public boolean setFurniture(boolean furniture) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean setPet(boolean pet) {
-		// TODO Auto-generated method stub
+	public boolean setPet(boolean pet) 
+	{
 		return false;
-	}
-
-
-	
+	}	
 }

@@ -1,9 +1,7 @@
 package model;
 
-public interface Property {
-	
-
-	
+public interface Property 
+{
 	//getters
 	public int getPropertyID();
 	public String getUserId();
@@ -26,8 +24,6 @@ public interface Property {
 	public boolean getFurniture();
 	public boolean getPet();
 	
-
-	
 	//setters
 	public int setPropertyID(int apartmentId);
 	public String setUserId(String userName);
@@ -49,10 +45,6 @@ public interface Property {
 	public boolean setAccesible(boolean accesible);
 	public boolean setFurniture(boolean furniture);
 	public boolean setPet(boolean pet);
-	
-	
-	
-
 }
 //String [] buildingApartment = {city,Address,numOfRommates,missingRoomates, rooms, price, description,propertyType, floorsBuilding,gardenGround, apartmentNumberGround, floorCountGround,
 //elevator, parking, airCon, patio, mamad, storage, accesible, furniture, pet};

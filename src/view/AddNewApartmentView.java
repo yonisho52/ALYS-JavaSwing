@@ -25,8 +25,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.DefaultComboBoxModel;
 
-public class AddNewApartmentView extends Observable {
-	
+public class AddNewApartmentView extends Observable 
+{
 	ShowAllApartmentView showAllApartmentView;
 
 	private JFrame frame;
@@ -58,14 +58,16 @@ public class AddNewApartmentView extends Observable {
 	protected String connectedUser;
 	protected boolean adminBool;
 	
-	protected boolean apartmentType=false;  // ground = false, building = true
+	protected boolean apartmentType = false;  // ground = false, building = true
 
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
 			public void run() {
 				try {
 					AddNewApartmentView window = new AddNewApartmentView();
@@ -307,7 +309,7 @@ public class AddNewApartmentView extends Observable {
 	
 	public void groundOrBuilding(String type)
 	{
-		if(type.toString().equals("דירה בבנין"))
+		if(type.toString().equals("דירה בבניין"))
 		{
 				this.apartmentType = true;
 				floorCountGroundSpinner.setVisible(false);
