@@ -85,6 +85,15 @@ public class DataController implements Observer{
 			}
 		}
 		
+		if(arg0 instanceof ShowUserApartmentView) 
+		{
+			if(arg1 instanceof String)
+			{
+				String user = (String)arg1;
+				dataExcelConn.showUserApartments(user);
+			}
+		}
+		
 
 		
 		///// data to view
@@ -131,8 +140,7 @@ public class DataController implements Observer{
 			if(arg1 instanceof DataExcelConn.UserApartments)
 			{
 				JTable jTable = ((DataExcelConn.UserApartments) arg1).userApartmentTable;
-
-
+				showUserApartmentView.crateAllUserApartments(jTable);	
 			}
 		}
 		

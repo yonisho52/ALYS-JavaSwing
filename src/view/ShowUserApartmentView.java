@@ -6,13 +6,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+
+import view.ShowAllUsersView.GetAllUsers;
+
 import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class ShowUserApartmentView extends Observable {
 
@@ -20,10 +26,11 @@ public class ShowUserApartmentView extends Observable {
 	ShowAllApartmentView showAllApartmentView;
 	
 	private JFrame frame;
-	private JTable apartmentTable;
+	private JPanel panel;
 	
 	protected String connectedUser;
 	protected boolean adminBool;
+	
 
 	/**
 	 * Launch the application.
@@ -65,7 +72,7 @@ public class ShowUserApartmentView extends Observable {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 660, 475);
+		frame.setBounds(100, 100, 1066, 586);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -83,7 +90,7 @@ public class ShowUserApartmentView extends Observable {
 				frame.setVisible(false);
 			}
 		});
-		backButton.setBounds(269, 378, 97, 25);
+		backButton.setBounds(40, 495, 97, 25);
 		frame.getContentPane().add(backButton);
 		
 		JButton editApartmentButton = new JButton("\u05E2\u05E8\u05D5\u05DA \u05D3\u05D9\u05E8\u05D4 \u05DE\u05E1\u05D5\u05DE\u05E0\u05EA");
@@ -96,10 +103,9 @@ public class ShowUserApartmentView extends Observable {
 		deleteButton.setBounds(28, 100, 194, 25);
 		frame.getContentPane().add(deleteButton);
 		
-		apartmentTable = new JTable();
-		apartmentTable.setBackground(Color.PINK);
-		apartmentTable.setBounds(15, 140, 582, 231);
-		frame.getContentPane().add(apartmentTable);
+		panel = new JPanel();
+		panel.setBounds(10, 159, 1030, 309);
+		frame.getContentPane().add(panel);
 	}
 	
 	public void showShowUserApartmentView(String userName, boolean admin)
@@ -107,6 +113,26 @@ public class ShowUserApartmentView extends Observable {
 		this.adminBool = admin;
 		this.connectedUser = userName;
 		frame.setVisible(true);
+		setChanged();
+		notifyObservers(userName);
 	}
+	
+	
+	
+	public void crateAllUserApartments(JTable usersTable) {
+		Dimension listSize = new Dimension(500, 500);
+		usersTable.setBounds(10, 159, 1030, 309);
+		JScrollPane scrollPane_1 = new JScrollPane(usersTable);
+		scrollPane_1.setBounds(10, 159, 1030, 309);
+		panel.add(scrollPane_1);
+		this.frame.setVisible(true);
+	}
+	
+	//inner class for the controller
+//	public class GetAllUserApartment {
+//		// controller notify
+//		
+//	}
+	
 	
 }

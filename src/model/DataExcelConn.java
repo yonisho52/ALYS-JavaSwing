@@ -24,7 +24,7 @@ public class DataExcelConn extends Observable{
 	
 	Sheet users,apartments;
 	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID","admin"};
-	private static String[] apartmentsColumns = {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","סוג הנכס","תיאור","מעלית","מעלית","מעלית","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+	private static String[] apartmentsColumns = {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
 	FileOutputStream fileOutputStream;
 	int usersRow, apartmentsRow;
 	public Workbook workBook;
@@ -213,7 +213,7 @@ public class DataExcelConn extends Observable{
 		Row row;
 		int lastRow = users.getLastRowNum();
 		Cell userName, password, firstName, lastName, email, phoneNumber, userID, adminToF;
-		String [][] data = new String[users.getLastRowNum()][8]; // for table
+		String [][] data = new String[lastRow][8]; // for table
 		String [] record = new String[8]; // lines
 		int j = 0;
 		
@@ -330,9 +330,12 @@ public class DataExcelConn extends Observable{
 	
 	public void getAllApartments() {
 		
+		// {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+		
 		Row row;
 		int lastRow = apartments.getLastRowNum();
-		Cell userName, city, street, totalRommate, missRommate, roomNum, price, propertyKind, elevator, parking, airCon, balcon, dimension, storage, accessDis, furnish, pet;
+		Cell userName, city, street, totalRommate, missRommate, roomNum, price, description, propertyKind, floorNumbers, floor, 
+		garden, apartmentNumber, elevator, parking, airCon, balcon, dimension, storage, accessDis, furnish, pet;
 		String [][] data = new String[lastRow][17]; // for table
 		String [] record = new String[17]; // lines
 		int j = 0;
@@ -340,7 +343,7 @@ public class DataExcelConn extends Observable{
 		for(int i=1; i<=lastRow; i++) 
 		{
 			row = apartments.getRow(i);
-			userName = row.getCell(0);
+			//userName = row.getCell(0);
 			city = row.getCell(1);
 			street = row.getCell(2);
 			totalRommate = row.getCell(3);
@@ -349,17 +352,21 @@ public class DataExcelConn extends Observable{
 			price = row.getCell(6);
 			propertyKind = row.getCell(7);
 			elevator = row.getCell(8);
-			parking = row.getCell(9);
-			airCon = row.getCell(10);
-			balcon = row.getCell(11);
-			dimension = row.getCell(12);
-			storage = row.getCell(13);
-			accessDis = row.getCell(14);
-			furnish = row.getCell(15);
-			pet = row.getCell(16);
+			elevator = row.getCell(9);
+			elevator = row.getCell(10);
+			elevator = row.getCell(11);
+			elevator = row.getCell(12);
+			parking = row.getCell(13);
+			airCon = row.getCell(14);
+			balcon = row.getCell(15);
+			dimension = row.getCell(16);
+			storage = row.getCell(17);
+			accessDis = row.getCell(18);
+			furnish = row.getCell(19);
+			pet = row.getCell(20);
 
 
-			record[0] = dataFormatter.formatCellValue(userName);
+		//	record[0] = dataFormatter.formatCellValue(userName);
 			record[1] = dataFormatter.formatCellValue(city);
 			record[2] = dataFormatter.formatCellValue(street);
 			record[3] = dataFormatter.formatCellValue(totalRommate);
@@ -380,7 +387,7 @@ public class DataExcelConn extends Observable{
 
 			data[j++] = record.clone();
 		}
-		
+	//	String[] apartmentsColumns = {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
 		JTable jTable = new JTable(data, apartmentsColumns);
 		setChanged();
 		notifyObservers(new ApartmentsTable(jTable));
@@ -389,12 +396,14 @@ public class DataExcelConn extends Observable{
 
 	public void showUserApartments(String userName) {
 
-		
+		// {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+	
+
 		Row row;
 		int lastRow = apartments.getLastRowNum();
 		Cell userNameDB;
-		String [][] data = new String[lastRow][17]; // for table
-		String [] record = new String[17]; // lines
+		String [][] data = new String[lastRow][21]; // for table
+		String [] record = new String[21]; // lines
 		int j = 0;
 		
 		for(int i=1; i<=lastRow; i++)
@@ -402,31 +411,37 @@ public class DataExcelConn extends Observable{
 			row = apartments.getRow(i);
 			userNameDB = row.getCell(0);
 			if(userName.equals(userNameDB.toString())) 
-			{
-					record[0] = (row.getCell(0)).toString();
-					record[1] = (row.getCell(1)).toString();
-					record[2] = (row.getCell(2)).toString();
-					record[3] = (row.getCell(3)).toString();
-					record[4] = (row.getCell(4)).toString();
-					record[5] = (row.getCell(5)).toString();
-					record[6] = (row.getCell(6)).toString();
-					record[7] = (row.getCell(7)).toString();
-					record[8] = (row.getCell(8)).toString();
-					record[9] = (row.getCell(9)).toString();
-					record[10] = (row.getCell(10)).toString();
-					record[11] = (row.getCell(11)).toString();
-					record[12] = (row.getCell(12)).toString();
-					record[13] = (row.getCell(13)).toString();
-					record[14] = (row.getCell(14)).toString();
-					record[15] = (row.getCell(15)).toString();
-					record[16] = (row.getCell(16)).toString();
-					record[17] = (row.getCell(17)).toString();
+			{		
+				record[0] = dataFormatter.formatCellValue(row.getCell(1));
+				record[1] = dataFormatter.formatCellValue(row.getCell(2));
+				record[2] = dataFormatter.formatCellValue(row.getCell(3));
+				record[3] = dataFormatter.formatCellValue(row.getCell(4));
+				record[4] = dataFormatter.formatCellValue(row.getCell(5));
+				record[5] = dataFormatter.formatCellValue(row.getCell(6));
+				record[6] = dataFormatter.formatCellValue(row.getCell(7));
+				record[7] = dataFormatter.formatCellValue(row.getCell(8));
+				record[8] = dataFormatter.formatCellValue(row.getCell(9));
+				record[9] = dataFormatter.formatCellValue(row.getCell(10));
+				record[10] = dataFormatter.formatCellValue(row.getCell(11));
+				record[11] = dataFormatter.formatCellValue(row.getCell(12));
+				record[12] = dataFormatter.formatCellValue(row.getCell(13));
+				record[13] = dataFormatter.formatCellValue(row.getCell(14));
+				record[14] = dataFormatter.formatCellValue(row.getCell(15));
+				record[15] = dataFormatter.formatCellValue(row.getCell(16));
+				record[16] = dataFormatter.formatCellValue(row.getCell(17));
+				record[17] = dataFormatter.formatCellValue(row.getCell(18));
+				record[18] = dataFormatter.formatCellValue(row.getCell(19));
+				record[19] = dataFormatter.formatCellValue(row.getCell(20));
+				record[20] = dataFormatter.formatCellValue(row.getCell(21));
+
 					
 					data[j++] = record.clone();
 			}
 		}
-		
-		JTable jTable = new JTable(data, apartmentsColumns);
+		String[] UserapartmentsColumns = {"עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+
+		JTable jTable = new JTable(data, UserapartmentsColumns);
+//		jTable.setBounds(10, 159, 1030, 309);
 		setChanged();
 		notifyObservers(new UserApartments(jTable));
 	}
