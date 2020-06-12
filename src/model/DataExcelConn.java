@@ -23,8 +23,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class DataExcelConn extends Observable{
 	
 	Sheet users,apartments;
-	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","ID","admin"};
-	private static String[] apartmentsColumns = {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","admin"};
+	private static String[] apartmentsColumns = {"שם משתמש","id","כמות חיפושים","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
 	FileOutputStream fileOutputStream;
 	int usersRow, apartmentsRow;
 	public Workbook workBook;
@@ -186,8 +186,7 @@ public class DataExcelConn extends Observable{
     	row.createCell(3).setCellValue(tenant.lastName);
     	row.createCell(4).setCellValue(tenant.email);
     	row.createCell(5).setCellValue(tenant.phoneNumber);
-    	row.createCell(6).setCellValue(tenant.userID);
-    	row.createCell(7).setCellValue(tenant.adminToF);
+    	row.createCell(6).setCellValue(tenant.adminToF);
 
 
     	//FileInputStream input = new FileInputStream("./Test.xls");
@@ -223,7 +222,7 @@ public class DataExcelConn extends Observable{
 		
 		Row row;
 		int lastRow = users.getLastRowNum();
-		Cell userName, password, firstName, lastName, email, phoneNumber, userID, adminToF;
+		Cell userName, password, firstName, lastName, email, phoneNumber, adminToF;
 		String [][] data = new String[lastRow][8]; // for table
 		String [] record = new String[8]; // lines
 		int j = 0;
@@ -237,8 +236,7 @@ public class DataExcelConn extends Observable{
 			lastName = row.getCell(3);
 			email = row.getCell(4);
 			phoneNumber = row.getCell(5);
-			userID = row.getCell(6);
-			adminToF = row.getCell(7);
+			adminToF = row.getCell(6);
 
 			record[0] = dataFormatter.formatCellValue(userName);
 			record[1] = dataFormatter.formatCellValue(password);
@@ -246,8 +244,7 @@ public class DataExcelConn extends Observable{
 			record[3] = dataFormatter.formatCellValue(lastName);
 			record[4] = dataFormatter.formatCellValue(email);
 			record[5] = dataFormatter.formatCellValue(phoneNumber);
-			record[6] = dataFormatter.formatCellValue(userID);
-			record[7] = dataFormatter.formatCellValue(adminToF);
+			record[6] = dataFormatter.formatCellValue(adminToF);
 
 			data[j++] = record.clone();
 		}
@@ -283,7 +280,7 @@ public class DataExcelConn extends Observable{
 		Row row;
 		Cell userNameDB, passDB, adminDB;
 		int lastRow = users.getLastRowNum();
-		
+		boolean validFlag = false, adminFlag = false;
 		for(int i=1;i<=lastRow;i++) {
 			row=users.getRow(i);
 			userNameDB = row.getCell(0);
@@ -292,7 +289,7 @@ public class DataExcelConn extends Observable{
 			if(userName.equals(userNameDB.toString()))
 				{
 				passDB = row.getCell(1);
-				adminDB = row.getCell(7);
+				adminDB = row.getCell(6);
 				//System.out.println(userName + " " + userNameDB.toString());
 				//if(pass == passDB.toString())
 				if(pass.equals(passDB.toString())) 
@@ -300,25 +297,30 @@ public class DataExcelConn extends Observable{
 					connectedUser = new String(userName); //Save the connected users name
 					if(adminDB.toString()=="FALSE") 
 					{
-						setChanged();
-						notifyObservers(new CheckValidPassClass(true,false));
+						validFlag = true;
+						adminFlag = false;
+//						setChanged();
+//						notifyObservers(new CheckValidPassClass(true,false));
 					}
 					else 
 					{
-						setChanged();
-						notifyObservers(new CheckValidPassClass(true,true));
+						validFlag = true;
+						adminFlag = true;
+//						setChanged();
+//						notifyObservers(new CheckValidPassClass(true,true));
 					}
 				} 
-				else 
-					{
-					break;
+//				else 
+//					{
+//					validFlag = false;
+//					adminFlag = false;
 //					setChanged();
 //					notifyObservers(new CheckValidPassClass(false,false));
-					}
+//					}
 				}
 		}
 		setChanged();
-		notifyObservers(new CheckValidPassClass(false,false));
+		notifyObservers(new CheckValidPassClass(validFlag,adminFlag));
 	}
 	
 	public boolean checkIfAdmin(String userName) {  // if the user is admin return *true, if not return *false  --- for showAllApartmentView
@@ -330,7 +332,7 @@ public class DataExcelConn extends Observable{
 			row=users.getRow(i);
 			userNameDB = row.getCell(0);
 			if(userName.equals(userNameDB.toString())) {
-				adminDB = row.getCell(7);
+				adminDB = row.getCell(6);
 				if(adminDB.toString().equals("TRUE")) return true; 
 				else return false;
 			}
@@ -393,50 +395,28 @@ public class DataExcelConn extends Observable{
 
 	public void showUserApartments(String userName) {
 
-		// {"שם משתמש","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
-	
-
 		Row row;
 		int lastRow = apartments.getLastRowNum();
 		Cell userNameDB;
-		String [][] data = new String[lastRow][21]; // for table
-		String [] record = new String[21]; // lines
-		int j = 0;
+		String [][] data = new String[lastRow][22]; // for table
+		String [] record = new String[22]; // lines
+		int j = 0,n,k;
 		
 		for(int i=1; i<=lastRow; i++)
 		{
 			row = apartments.getRow(i);
 			userNameDB = row.getCell(0);
-			if(userName.equals(userNameDB.toString())) 
+			if(userName.toString().equals(userNameDB.toString())) 
 			{		
-				record[0] = dataFormatter.formatCellValue(row.getCell(1));
-				record[1] = dataFormatter.formatCellValue(row.getCell(2));
-				record[2] = dataFormatter.formatCellValue(row.getCell(3));
-				record[3] = dataFormatter.formatCellValue(row.getCell(4));
-				record[4] = dataFormatter.formatCellValue(row.getCell(5));
-				record[5] = dataFormatter.formatCellValue(row.getCell(6));
-				record[6] = dataFormatter.formatCellValue(row.getCell(7));
-				record[7] = dataFormatter.formatCellValue(row.getCell(8));
-				record[8] = dataFormatter.formatCellValue(row.getCell(9));
-				record[9] = dataFormatter.formatCellValue(row.getCell(10));
-				record[10] = dataFormatter.formatCellValue(row.getCell(11));
-				record[11] = dataFormatter.formatCellValue(row.getCell(12));
-				record[12] = dataFormatter.formatCellValue(row.getCell(13));
-				record[13] = dataFormatter.formatCellValue(row.getCell(14));
-				record[14] = dataFormatter.formatCellValue(row.getCell(15));
-				record[15] = dataFormatter.formatCellValue(row.getCell(16));
-				record[16] = dataFormatter.formatCellValue(row.getCell(17));
-				record[17] = dataFormatter.formatCellValue(row.getCell(18));
-				record[18] = dataFormatter.formatCellValue(row.getCell(19));
-				record[19] = dataFormatter.formatCellValue(row.getCell(20));
-				record[20] = dataFormatter.formatCellValue(row.getCell(21));
-
-					
+				for(n=3,k=0;n<=23;n++,k++)	
+				{
+					record[k] = dataFormatter.formatCellValue(row.getCell(n));
+				}
 					data[j++] = record.clone();
 			}
 		}
-		String[] UserapartmentsColumns = {"עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
-
+		//{"שם משתמש","id","כמות חיפושים","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+		String[] UserapartmentsColumns = {"id","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
 		JTable jTable = new JTable(data, UserapartmentsColumns);
 //		jTable.setBounds(10, 159, 1030, 309);
 		setChanged();
@@ -518,7 +498,21 @@ public class DataExcelConn extends Observable{
 		
 	}
 	
-	
+	public int getTheLastApartmentId()
+	{
+		
+		Row row;
+		Cell idNum;
+		int lastRow = apartments.getLastRowNum();
+		row = apartments.getRow(lastRow);
+		idNum = row.getCell(0); // id cell
+		
+		
+
+		
+		
+		return 0;
+	}
 	
 	
 }

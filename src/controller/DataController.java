@@ -11,7 +11,6 @@ import view.RegisterView.CheckExsistUser;
 
 public class DataController implements Observer{
 	
-	static int userId=1;
 	
 	public RegisterView registerView;
 	public DataExcelConn dataExcelConn;
@@ -46,12 +45,11 @@ public class DataController implements Observer{
 		{
 			if(arg1 instanceof RegisterView.AddUser)
 			{
-				//String[]arr = (String[])arg1; // unpack the arg
 				String[] arr = ((RegisterView.AddUser) arg1).userName;
-				Tenant newTenant = new Tenant(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], userId, false);
+				Tenant newTenant = new Tenant(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], false);
 				dataExcelConn.addNewTenant(newTenant);
-				userId++;
 			}
+			
 			if(arg1 instanceof RegisterView.CheckExsistUser)   //// for register validation
 			{
 				String userName = ((RegisterView.CheckExsistUser) arg1).userNameCheck;
@@ -103,6 +101,26 @@ public class DataController implements Observer{
 			}
 		}
 		
+//		String [] groundApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
+//				missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
+//				floorCountGroundSpinner.getValue().toString(),String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), 
+//				String.valueOf(airCheckBox.isSelected()), String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()),
+//				String.valueOf(storageCheckBox.isSelected()), String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), 
+//				String.valueOf(petCheckBox.isSelected())};
+		
+		
+		if(arg0 instanceof AddNewApartmentView)
+		{
+			if(arg1 instanceof AddNewApartmentView.AddGround)
+			{
+				//String[]arr = (String[])arg1; // unpack the arg
+				String[] arr = ((AddNewApartmentView.AddGround) arg1).ground;
+				Ground newGround = new Ground();
+				
+				//dataExcelConn.addNewTenant(newTenant);
+				//userId++;
+			}
+		}
 
 		
 		///// data to view

@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import view.RegisterView.AddUser;
+
 import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -17,20 +20,51 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AddNewApartmentView extends Observable {
 	
 	ShowAllApartmentView showAllApartmentView;
 
 	private JFrame frame;
-	private JTextField City;
-	private JTextField apartmentType;
+	private JTextField cityTextFile;
+	private JTextField streetTextFile;
 	private JTextField priceTextField;
+	private JComboBox propertyTypeComboBox;
+	private JLabel floorCountLabel;
+	private JLabel floorNumLabel;
+	private JSpinner floorsBuildingSpinner;
+	private JCheckBox gardenGroundCheckBox;
+	private JLabel apartmentNumberLabel;
+	private JSpinner apartmentNumberGroundSpinner;
+	private JSpinner numOfRommatesSpinner;
+	private JSpinner missingRoomatesSpinner;
+	private JCheckBox elevatorCheckBox;
+	private JCheckBox parkingCheckBox;
+	private JCheckBox airCheckBox;
+	private JCheckBox patioCheckBox;
+	private JCheckBox mamadCheckBox;
+	private JCheckBox storageCheckBox;	
+	private JCheckBox accesibleCheckBox;	
+	private JCheckBox furnitureCheckBox;
+	private JCheckBox petCheckBox;
+	private JTextArea descriptionTextArea;
+	private JSpinner roomsSpinner;
+	private JSpinner floorCountGroundSpinner;
 	
 	protected String connectedUser;
 	protected boolean adminBool;
-	private JTextField floorNumGroundtextField;
+	
+	protected boolean apartmentType=false;  // ground = false, building = true
 
+	
+	
+
+	
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -88,6 +122,12 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().setLayout(null);
 		
 		JButton addButton = new JButton("\u05D4\u05D5\u05E1\u05E4\u05D4");
+		addButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addThisApartment();	
+			}
+		});
 		addButton.setBackground(Color.PINK);
 		addButton.setBounds(175, 418, 97, 25);
 		frame.getContentPane().add(addButton);
@@ -116,21 +156,21 @@ public class AddNewApartmentView extends Observable {
 		addressLabel.setBounds(485, 119, 90, 16);
 		frame.getContentPane().add(addressLabel);
 		
-		City = new JTextField();
-		City.setBounds(348, 82, 116, 22);
-		frame.getContentPane().add(City);
-		City.setColumns(10);
+		cityTextFile = new JTextField();
+		cityTextFile.setBounds(348, 82, 116, 22);
+		frame.getContentPane().add(cityTextFile);
+		cityTextFile.setColumns(10);
 		
-		apartmentType = new JTextField();
-		apartmentType.setBounds(348, 116, 116, 22);
-		frame.getContentPane().add(apartmentType);
-		apartmentType.setColumns(10);
+		streetTextFile = new JTextField();
+		streetTextFile.setBounds(348, 116, 116, 22);
+		frame.getContentPane().add(streetTextFile);
+		streetTextFile.setColumns(10);
 		
 		JLabel numOfRoomatesLabel = new JLabel("\u05E1\u05D4\"\u05DB \u05E9\u05D5\u05EA\u05E4\u05D9\u05DD");
 		numOfRoomatesLabel.setBounds(485, 158, 116, 16);
 		frame.getContentPane().add(numOfRoomatesLabel);
 		
-		JSpinner numOfRommatesSpinner = new JSpinner();
+		numOfRommatesSpinner = new JSpinner();
 		numOfRommatesSpinner.setBounds(428, 155, 36, 22);
 		frame.getContentPane().add(numOfRommatesSpinner);
 		
@@ -138,7 +178,7 @@ public class AddNewApartmentView extends Observable {
 		missingRoomatesLabel.setBounds(485, 187, 116, 16);
 		frame.getContentPane().add(missingRoomatesLabel);
 		
-		JSpinner missingRoomatesSpinner = new JSpinner();
+		missingRoomatesSpinner = new JSpinner();
 		missingRoomatesSpinner.setBounds(428, 184, 36, 22);
 		frame.getContentPane().add(missingRoomatesSpinner);
 		
@@ -146,7 +186,7 @@ public class AddNewApartmentView extends Observable {
 		roomsLabel.setBounds(485, 216, 56, 16);
 		frame.getContentPane().add(roomsLabel);
 		
-		JSpinner roomsSpinner = new JSpinner();
+		roomsSpinner = new JSpinner();
 		roomsSpinner.setBounds(428, 213, 36, 22);
 		frame.getContentPane().add(roomsSpinner);
 		
@@ -159,94 +199,211 @@ public class AddNewApartmentView extends Observable {
 		frame.getContentPane().add(priceTextField);
 		priceTextField.setColumns(10);
 		
-		JCheckBox elevatorCheckBox = new JCheckBox("\u05DE\u05E2\u05DC\u05D9\u05EA");
+		elevatorCheckBox = new JCheckBox("\u05DE\u05E2\u05DC\u05D9\u05EA");
 		elevatorCheckBox.setBounds(165, 81, 113, 25);
 		frame.getContentPane().add(elevatorCheckBox);
 		
-		JCheckBox parkingCheckBox = new JCheckBox("\u05D7\u05E0\u05D9\u05D4");
+		parkingCheckBox = new JCheckBox("\u05D7\u05E0\u05D9\u05D4");
 		parkingCheckBox.setBounds(165, 115, 113, 25);
 		frame.getContentPane().add(parkingCheckBox);
 		
-		JCheckBox airCheckBox = new JCheckBox("\u05DE\u05D9\u05D6\u05D5\u05D2");
+		airCheckBox = new JCheckBox("\u05DE\u05D9\u05D6\u05D5\u05D2");
 		airCheckBox.setBounds(165, 154, 113, 25);
 		frame.getContentPane().add(airCheckBox);
 		
-		JCheckBox patioCheckBox = new JCheckBox("\u05DE\u05E8\u05E4\u05E1\u05EA");
+		patioCheckBox = new JCheckBox("\u05DE\u05E8\u05E4\u05E1\u05EA");
 		patioCheckBox.setBounds(165, 187, 113, 25);
 		frame.getContentPane().add(patioCheckBox);
 		
-		JCheckBox mamadCheckBox = new JCheckBox("\u05DE\u05DE\"\u05D3");
+		mamadCheckBox = new JCheckBox("\u05DE\u05DE\"\u05D3");
 		mamadCheckBox.setBounds(165, 225, 113, 25);
 		frame.getContentPane().add(mamadCheckBox);
 		
-		JCheckBox storageCheckBox = new JCheckBox("\u05DE\u05D7\u05E1\u05DF");
+		storageCheckBox = new JCheckBox("\u05DE\u05D7\u05E1\u05DF");
 		storageCheckBox.setBounds(48, 81, 113, 25);
 		frame.getContentPane().add(storageCheckBox);
 		
-		JCheckBox accesibleCheckBox = new JCheckBox("\u05D2\u05D9\u05E9\u05D4 \u05DC\u05E0\u05DB\u05D9\u05DD");
+		accesibleCheckBox = new JCheckBox("\u05D2\u05D9\u05E9\u05D4 \u05DC\u05E0\u05DB\u05D9\u05DD");
 		accesibleCheckBox.setBounds(48, 115, 113, 25);
 		frame.getContentPane().add(accesibleCheckBox);
 		
-		JCheckBox furnitureCheckBox = new JCheckBox("\u05DE\u05E8\u05D5\u05D4\u05D8\u05EA");
+		furnitureCheckBox = new JCheckBox("\u05DE\u05E8\u05D5\u05D4\u05D8\u05EA");
 		furnitureCheckBox.setBounds(48, 154, 113, 25);
 		frame.getContentPane().add(furnitureCheckBox);
 		
-		JCheckBox petCheckBox = new JCheckBox("\u05D7\u05D9\u05D5\u05EA \u05DE\u05D7\u05DE\u05D3");
+		petCheckBox = new JCheckBox("\u05D7\u05D9\u05D5\u05EA \u05DE\u05D7\u05DE\u05D3");
 		petCheckBox.setBounds(48, 187, 113, 25);
 		frame.getContentPane().add(petCheckBox);
 		
-		JComboBox propertyTypeComboBox = new JComboBox();
+		String apartmentType[] = {"דירת קרקע","דירה בבנין"};
+		propertyTypeComboBox = new JComboBox(apartmentType);
+		propertyTypeComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				groundOrBuilding(propertyTypeComboBox.getItemAt(propertyTypeComboBox.getSelectedIndex()).toString());
+			}
+		});
 		propertyTypeComboBox.setEditable(true);
 		propertyTypeComboBox.setBounds(312, 280, 171, 32);
+		propertyTypeComboBox.setEditable(false);
 		frame.getContentPane().add(propertyTypeComboBox);
+		
 		
 		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
 		propertyTypeLabel.setBounds(495, 286, 69, 20);
 		frame.getContentPane().add(propertyTypeLabel);
 		
-		JTextArea descriptiontextArea = new JTextArea();
-		descriptiontextArea.setBounds(15, 260, 146, 71);
-		frame.getContentPane().add(descriptiontextArea);
+		descriptionTextArea = new JTextArea();
+		descriptionTextArea.setBounds(15, 260, 146, 71);
+		frame.getContentPane().add(descriptionTextArea);
 		
 		JLabel descriptionLabel = new JLabel("\u05EA\u05D9\u05D0\u05D5\u05E8");
 		descriptionLabel.setBounds(175, 262, 69, 20);
 		frame.getContentPane().add(descriptionLabel);
 		
-		JLabel floorNumLabel = new JLabel("\u05DB\u05DE\u05D5\u05EA \u05E7\u05D5\u05DE\u05D5\u05EA");
-		floorNumLabel.setBounds(595, 344, 69, 16);
-		frame.getContentPane().add(floorNumLabel);
-		
-		floorNumGroundtextField = new JTextField();
-		floorNumGroundtextField.setColumns(10);
-		floorNumGroundtextField.setBounds(458, 341, 116, 22);
-		frame.getContentPane().add(floorNumGroundtextField);
+		floorCountLabel = new JLabel("מספר קומות");
+		floorCountLabel.setBounds(595, 344, 69, 16);
+		frame.getContentPane().add(floorCountLabel);
 		
 		JLabel label_5 = new JLabel("\u05DB\u05E9\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1 \u05D1\u05D9\u05EA \u05E7\u05E8\u05E7\u05E2");
 		label_5.setBounds(505, 317, 127, 16);
 		frame.getContentPane().add(label_5);
 		
-		JLabel floorNumLabel_1 = new JLabel("\u05E7\u05D5\u05DE\u05D4");
-		floorNumLabel_1.setBounds(584, 395, 56, 16);
-		frame.getContentPane().add(floorNumLabel_1);
+		floorNumLabel = new JLabel("\u05E7\u05D5\u05DE\u05D4");
+		floorNumLabel.setBounds(584, 395, 56, 16);
+		floorNumLabel.setVisible(false);
+		frame.getContentPane().add(floorNumLabel);
 		
-		JLabel floorNumLabel_1_2 = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
-		floorNumLabel_1_2.setBounds(584, 455, 56, 16);
-		frame.getContentPane().add(floorNumLabel_1_2);
+		apartmentNumberLabel = new JLabel("מספר דירה");
+		apartmentNumberLabel.setBounds(584, 455, 80, 16);
+		apartmentNumberLabel.setVisible(false);
+		frame.getContentPane().add(apartmentNumberLabel);
 		
 		JLabel label_5_1 = new JLabel("\u05DB\u05E9\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1 \u05D1\u05D9\u05EA \u05D1\u05D1\u05E0\u05D9\u05D9\u05DF");
 		label_5_1.setBounds(505, 371, 127, 16);
 		frame.getContentPane().add(label_5_1);
 		
-		JCheckBox gardenGroundCheckBox = new JCheckBox("\u05D2\u05D9\u05E0\u05D4");
+		gardenGroundCheckBox = new JCheckBox("\u05D2\u05D9\u05E0\u05D4");
 		gardenGroundCheckBox.setBounds(527, 423, 113, 25);
+		gardenGroundCheckBox.setVisible(false);
 		frame.getContentPane().add(gardenGroundCheckBox);
 		
-		JSpinner floorsBuildingSpinner = new JSpinner();
+		floorsBuildingSpinner = new JSpinner();
 		floorsBuildingSpinner.setBounds(528, 391, 36, 22);
+		floorsBuildingSpinner.setVisible(false);
 		frame.getContentPane().add(floorsBuildingSpinner);
 		
-		JSpinner apartmentNumberGroundSpinner = new JSpinner();
+		apartmentNumberGroundSpinner = new JSpinner();
 		apartmentNumberGroundSpinner.setBounds(528, 453, 36, 22);
+		apartmentNumberGroundSpinner.setVisible(false);
 		frame.getContentPane().add(apartmentNumberGroundSpinner);
+		
+		JSpinner floorCountGroundSpinner = new JSpinner();
+		floorCountGroundSpinner.setBounds(528, 340, 36, 25);
+		frame.getContentPane().add(floorCountGroundSpinner);
 	}
+	
+	public void groundOrBuilding(String type)
+	{
+		if(type.toString().equals("דירה בבנין"))
+		{
+				this.apartmentType = true;
+				floorCountGroundSpinner.setVisible(false);
+				floorCountGroundSpinner.setValue(0);
+				
+				floorCountLabel.setVisible(false);
+				
+				
+				floorNumLabel.setVisible(true);
+				floorsBuildingSpinner.setVisible(true);
+				gardenGroundCheckBox.setVisible(true);
+				apartmentNumberLabel.setVisible(true);
+				apartmentNumberGroundSpinner.setVisible(true);
+				
+		}
+		else if(type.toString().equals("דירת קרקע"))
+		{
+			this.apartmentType = false;
+			floorCountGroundSpinner.setVisible(true);
+			floorCountLabel.setVisible(true);
+			
+			floorNumLabel.setVisible(false);
+			floorsBuildingSpinner.setVisible(false);
+			floorsBuildingSpinner.setValue(0);
+			
+			gardenGroundCheckBox.setVisible(false);
+			gardenGroundCheckBox.setSelected(false);
+			
+			apartmentNumberLabel.setVisible(false);
+			apartmentNumberGroundSpinner.setVisible(false);
+		}
+	}
+	
+//	ALL toghter 
+//	String [] buildingApartment = {cityTextFile.getText().toString(),apartmentTypeTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
+//			missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
+//			propertyTypeComboBox.getItemAt(propertyTypeComboBox.getSelectedIndex()).toString(), floorsBuildingSpinner.getValue().toString(),
+//			String.valueOf(gardenGroundCheckBox.isSelected()), apartmentNumberGroundSpinner.getValue().toString(), floorCountGroundSpinner.getValue().toString(),
+//			String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), String.valueOf(airCheckBox.isSelected()), 
+//			String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()), String.valueOf(storageCheckBox.isSelected()), 
+//			String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected())};
+	
+
+	
+	public void addThisApartment() 
+	{
+		if(apartmentType) // true = building // missed apartmentType and floor count
+		{
+		String [] buildingApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
+				missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
+				floorsBuildingSpinner.getValue().toString(), String.valueOf(gardenGroundCheckBox.isSelected()), apartmentNumberGroundSpinner.getValue().toString(), 
+				String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), String.valueOf(airCheckBox.isSelected()), 
+				String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()), String.valueOf(storageCheckBox.isSelected()), 
+				String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected())};
+		
+		setChanged();
+		notifyObservers(new AddBuilding(buildingApartment));
+
+		}
+		else // false = ground
+		{
+			String [] groundApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
+					missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
+					floorCountGroundSpinner.getValue().toString(),String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), 
+					String.valueOf(airCheckBox.isSelected()), String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()),
+					String.valueOf(storageCheckBox.isSelected()), String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), 
+					String.valueOf(petCheckBox.isSelected())};
+			
+			setChanged();
+			notifyObservers(new AddGround(groundApartment));
+			
+		}
+	
+//		this.frame.setVisible(false); 
+//		showAllApartmentView.openShowAllApartment(userName.getText(),false);	
+
+	}
+	
+	public class AddGround
+	{
+		public String [] ground;
+		public AddGround(String [] groundApartment)
+		{
+			this.ground = groundApartment;
+		}
+	}
+	
+	public class AddBuilding
+	{
+		public String [] building;
+		public AddBuilding(String [] building)
+		{
+			this.building = building;
+		}
+	}
+	
+
+	
+	
+	
+	
 }

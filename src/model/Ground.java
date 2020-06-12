@@ -12,4 +12,11 @@ public class Ground extends Apartment{
 		this.floorNumbers = floorNumbers;
 	}
 
+	public Ground() {}
+
+	public Ground(int floorNumbers) {
+		super();
+		this.floorNumbers = floorNumbers;
+	}
+
 }

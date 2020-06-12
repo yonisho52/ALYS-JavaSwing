@@ -181,6 +181,7 @@ public class MainView extends Observable {
 	public void openShowAllApartment(String userName, boolean userType) {  //// userType - true = admin
 		showAllApartmentView.setMainView(this);
 		userNameTextField.setText(""); // to eraize the field when you come back
+		passTextField.setText("");
 		this.frame.setVisible(false); 
 		showAllApartmentView.openShowAllApartment(userName,userType);
 		setChanged();

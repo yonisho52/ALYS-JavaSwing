@@ -373,15 +373,16 @@ public class ShowAllApartmentView extends Observable {
 	
 	public void userType() { 
 		
+		watchSearchResultButton.setVisible(false);
+		showAllUsersButton.setVisible(false);
+		adminLabel.setText("לא אדמין");
+		
 		if(connectedUser==null)
 		{
 			loginOrLogoutButton.setText("התחבר");
 			userNameLabel.setText("שלום אורח");
-			adminLabel.setText("לא אדמין");
 			addApartmentButton.setVisible(false);
 			watchApartmentButton.setVisible(false);
-			watchSearchResultButton.setVisible(false);
-			showAllUsersButton.setVisible(false);
 		}
 		else
 		{
