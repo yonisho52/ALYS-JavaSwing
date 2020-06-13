@@ -112,6 +112,7 @@ public class RegisterView extends Observable
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showMainView();
 				frame.setVisible(false);
+				resetRegisterForm();
 			}
 		});
 		
@@ -351,7 +352,7 @@ public class RegisterView extends Observable
 		
 		else 
 		{
-			
+			missingText.setVisible(true);
 		}
 	}
 	
@@ -403,6 +404,24 @@ public class RegisterView extends Observable
 			this.firstNamebool = true;
 		}
 			
+	}
+	
+	public void resetRegisterForm()
+	{
+		userName.setText("");
+		password.setText("");
+		validatePassword.setText("");
+		email.setText("");
+		phoneNumber.setText("");
+		firstName.setText("");
+		lastName.setText("");
+		mismatchPassword.setVisible(false);
+		phonelable.setVisible(false);
+		existUser.setVisible(false);
+		PasswordEnterLabel_1.setVisible(false);
+		firstnamelable.setVisible(false);
+		lastnamelable.setVisible(false);
+		missingText.setVisible(false);
 	}
 	
 	public void checkIfEmptylastName()

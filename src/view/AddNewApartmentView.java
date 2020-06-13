@@ -73,8 +73,7 @@ public class AddNewApartmentView extends Observable
 	private JLabel citywarningLabel;
 	private JLabel streetLabel;
 	private JLabel amountLabel;
-	protected boolean citybool , streetbool , amountbool ,roomatestbool ;
-
+	protected boolean citybool , streetbool , amountbool ,roomatestbool ,pricebool;
 
 	public static void main(String[] args) 
 	{
@@ -148,6 +147,7 @@ public class AddNewApartmentView extends Observable
 			public void actionPerformed(ActionEvent arg0) {
 				showAllApartmentView.openShowAllApartment(connectedUser, adminBool); ///////
 				frame.setVisible(false);
+				reasetAddApartment();
 			}
 		});
 		cancelButton.setBounds(48, 418, 97, 25);
@@ -231,6 +231,7 @@ public class AddNewApartmentView extends Observable
 			@Override
 			public void focusLost(FocusEvent e) {
 				checkIfAmountEmpty();
+				checkValidPrice();
 			}
 		});
 		priceTextField.setBounds(348, 242, 116, 22);
@@ -254,7 +255,7 @@ public class AddNewApartmentView extends Observable
 		frame.getContentPane().add(patioCheckBox);
 		
 		mamadCheckBox = new JCheckBox("\u05DE\u05DE\"\u05D3");
-		mamadCheckBox.setBounds(165, 225, 113, 25);
+		mamadCheckBox.setBounds(165, 225, 69, 25);
 		frame.getContentPane().add(mamadCheckBox);
 		
 		storageCheckBox = new JCheckBox("\u05DE\u05D7\u05E1\u05DF");
@@ -392,9 +393,9 @@ public class AddNewApartmentView extends Observable
 		frame.getContentPane().add(streetLabel);
 		streetLabel.setVisible(false);
 		
-		amountLabel = new JLabel("הכנס מחיר");
+		amountLabel = new JLabel("הכנס מחיר תקין");
 		amountLabel.setForeground(Color.RED);
-		amountLabel.setBounds(262, 245, 80, 16);
+		amountLabel.setBounds(236, 245, 106, 16);
 		frame.getContentPane().add(amountLabel);
 		amountLabel.setVisible(false);
 	}
@@ -555,4 +556,50 @@ public class AddNewApartmentView extends Observable
 			this.roomatestbool =true;
 		}
 	}
+	
+	public void reasetAddApartment()
+	{
+		cityTextFile.setText("");
+		streetTextFile.setText("");
+		priceTextField.setText("");
+		descriptionTextArea.setText("");
+		
+		roomatesLabel.setVisible(false);
+		citywarningLabel.setVisible(false);
+		streetLabel.setVisible(false);
+		amountLabel.setVisible(false);
+		
+		elevatorCheckBox.setSelected(false);
+		parkingCheckBox.setSelected(false);
+		airCheckBox.setSelected(false);
+		patioCheckBox.setSelected(false);
+		mamadCheckBox.setSelected(false);
+		storageCheckBox.setSelected(false);	
+		accesibleCheckBox.setSelected(false);	
+		furnitureCheckBox.setSelected(false);
+		petCheckBox.setSelected(false);
+		gardenGroundCheckBox.setSelected(false);
+		
+		numOfRommatesSpinner.setValue(0);
+		roomsSpinner.setValue(0);
+		floorCountGroundSpinner.setValue(0);
+		apartmentNumberGroundSpinner.setValue(0);
+		numOfRommatesSpinner.setValue(0);
+		missingRoomatesSpinner.setValue(0);
+		
+	}
+	
+	public void checkValidPrice()
+	{
+		for(int i=0 ; i < priceTextField.getText().length(); i++)
+		{
+			String arr = priceTextField.getText();
+			if(arr.charAt(i) < '0' || arr.charAt(i) > '9')
+			{
+				amountLabel.setVisible(true);
+				this.pricebool = false;
+			}
+		}
+	}
+
 }
