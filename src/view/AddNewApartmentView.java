@@ -367,7 +367,7 @@ public class AddNewApartmentView extends Observable
 		
 		setChanged();
 		notifyObservers(new AddBuilding(buildingApartment));
-
+		
 		}
 		else // false = ground
 		{
@@ -380,6 +380,7 @@ public class AddNewApartmentView extends Observable
 			
 			setChanged();
 			notifyObservers(new AddGround(groundApartment));
+			
 			
 		}
 	

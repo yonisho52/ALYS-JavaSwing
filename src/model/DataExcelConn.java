@@ -97,6 +97,33 @@ public class DataExcelConn extends Observable
 		}
 	}
 	
+	public class CityShowRep
+	{
+		public String [] cityList;
+		public CityShowRep(String [] cities)
+		{
+			this.cityList = cities;
+		}
+	}
+
+	public class PropertType
+	{
+		public Boolean [] propertType;
+		public PropertType(Boolean [] type)
+		{
+			this.propertType = type;
+		}
+	}
+	
+	public class MissRommates
+	{
+		public String [] missRommatesList;
+		public MissRommates(String [] missedRommates)
+		{
+			this.missRommatesList = missedRommates;
+		}
+	}
+
 	private DataExcelConn() 
 	{	
 		if(file.exists()) 
@@ -426,7 +453,7 @@ public class DataExcelConn extends Observable
 		notifyObservers(new UserApartments(jTable));
 	}
 
-	public void addNewApartmentGround(Ground ground) // not finished 
+	public void addNewApartmentGround(Ground ground) 
 	{  
 		String excelFilePath = "DataBase.xlsx";
     	FileInputStream inputStream;
@@ -456,6 +483,13 @@ public class DataExcelConn extends Observable
     	row.createCell(n++).setCellValue(ground.getPrice());
     	row.createCell(n++).setCellValue(ground.getDescription());
     	row.createCell(n++).setCellValue(ground.getPropertyType());
+    	
+    	row.createCell(n++).setCellValue("-");
+    	row.createCell(n++).setCellValue("-");
+    	row.createCell(n++).setCellValue("-");
+    	
+    	row.createCell(n++).setCellValue(ground.getFloorNumbers());
+    	
     	row.createCell(n++).setCellValue(ground.getElevator());
     	row.createCell(n++).setCellValue(ground.getParking());
     	row.createCell(n++).setCellValue(ground.getAirCon());
@@ -481,17 +515,88 @@ public class DataExcelConn extends Observable
 		System.out.println( " secssuce");
 	}
 
+	public void addNewApartmentBuilding(Building building)
+	{
+		String excelFilePath = "DataBase.xlsx";
+    	FileInputStream inputStream;
+		try 
+		{
+			inputStream = new FileInputStream(new File(excelFilePath));
+	    	Workbook workBook = WorkbookFactory.create(inputStream);
+
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+
+    	//Sheet sheet = workBook.getSheetAt(0);
+    	int rowCount = apartments.getLastRowNum();
+    	Row row = apartments.createRow(++rowCount);
+    	int n=0;
+    	row.createCell(n++).setCellValue(building.getUserId());
+    	row.createCell(n++).setCellValue(building.getPropertyID());
+    	row.createCell(n++).setCellValue(building.getSearchCount());
+    	row.createCell(n++).setCellValue(building.getCity());
+    	row.createCell(n++).setCellValue(building.getAddress());
+    	row.createCell(n++).setCellValue(building.getNumOfRoomMate());
+    	row.createCell(n++).setCellValue(building.getRoomMateMiss());
+    	row.createCell(n++).setCellValue(building.getRooms());
+    	row.createCell(n++).setCellValue(building.getPrice());
+    	row.createCell(n++).setCellValue(building.getDescription());
+    	row.createCell(n++).setCellValue(building.getPropertyType());
+    	
+    	row.createCell(n++).setCellValue(building.getFloor());
+    	row.createCell(n++).setCellValue(building.getGarden());
+    	row.createCell(n++).setCellValue(building.getApartmentNumber());
+    	
+    	row.createCell(n++).setCellValue("-");
+    	
+    	row.createCell(n++).setCellValue(building.getElevator());
+    	row.createCell(n++).setCellValue(building.getParking());
+    	row.createCell(n++).setCellValue(building.getAirCon());
+    	row.createCell(n++).setCellValue(building.getPatio());
+    	row.createCell(n++).setCellValue(building.getMamad());
+    	row.createCell(n++).setCellValue(building.getStorage());
+    	row.createCell(n++).setCellValue(building.getAccesible());
+    	row.createCell(n++).setCellValue(building.getFurniture());
+    	row.createCell(n++).setCellValue(building.getPet());
+    	
+    	FileOutputStream output;
+		try 
+		{
+			output = new FileOutputStream("DataBase.xlsx");
+	    	workBook.write(output);
+	    	output.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+
+		System.out.println( " secssuce");
+	}
+	
+	
 	public int getTheLastApartmentId()
 	{
 		Row row;
 		Cell lastIdDB;
 		int lastRow = apartments.getLastRowNum();
-		int lastId;
-		row = apartments.getRow(lastRow);
-		lastIdDB = row.getCell(1); // id cell
-		lastId = Integer.parseInt(lastIdDB.toString());
-		lastId++;
-		return lastId;
+		lastRow++;
+		return lastRow;
+		
+//		double lastId;
+//		String str;
+//		row = apartments.getRow(lastRow);
+//		lastIdDB = row.getCell(1); // id cell
+//		str = lastIdDB.toString();
+//		
+//		lastId = Double.parseDouble(str);	
+//		lastId++;
+//		
+//		return (int)lastId;
+
 	}
 	
 	public void searchApartment() 
@@ -522,4 +627,224 @@ public class DataExcelConn extends Observable
 	{
 		
 	}
+
+
+
+
+
+	public String [] shortCutArray(String [] arr)
+	{
+		int i=0,j=0;
+		int count=0;
+		for(i=0;i<arr.length;i++)
+		{
+			if(arr[i]=="x") {continue;}
+			for(j=arr.length-1;j>i;j--)
+			{
+				if(arr[i] == arr[j])
+				{
+					count++;
+					arr[j]="x";
+				}
+			}
+		}
+		
+		j = arr.length-count;
+		
+		
+		String [] newArr = new String [j];
+		i=0;
+		for(j=0;j<arr.length;j++)
+		{
+				if(arr[j]!="x" && arr[j]!=null)
+				{
+					newArr[i++] = arr[j];
+				}
+		}
+		
+		return newArr;
+	}
+	
+	
+
+	public void citysShow(int indexType)  /// 0 - false - ground, 1 - true - building
+	{
+		  /// j
+		String [] allCityDB = new String[apartments.getLastRowNum()];  /// k
+		Row row;
+		Cell cityDB, typeDB;
+		int j=0,k=0,i,count=0;
+		String type = "קרקע";
+		if(indexType==1) {type = "בניין";}
+		
+		for(i=1;i<=apartments.getLastRowNum();i++)
+		{
+			row=apartments.getRow(i);
+			cityDB = row.getCell(3);
+			typeDB = row.getCell(10);
+			if(typeDB.toString().equals(type.toString()))
+			{
+			allCityDB[k++] = cityDB.toString();
+			}
+		}
+		
+		//
+		
+//		for(i=0;i<k;i++)
+//		{
+//			if(allCityDB[i]=="x") {continue;}
+//			for(j=k-1;j>i;j--)
+//			{
+//				if(allCityDB[i] == allCityDB[j])
+//				{
+//					count++;
+//					allCityDB[j]="x";
+//				}
+//			}
+//		}
+//		
+//		j = k-count;
+//		String [] city = new String [j];
+//		i=0;
+//		for(k=0;k<allCityDB.length;k++)
+//		{
+//				if(allCityDB[k]!="x" && allCityDB[k]!=null)
+//				{
+//					city[i++] = allCityDB[k];
+//				}
+//		}
+		
+		String [] city = shortCutArray(allCityDB);
+		
+		///
+		
+		setChanged();
+		notifyObservers(new CityShowRep(city));
+	}
+	
+	public void propertShow()  // 0- garden, 1-building
+	{
+		Row row;
+		Cell propertyTypeDB;
+		Boolean [] type = new Boolean[2];
+		
+		
+		type[0] = false;
+		type[1] = false;
+		
+		for(int i=1;i<=apartments.getLastRowNum();i++)
+		{
+			row=apartments.getRow(i);
+			propertyTypeDB = row.getCell(10);
+			if(propertyTypeDB.toString().equals("קרקע"))
+			{
+				type[0] = true;
+			}
+			else if(propertyTypeDB.toString().equals("בניין"))
+			{
+				type[1] = true;
+			}
+			if(type[1]&&type[0])
+			{
+				break;
+			}
+		}
+
+		
+		setChanged();
+		notifyObservers(new PropertType(type));
+		
+	}
+	
+	public String getPropertyType(int index) // 0- garden, 1-building
+	{
+		String type = "קרקע";
+		if(index==0)
+			type = "קרקע";
+		if(index==1)
+			type = "בניין";
+		return type;
+	}
+	
+	public void missedRommateShow(int typeSelected, String citySelected)
+	{
+		
+		String [] allRommateMissedDB = new String[apartments.getLastRowNum()];  /// k
+		Row row;
+		Cell missedRommateDB, typeDB, cityDB;
+		String type = getPropertyType(typeSelected);
+		
+		int j=0,k=0,i,count=0;
+		
+		
+		
+		for(i=1;i<=apartments.getLastRowNum();i++)
+		{
+			row=apartments.getRow(i);
+			cityDB = row.getCell(3);
+			typeDB = row.getCell(10);
+			missedRommateDB = row.getCell(6);
+
+			if(typeDB.toString().equals(type.toString()) && cityDB.toString().equals(citySelected.toString()))
+			{
+				allRommateMissedDB[k++] = missedRommateDB.toString();
+			}
+		}
+		
+		String [] missedRommets = shortCutArray(allRommateMissedDB);
+		
+//		for(i=0;i<k;i++)
+//		{
+//			if(allRommateMissedDB[i]=="x") {continue;}
+//			for(j=k-1;j>i;j--)
+//			{
+//				if(allRommateMissedDB[i] == allRommateMissedDB[j])
+//				{
+//					count++;
+//					allRommateMissedDB[j]="x";
+//				}
+//			}
+//		}
+//		
+//		j = k-count;
+//		String [] missedRommets = new String [j];
+//		i=0;
+//		for(k=0;k<allRommateMissedDB.length;k++)
+//		{
+//				if(allRommateMissedDB[k]!="x" && allRommateMissedDB[k]!=null)
+//				{
+//					missedRommets[i++] = allRommateMissedDB[k];
+//				}
+//		}
+//		
+		setChanged();
+		notifyObservers(new MissRommates(missedRommets));
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

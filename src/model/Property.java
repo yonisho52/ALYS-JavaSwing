@@ -11,7 +11,7 @@ public interface Property
 	public int getNumOfRoomMate();
 	public int getRoomMateMiss();
 	public int getRooms();
-	public double getPrice();
+	public int getPrice();
 	public String getDescription();
 	public String getPropertyType();  /////*****
 	public boolean getElevator();
@@ -25,26 +25,26 @@ public interface Property
 	public boolean getPet();
 	
 	//setters
-	public int setPropertyID(int apartmentId);
-	public String setUserId(String userName);
-	public int setSearchCount();
-	public String setCity(String city);
-	public String setAddress(String address);
-	public int setNumOfRoomMate(int NnumOfRoomMate);
-	public int setRoomMateMiss(int roomMateMiss);
-	public int setRooms(int numOfRooms);
-	public double setPrice(double price);
-	public String setDescription(String description);
-	public String setPropertyType();  ///****
-	public boolean setElevator(boolean elevator);
-	public boolean setParking(boolean parking);
-	public boolean setAirCon(boolean airCon);
-	public boolean setPatio(boolean patio);
-	public boolean setMamad(boolean mamad);
-	public boolean setStorage(boolean storage);
-	public boolean setAccesible(boolean accesible);
-	public boolean setFurniture(boolean furniture);
-	public boolean setPet(boolean pet);
+	public void setPropertyID(int apartmentId);
+	public void setUserId(String userName);
+	public void setSearchCount();
+	public void setCity(String city);
+	public void setAddress(String address);
+	public void setNumOfRoomMate(int NnumOfRoomMate);
+	public void setRoomMateMiss(int roomMateMiss);
+	public void setRooms(int numOfRooms);
+	public void setPrice(int price);
+	public void setDescription(String description);
+	public void setPropertyType();  ///****
+	public void setElevator(boolean elevator);
+	public void setParking(boolean parking);
+	public void setAirCon(boolean airCon);
+	public void setPatio(boolean patio);
+	public void setMamad(boolean mamad);
+	public void setStorage(boolean storage);
+	public void setAccesible(boolean accesible);
+	public void setFurniture(boolean furniture);
+	public void setPet(boolean pet);
 }
 //String [] buildingApartment = {city,Address,numOfRommates,missingRoomates, rooms, price, description,propertyType, floorsBuilding,gardenGround, apartmentNumberGround, floorCountGround,
 //elevator, parking, airCon, patio, mamad, storage, accesible, furniture, pet};

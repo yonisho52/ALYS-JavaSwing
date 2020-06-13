@@ -2,243 +2,240 @@ package model;
 
 public abstract class Apartment implements Property 
 {
-	@Override
-	public int getPropertyID() 
-	{
-		return 0;
-	}
+
+	protected int propertyID;
+	protected String userId;
+	protected int searchCount;
+	protected String city;
+	protected String address;
+	protected int numOfRoomMate;
+	protected int roomMateMiss;
+	protected int rooms;
+	protected int price;
+	protected String description;
+	protected String propertyType;  /////*****
+	protected boolean elevator;
+	protected boolean parking;
+	protected boolean airCon;
+	protected boolean patio;
+	protected boolean mamad;
+	protected boolean storage;
+	protected boolean accesible;
+	protected boolean furniture;
+	protected boolean pet;
+	
+	
+	
 
 	@Override
-	public String getUserId() 
-	{
-		return null;
+	public int getPropertyID() {
+		// TODO Auto-generated method stub
+		return propertyID;
+	}
+	@Override
+	public String getUserId() {
+		// TODO Auto-generated method stub
+		return userId;
+	}
+	@Override
+	public int getSearchCount() {
+		// TODO Auto-generated method stub
+		return searchCount;
+	}
+	@Override
+	public String getCity() {
+		// TODO Auto-generated method stub
+		return city;
+	}
+	@Override
+	public String getAddress() {
+		// TODO Auto-generated method stub
+		return address;
+	}
+	@Override
+	public int getNumOfRoomMate() {
+		// TODO Auto-generated method stub
+		return numOfRoomMate;
+	}
+	@Override
+	public int getRoomMateMiss() {
+		// TODO Auto-generated method stub
+		return roomMateMiss;
+	}
+	@Override
+	public int getRooms() {
+		// TODO Auto-generated method stub
+		return rooms;
+	}
+	@Override
+	public int getPrice() {
+		// TODO Auto-generated method stub
+		return price;
+	}
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return description;
+	}
+	@Override
+	public String getPropertyType() {
+		// TODO Auto-generated method stub
+		return propertyType;
+	}
+	@Override
+	public boolean getElevator() {
+		// TODO Auto-generated method stub
+		return elevator;
+	}
+	@Override
+	public boolean getParking() {
+		// TODO Auto-generated method stub
+		return parking;
+	}
+	@Override
+	public boolean getAirCon() {
+		// TODO Auto-generated method stub
+		return airCon;
+	}
+	@Override
+	public boolean getPatio() {
+		// TODO Auto-generated method stub
+		return patio;
+	}
+	@Override
+	public boolean getMamad() {
+		// TODO Auto-generated method stub
+		return mamad;
+	}
+	@Override
+	public boolean getStorage() {
+		// TODO Auto-generated method stub
+		return storage;
+	}
+	@Override
+	public boolean getAccesible() {
+		// TODO Auto-generated method stub
+		return accesible;
+	}
+	@Override
+	public boolean getFurniture() {
+		// TODO Auto-generated method stub
+		return furniture;
+	}
+	@Override
+	public boolean getPet() {
+		// TODO Auto-generated method stub
+		return pet;
 	}
 
-	@Override
-	public int getSearchCount() 
-	{
-		return 0;
-	}
 
+//////////////////////////////////////// set
+	
 	@Override
-	public String getCity() 
-	{
-		return null;
+	public void setPropertyID(int apartmentId) {
+		// TODO Auto-generated method stub
+		this.propertyID = apartmentId;
 	}
-
 	@Override
-	public String getAddress() 
-	{
-		return null;
+	public void setUserId(String userName) {
+		// TODO Auto-generated method stub
+		this.userId = userName;
+
 	}
-
 	@Override
-	public int getNumOfRoomMate() 
-	{
-		return 0;
+	public void setSearchCount() {
+		// TODO Auto-generated method stub
+		this.searchCount = 0;
+
 	}
-
 	@Override
-	public int getRoomMateMiss() 
-	{
-		return 0;
+	public void setCity(String city) {
+		// TODO Auto-generated method stub
+		this.city = city;
+
 	}
-
 	@Override
-	public int getRooms() 
-	{
-		return 0;
+	public void setAddress(String address) {
+		// TODO Auto-generated method stub
+		this.address = address;
+
 	}
-
 	@Override
-	public double getPrice() 
-	{
-		return 0;
+	public void setNumOfRoomMate(int NnumOfRoomMate) {
+		// TODO Auto-generated method stub
+		this.numOfRoomMate = NnumOfRoomMate;
+
 	}
-
 	@Override
-	public String getDescription() 
-	{
-		return null;
+	public void setRoomMateMiss(int roomMateMiss) {
+		// TODO Auto-generated method stub
+		this.roomMateMiss = roomMateMiss;
 	}
-
 	@Override
-	public String getPropertyType() 
-	{
-		return null;
+	public void setRooms(int numOfRooms) {
+		// TODO Auto-generated method stub
+		this.rooms = numOfRooms;
 	}
-
 	@Override
-	public boolean getElevator() 
-	{
-		return false;
+	public void setPrice(int price) {
+		// TODO Auto-generated method stub
+		this.price = price;
 	}
-
 	@Override
-	public boolean getParking() 
-	{
-		return false;
+	public void setDescription(String description) {
+		// TODO Auto-generated method stub
+		this.description = description;
 	}
-
 	@Override
-	public boolean getAirCon() 
-	{
-		return false;
+	public void setPropertyType() {
+		// TODO Auto-generated method stub
 	}
-
 	@Override
-	public boolean getPatio() 
-	{
-		return false;
+	public void setElevator(boolean elevator) {
+		// TODO Auto-generated method stub
+		this.elevator = elevator;
 	}
-
 	@Override
-	public boolean getMamad() 
-	{
-		return false;
+	public void setParking(boolean parking) {
+		// TODO Auto-generated method stub
+		this.parking = parking;
 	}
-
 	@Override
-	public boolean getStorage() 
-	{
-		return false;
+	public void setAirCon(boolean airCon) {
+		// TODO Auto-generated method stub
+		this.airCon = airCon;
 	}
-
 	@Override
-	public boolean getAccesible() 
-	{
-		return false;
+	public void setPatio(boolean patio) {
+		// TODO Auto-generated method stub
+		this.patio = patio;
 	}
-
 	@Override
-	public boolean getFurniture() 
-	{
-		return false;
+	public void setMamad(boolean mamad) {
+		// TODO Auto-generated method stub
+		this.mamad = mamad;
 	}
-
 	@Override
-	public boolean getPet() 
-	{
-		return false;
+	public void setStorage(boolean storage) {
+		// TODO Auto-generated method stub
+		this.storage = storage;
 	}
-
 	@Override
-	public int setPropertyID(int apartmentId) 
-	{
-		return 0;
+	public void setAccesible(boolean accesible) {
+		// TODO Auto-generated method stub
+		this.accesible = accesible;
 	}
-
 	@Override
-	public String setUserId(String userName) 
-	{
-		return null;
+	public void setFurniture(boolean furniture) {
+		// TODO Auto-generated method stub
+		this.furniture = furniture;
 	}
-
 	@Override
-	public int setSearchCount() 
-	{
-		return 0;
+	public void setPet(boolean pet) {
+		// TODO Auto-generated method stub
+		this.pet = pet;
 	}
+	
+	
 
-	@Override
-	public String setCity(String city) 
-	{
-		return null;
-	}
-
-	@Override
-	public String setAddress(String address) 
-	{
-		return null;
-	}
-
-	@Override
-	public int setNumOfRoomMate(int NnumOfRoomMate) 
-	{
-		return 0;
-	}
-
-	@Override
-	public int setRoomMateMiss(int roomMateMiss) 
-	{
-		return 0;
-	}
-
-	@Override
-	public int setRooms(int numOfRooms) 
-	{
-		return 0;
-	}
-
-	@Override
-	public double setPrice(double price) 
-	{
-		return 0;
-	}
-
-	@Override
-	public String setDescription(String description) 
-	{
-		return null;
-	}
-
-	@Override
-	public String setPropertyType() 
-	{
-		return null;
-	}
-
-	@Override
-	public boolean setElevator(boolean elevator) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean setParking(boolean parking) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean setAirCon(boolean airCon) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean setPatio(boolean patio) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean setMamad(boolean mamad) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean setStorage(boolean storage) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean setAccesible(boolean accesible) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean setFurniture(boolean furniture) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean setPet(boolean pet) 
-	{
-		return false;
-	}	
 }

@@ -101,6 +101,34 @@ public class DataController implements Observer{
 			}
 		}
 		
+		if(arg0 instanceof ShowAllApartmentView) 
+		{
+			if(arg1 instanceof ShowAllApartmentView.CityShow)
+			{
+				
+				int index = ((ShowAllApartmentView.CityShow) arg1).index;
+				dataExcelConn.citysShow(index);
+			}
+		}
+		
+		if(arg0 instanceof ShowAllApartmentView) 
+		{
+			if(arg1 instanceof ShowAllApartmentView.PropertType)
+			{
+				dataExcelConn.propertShow();
+			}
+		}
+		
+		if(arg0 instanceof ShowAllApartmentView) 
+		{
+			if(arg1 instanceof ShowAllApartmentView.MissedRommateNumShow)
+			{
+				int type = ((ShowAllApartmentView.MissedRommateNumShow) arg1).propretyType;
+				String city = ((ShowAllApartmentView.MissedRommateNumShow) arg1).city;
+				dataExcelConn.missedRommateShow(type,city);
+			}
+		}
+		
 //		String [] groundApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
 //				missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
 //				floorCountGroundSpinner.getValue().toString(),String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), 
@@ -115,7 +143,7 @@ public class DataController implements Observer{
 			{
 				//String[]arr = (String[])arg1; // unpack the arg
 				String[] arr = ((AddNewApartmentView.AddGround) arg1).ground;
-				Ground newGround = new Ground();
+				Ground newGround = new Ground(Integer.parseInt(arr[7]));
 				newGround.setPropertyID(dataExcelConn.getTheLastApartmentId());
 				newGround.setUserId(arr[17]);
 				newGround.setSearchCount();
@@ -123,10 +151,10 @@ public class DataController implements Observer{
 				newGround.setAddress(arr[1]);
 				newGround.setNumOfRoomMate(Integer.parseInt(arr[2]));
 				newGround.setRoomMateMiss(Integer.parseInt(arr[3]));
-				newGround.setRooms(Integer.parseInt(arr[4]));
-				newGround.setPrice(Integer.parseInt(arr[5]));
+				newGround.setRooms((int)Double.parseDouble(arr[4]));
+				newGround.setPrice((int)Double.parseDouble(arr[5]));
 				newGround.setDescription(arr[6]);
-				newGround.setPropertyType();
+				//newGround.setPropertyType();
 				newGround.setElevator(Boolean.parseBoolean(arr[8]));
 				newGround.setParking(Boolean.parseBoolean(arr[9]));
 				newGround.setAirCon(Boolean.parseBoolean(arr[10]));
@@ -138,8 +166,50 @@ public class DataController implements Observer{
 				newGround.setPet(Boolean.parseBoolean(arr[16]));
 				
 				
-				//dataExcelConn.addNewTenant(newTenant);
-				//userId++;
+				dataExcelConn.addNewApartmentGround(newGround);
+			}
+		}
+		
+//		String [] buildingApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
+//				missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
+//				floorsBuildingSpinner.getValue().toString(), String.valueOf(gardenGroundCheckBox.isSelected()), apartmentNumberGroundSpinner.getValue().toString(), 
+//				String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), String.valueOf(airCheckBox.isSelected()), 
+//				String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()), String.valueOf(storageCheckBox.isSelected()), 
+//				String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected()), connectedUser};
+		
+		if(arg0 instanceof AddNewApartmentView)
+		{
+			if(arg1 instanceof AddNewApartmentView.AddBuilding)
+			{
+				//String[]arr = (String[])arg1; // unpack the arg
+				String[] arr = ((AddNewApartmentView.AddBuilding) arg1).building;
+				Building newBuilding = new Building((int)Double.parseDouble(arr[7]), Boolean.parseBoolean(arr[8]), (int)Double.parseDouble(arr[9]));
+				newBuilding.setPropertyID(dataExcelConn.getTheLastApartmentId());
+				newBuilding.setUserId(arr[19]);
+				newBuilding.setSearchCount();
+				newBuilding.setCity(arr[0]);
+				newBuilding.setAddress(arr[1]);
+				newBuilding.setNumOfRoomMate(Integer.parseInt(arr[2]));
+				newBuilding.setRoomMateMiss(Integer.parseInt(arr[3]));
+				newBuilding.setRooms((int)Double.parseDouble(arr[4]));
+				newBuilding.setPrice((int)Double.parseDouble(arr[5]));
+				newBuilding.setDescription(arr[6]);
+//				newBuilding.setFloor((int)Double.parseDouble(arr[7]));
+//				newBuilding.setGarden(Boolean.parseBoolean(arr[8]));
+//				newBuilding.setApartmentNumber((int)Double.parseDouble(arr[9]));
+				//newGround.setPropertyType();
+				newBuilding.setElevator(Boolean.parseBoolean(arr[10]));
+				newBuilding.setParking(Boolean.parseBoolean(arr[11]));
+				newBuilding.setAirCon(Boolean.parseBoolean(arr[12]));
+				newBuilding.setPatio(Boolean.parseBoolean(arr[13]));
+				newBuilding.setMamad(Boolean.parseBoolean(arr[14]));
+				newBuilding.setStorage(Boolean.parseBoolean(arr[15]));
+				newBuilding.setAccesible(Boolean.parseBoolean(arr[16]));
+				newBuilding.setFurniture(Boolean.parseBoolean(arr[17]));
+				newBuilding.setPet(Boolean.parseBoolean(arr[18]));
+				
+				
+				dataExcelConn.addNewApartmentBuilding(newBuilding);
 			}
 		}
 
@@ -194,7 +264,7 @@ public class DataController implements Observer{
 		
 		
 		
-		if(arg0 instanceof DataExcelConn)     /// not connected to view
+		if(arg0 instanceof DataExcelConn)     
 		{
 			if(arg1 instanceof DataExcelConn.ShowAllApartments)
 			{
@@ -205,6 +275,37 @@ public class DataController implements Observer{
 		
 		
 		
+		if(arg0 instanceof DataExcelConn)     
+		{
+			if(arg1 instanceof DataExcelConn.CityShowRep)
+			{
+				String arr[] = ((DataExcelConn.CityShowRep) arg1).cityList;
+				showAllApartmentView.loadCities(arr);
+			}
+		}
+		
+		
+		
+		
+		if(arg0 instanceof DataExcelConn)     
+		{
+			if(arg1 instanceof DataExcelConn.PropertType)
+			{
+				Boolean arr[] = ((DataExcelConn.PropertType) arg1).propertType;
+				showAllApartmentView.loadPropertType(arr);
+			}
+		}
+		
+		
+		
+		if(arg0 instanceof DataExcelConn)     
+		{
+			if(arg1 instanceof DataExcelConn.MissRommates)
+			{
+				String arr[] = ((DataExcelConn.MissRommates) arg1).missRommatesList;
+				showAllApartmentView.loadmissingRoomates(arr);
+			}
+		}
 	}
 
 }

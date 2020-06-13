@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class ShowAllApartmentView extends Observable {
 	
@@ -34,13 +36,13 @@ public class ShowAllApartmentView extends Observable {
 	ShowAllUsersView showAllUsersView;
 
 	private JFrame frame;
-	private JTextField City;
-	private JTextField ApartmentType;
 	private JTextField LimitPrice;
 	private JTextField StartPrice;
 	private JLabel CityLabel;  /// example for all 
 	private JLabel adminLabel;
 	private JPanel panel;
+	private JComboBox cityComboBox;
+	private JComboBox propertyTypecomboBox;
 	
 	private JLabel userNameLabel;
 	private JButton loginOrLogoutButton;
@@ -51,6 +53,8 @@ public class ShowAllApartmentView extends Observable {
 	
 	protected String connectedUser;
 	protected boolean adminBool;
+	private JComboBox missingRoomatesComboBox;
+	private JComboBox numOfRommatesComboBox;
 
 	/**
 	 * Launch the application.
@@ -93,26 +97,12 @@ public class ShowAllApartmentView extends Observable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		City = new JTextField();
-		City.setColumns(10);
-		City.setBounds(508, 32, 116, 22);
-		frame.getContentPane().add(City);
-		
 		CityLabel = new JLabel("\u05E2\u05D9\u05E8"); /// example for all
-		CityLabel.setBounds(652, 35, 36, 16);
+		CityLabel.setBounds(652, 94, 36, 16);
 		frame.getContentPane().add(CityLabel);
 		
-		ApartmentType = new JTextField();
-		ApartmentType.setColumns(10);
-		ApartmentType.setBounds(508, 66, 116, 22);
-		frame.getContentPane().add(ApartmentType);
-		
-		JLabel apartmentTypeLabel = new JLabel("\u05E8\u05D7\u05D5\u05D1");
-		apartmentTypeLabel.setBounds(652, 69, 56, 16);
-		frame.getContentPane().add(apartmentTypeLabel);
-		
 		JLabel numOfRoomatesLabel = new JLabel("\u05E1\u05D4\"\u05DB \u05E9\u05D5\u05EA\u05E4\u05D9\u05DD");
-		numOfRoomatesLabel.setBounds(652, 108, 107, 16);
+		numOfRoomatesLabel.setBounds(652, 164, 107, 16);
 		frame.getContentPane().add(numOfRoomatesLabel);
 		
 		JLabel missingRoomatesLabel = new JLabel("\u05E9\u05D5\u05EA\u05E4\u05D9\u05DD \u05D7\u05E1\u05E8\u05D9\u05DD");
@@ -120,77 +110,41 @@ public class ShowAllApartmentView extends Observable {
 		frame.getContentPane().add(missingRoomatesLabel);
 		
 		JLabel roomsLabel = new JLabel("\u05D7\u05D3\u05E8\u05D9\u05DD");
-		roomsLabel.setBounds(652, 163, 56, 16);
+		roomsLabel.setBounds(652, 196, 56, 16);
 		frame.getContentPane().add(roomsLabel);
 		
 		JLabel startPriceLabel = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
-		startPriceLabel.setBounds(652, 195, 56, 16);
+		startPriceLabel.setBounds(652, 223, 56, 16);
 		frame.getContentPane().add(startPriceLabel);
 		
 		JLabel limitPriceLabel = new JLabel("\u05E2\u05D3 \u05DE\u05D7\u05D9\u05E8");
-		limitPriceLabel.setBounds(652, 227, 90, 16);
+		limitPriceLabel.setBounds(652, 255, 90, 16);
 		frame.getContentPane().add(limitPriceLabel);
 		
 		LimitPrice = new JTextField();
 		LimitPrice.setColumns(10);
-		LimitPrice.setBounds(508, 224, 116, 22);
+		LimitPrice.setBounds(508, 252, 116, 22);
 		frame.getContentPane().add(LimitPrice);
 		
 		StartPrice = new JTextField();
 		StartPrice.setColumns(10);
-		StartPrice.setBounds(508, 192, 116, 22);
+		StartPrice.setBounds(508, 220, 116, 22);
 		frame.getContentPane().add(StartPrice);
 		
 		JSpinner roomsSpinner = new JSpinner();
 		roomsSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		roomsSpinner.setBounds(563, 166, 36, 22);
+		roomsSpinner.setBounds(563, 194, 36, 22);
 		frame.getContentPane().add(roomsSpinner);
 		
 		JSpinner missingRoomatesSpinner = new JSpinner();
 		missingRoomatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		missingRoomatesSpinner.setBounds(563, 137, 36, 22);
+		missingRoomatesSpinner.setBounds(563, 131, 36, 22);
 		frame.getContentPane().add(missingRoomatesSpinner);
 		
 		JSpinner numOfRommatesspinner = new JSpinner();
 		numOfRommatesspinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		numOfRommatesspinner.setBounds(563, 108, 36, 22);
+		numOfRommatesspinner.setBounds(563, 161, 36, 22);
 		frame.getContentPane().add(numOfRommatesspinner);
-		
-		JCheckBox elevatorCheckBox = new JCheckBox("\u05DE\u05E2\u05DC\u05D9\u05EA");
-		elevatorCheckBox.setBounds(260, 159, 113, 25);
-		frame.getContentPane().add(elevatorCheckBox);
-		
-		JCheckBox parkingCheckBox = new JCheckBox("\u05D7\u05E0\u05D9\u05D4");
-		parkingCheckBox.setBounds(260, 35, 113, 25);
-		frame.getContentPane().add(parkingCheckBox);
-		
-		JCheckBox airCheckBox = new JCheckBox("\u05DE\u05D9\u05D6\u05D5\u05D2");
-		airCheckBox.setBounds(260, 65, 113, 25);
-		frame.getContentPane().add(airCheckBox);
-		
-		JCheckBox patioCheckBox = new JCheckBox("\u05DE\u05E8\u05E4\u05E1\u05EA");
-		patioCheckBox.setBounds(260, 98, 113, 25);
-		frame.getContentPane().add(patioCheckBox);
-		
-		JCheckBox mamadCheckBox = new JCheckBox("\u05DE\u05DE\"\u05D3");
-		mamadCheckBox.setBounds(260, 130, 113, 25);
-		frame.getContentPane().add(mamadCheckBox);
-		
-		JCheckBox storageCheckBox = new JCheckBox("\u05DE\u05D7\u05E1\u05DF");
-		storageCheckBox.setBounds(77, 130, 113, 25);
-		frame.getContentPane().add(storageCheckBox);
-		
-		JCheckBox accesibleCheckBox = new JCheckBox("\u05D2\u05D9\u05E9\u05D4 \u05DC\u05E0\u05DB\u05D9\u05DD");
-		accesibleCheckBox.setBounds(77, 35, 145, 25);
-		frame.getContentPane().add(accesibleCheckBox);
-		
-		JCheckBox furnitureCheckBox = new JCheckBox("\u05DE\u05E8\u05D5\u05D4\u05D8\u05EA");
-		furnitureCheckBox.setBounds(77, 65, 113, 25);
-		frame.getContentPane().add(furnitureCheckBox);
-		
-		JCheckBox petCheckBox = new JCheckBox("\u05D7\u05D9\u05D5\u05EA \u05DE\u05D7\u05DE\u05D3");
-		petCheckBox.setBounds(77, 98, 113, 25);
-		frame.getContentPane().add(petCheckBox);
 		
 		JLabel searchApartmentLabel = new JLabel("\u05D7\u05D9\u05E4\u05D5\u05E9 \u05D3\u05D9\u05E8\u05D4");
 		searchApartmentLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -199,12 +153,12 @@ public class ShowAllApartmentView extends Observable {
 		
 		JButton searchButton = new JButton("\u05D7\u05E4\u05E9");
 		searchButton.setBackground(Color.PINK);
-		searchButton.setBounds(392, 299, 97, 25);
+		searchButton.setBounds(335, 269, 97, 25);
 		frame.getContentPane().add(searchButton);
 		
 		JLabel searchResultLabel = new JLabel("\u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9 - \u05E8\u05E9\u05D9\u05DE\u05D4");
 		searchResultLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		searchResultLabel.setBounds(428, 342, 196, 16);
+		searchResultLabel.setBounds(290, 335, 196, 16);
 		frame.getContentPane().add(searchResultLabel);
 		
 		loginOrLogoutButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8/\u05D4\u05EA\u05E0\u05EA\u05E7");
@@ -218,7 +172,7 @@ public class ShowAllApartmentView extends Observable {
 //				frame.setVisible(false);
 			}
 		});
-		loginOrLogoutButton.setBounds(10, 311, 227, 25);
+		loginOrLogoutButton.setBounds(10, 31, 227, 25);
 		frame.getContentPane().add(loginOrLogoutButton);
 		
 		addApartmentButton = new JButton("\u05D4\u05D5\u05E1\u05E4\u05EA \u05D3\u05D9\u05E8\u05D4 \u05D7\u05D3\u05E9\u05D4 - \u05DE\u05E0\u05D5\u05D9/\u05D0\u05D3\u05DE\u05D9\u05DF");
@@ -233,7 +187,7 @@ public class ShowAllApartmentView extends Observable {
 				openAddNewApartmentView(arg0);
 			}
 		});
-		addApartmentButton.setBounds(10, 352, 267, 25);
+		addApartmentButton.setBounds(10, 101, 267, 25);
 		frame.getContentPane().add(addApartmentButton);
 		
 		watchApartmentButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05D3\u05D9\u05E8\u05D5\u05EA \u05E9\u05DC\u05DA - \u05DE\u05E0\u05D5\u05D9");
@@ -251,7 +205,7 @@ public class ShowAllApartmentView extends Observable {
 			}
 		});
 		
-		watchApartmentButton.setBounds(10, 393, 227, 25);
+		watchApartmentButton.setBounds(10, 136, 227, 25);
 		frame.getContentPane().add(watchApartmentButton);
 		
 		watchSearchResultButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E0\u05EA\u05D5\u05E0\u05D9 \u05D7\u05D9\u05E4\u05D5\u05E9 - \u05D0\u05D3\u05DE\u05D9\u05DF");
@@ -267,7 +221,7 @@ public class ShowAllApartmentView extends Observable {
 				//searchDetailsView.showSearchDetailsView(connectedUser,adminBool);
 				//frame.setVisible(false);
 			}});
-		watchSearchResultButton.setBounds(10, 434, 227, 25);
+		watchSearchResultButton.setBounds(10, 172, 227, 25);
 		frame.getContentPane().add(watchSearchResultButton);
 		
 		JButton printSearchResultButton = new JButton("\u05D4\u05D3\u05E4\u05E1\u05EA \u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05D7\u05D9\u05E4\u05D5\u05E9");
@@ -276,7 +230,7 @@ public class ShowAllApartmentView extends Observable {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		printSearchResultButton.setBounds(10, 516, 227, 25);
+		printSearchResultButton.setBounds(10, 65, 227, 25);
 		frame.getContentPane().add(printSearchResultButton);
 		
 		showAllUsersButton = new JButton("\u05D4\u05E6\u05D2 \u05D0\u05EA \u05DB\u05DC \u05D4\u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD");
@@ -287,46 +241,56 @@ public class ShowAllApartmentView extends Observable {
 				openShowAllUserView(arg0);
 			}
 		});
-		showAllUsersButton.setBounds(10, 475, 227, 25);
+		showAllUsersButton.setBounds(10, 208, 227, 25);
 		frame.getContentPane().add(showAllUsersButton);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(563, 283, -84, 8);
 		frame.getContentPane().add(comboBox);
 		
-		JComboBox propertyTypecomboBox = new JComboBox();
-		propertyTypecomboBox.setModel(new DefaultComboBoxModel(new String[] {"דירת קרקע", "דירה בבניין"}));
-		propertyTypecomboBox.setEditable(true);
-		propertyTypecomboBox.setBounds(508, 265, 116, 32);
+		propertyTypecomboBox = new JComboBox();
+		propertyTypecomboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				propertyTypeComboBox();
+			}
+		});
+
+		
+		propertyTypecomboBox.setBounds(508, 31, 116, 32);
 		frame.getContentPane().add(propertyTypecomboBox);
 		
 		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
-		propertyTypeLabel.setBounds(662, 271, 69, 20);
+		propertyTypeLabel.setBounds(639, 33, 69, 20);
 		frame.getContentPane().add(propertyTypeLabel);
 		
 		userNameLabel = new JLabel("user name here");
-		userNameLabel.setBounds(712, 11, 102, 25);
+		userNameLabel.setBounds(744, 4, 36, 25);
 		frame.getContentPane().add(userNameLabel);
 		userNameLabel.setText("guest");
 		
 		adminLabel = new JLabel("אדמין");
-		adminLabel.setBounds(712, 36, 46, 14);
+		adminLabel.setBounds(744, 36, 46, 14);
 		frame.getContentPane().add(adminLabel);
 		
 		panel = new JPanel();
-		panel.setBounds(299, 372, 491, 202);
+		panel.setBounds(10, 372, 780, 202);
 		frame.getContentPane().add(panel);
-//		changeTheUser();
-//		if(connectedUser==null)
-//		{
-//			userNameLabel.setText("guest");
-//		}
-//		else
-//		{
-//			System.out.println(connectedUser.toString() + " the user!");
-//			userNameLabel.setText(connectedUser.toString());
-//		}
 		
+		cityComboBox = new JComboBox();
+		
+		cityComboBox.setBounds(551, 92, 90, 20);
+		frame.getContentPane().add(cityComboBox);	
+		
+		missingRoomatesComboBox = new JComboBox();
+
+		missingRoomatesComboBox.setBounds(463, 132, 90, 20);
+		
+		frame.getContentPane().add(missingRoomatesComboBox);
+		
+		numOfRommatesComboBox = new JComboBox();
+		numOfRommatesComboBox.setBounds(463, 162, 90, 20);
+		frame.getContentPane().add(numOfRommatesComboBox);
 	}
 	
 	public void openAddNewApartmentView(MouseEvent arg0)
@@ -360,19 +324,50 @@ public class ShowAllApartmentView extends Observable {
 		this.mainView = mainView;
 	}
 	
-	public void openShowAllApartment(String userName, boolean userType) {
+	public void openShowAllApartment(String userName, boolean userType) {  //0 - ground, 1 - building
 		this.connectedUser = userName;
 		this.adminBool = userType;
 		frame.setVisible(true);
 		this.frame.setEnabled(true);
 		userType();
+		setChanged();
+		notifyObservers(new PropertType());
 	}
 	
-//	public void openShowAllApartment() {
-//		changeTheUser();
-//		frame.setVisible(true);
-//		this.frame.setEnabled(true);
-//	}
+	
+	public void propertyTypeComboBox()
+	{
+		numOfRommatesComboBox.removeAllItems();
+		missingRoomatesComboBox.removeAllItems();
+		cityComboBox.removeAllItems();
+		setChanged();
+		notifyObservers(new CityShow(propertyTypecomboBox.getSelectedIndex()));
+		
+		numOfRommatesComboBox.removeAllItems();
+		missingRoomatesComboBox.removeAllItems();
+
+		setChanged();
+		notifyObservers(new MissedRommateNumShow(propertyTypecomboBox.getSelectedIndex(), cityComboBox.getSelectedItem().toString()));
+		
+		numOfRommatesComboBox.removeAllItems();
+		
+//		setChanged();
+//		notifyObservers(new numOfRommates(propertyTypecomboBox.getSelectedIndex(), cityComboBox.getSelectedItem().toString()));
+//		//numOfRommates
+		
+	}
+	
+	public class NumOfRommates
+	{
+		public String missedRommates;
+		public String city;
+		public int propretyType;
+		public NumOfRommates(int typeSelected, String citySelected) {
+			this.propretyType = typeSelected;
+			this.city = citySelected;
+		}
+	}
+	
 	
 	
 	public void userType() { 
@@ -417,4 +412,53 @@ public class ShowAllApartmentView extends Observable {
 		panel.add(scrollPane_1);
 		this.frame.setVisible(true);
 	}
+	
+	public void loadCities(String [] cities)
+	{
+		for (int i=0;i<cities.length;i++)
+		{
+			cityComboBox.addItem(cities[i]);
+		}
+	}
+	
+	public void loadmissingRoomates(String [] numOfMissingRommates)
+	{
+		for (int i=0;i<numOfMissingRommates.length;i++)
+		{
+			missingRoomatesComboBox.addItem(numOfMissingRommates[i]);
+		}
+	}
+
+	
+	public void loadPropertType(Boolean [] type)
+	{
+		if(type[0])
+		{
+			propertyTypecomboBox.addItem("דירת קרקע");
+		}
+		if(type[1])
+		{
+			propertyTypecomboBox.addItem("דירה בבניין");
+		}
+	}
+	
+	public class MissedRommateNumShow 
+	{
+		public String city;
+		public int propretyType;
+		public MissedRommateNumShow(int typeSelected, String citySelected) {
+			this.propretyType = typeSelected;
+			this.city = citySelected;
+		}
+	}
+	
+	public class CityShow 
+	{
+		public int index;
+		public CityShow(int type) {
+			this.index = type;
+		}
+	}
+	
+	public class PropertType {}
 }
