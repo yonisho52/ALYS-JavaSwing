@@ -56,10 +56,9 @@ public class ShowAllApartmentView extends Observable {
 	private JComboBox missingRoomatesComboBox;
 	private JComboBox numOfRommatesComboBox;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+
+	public static void main(String[] args) 
+	{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -72,9 +71,6 @@ public class ShowAllApartmentView extends Observable {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public ShowAllApartmentView(SearchDetailsView searchDetailsView,AddNewApartmentView addNewApartmentView,
 			ShowUserApartmentView showUserApartmentView, ShowAllUsersView showAllUsersView) {
 		this.searchDetailsView = searchDetailsView;
@@ -88,10 +84,8 @@ public class ShowAllApartmentView extends Observable {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	private void initialize() 
+	{
 		frame = new JFrame();
 		frame.setBounds(100, 100, 840, 624);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -167,9 +161,6 @@ public class ShowAllApartmentView extends Observable {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				loginOrLogout();
-				
-//				mainView.showMainView();
-//				frame.setVisible(false);
 			}
 		});
 		loginOrLogoutButton.setBounds(10, 31, 227, 25);
@@ -324,7 +315,8 @@ public class ShowAllApartmentView extends Observable {
 		this.mainView = mainView;
 	}
 	
-	public void openShowAllApartment(String userName, boolean userType) {  //0 - ground, 1 - building
+	public void openShowAllApartment(String userName, boolean userType)  //0 - ground, 1 - building
+	{ 
 		this.connectedUser = userName;
 		this.adminBool = userType;
 		frame.setVisible(true);
@@ -333,7 +325,6 @@ public class ShowAllApartmentView extends Observable {
 		setChanged();
 		notifyObservers(new PropertType());
 	}
-	
 	
 	public void propertyTypeComboBox()
 	{
@@ -354,7 +345,6 @@ public class ShowAllApartmentView extends Observable {
 //		setChanged();
 //		notifyObservers(new numOfRommates(propertyTypecomboBox.getSelectedIndex(), cityComboBox.getSelectedItem().toString()));
 //		//numOfRommates
-		
 	}
 	
 	public class NumOfRommates
@@ -368,10 +358,8 @@ public class ShowAllApartmentView extends Observable {
 		}
 	}
 	
-	
-	
-	public void userType() { 
-		
+	public void userType() 
+	{ 
 		watchSearchResultButton.setVisible(false);
 		showAllUsersButton.setVisible(false);
 		adminLabel.setText("לא אדמין");
@@ -383,6 +371,7 @@ public class ShowAllApartmentView extends Observable {
 			addApartmentButton.setVisible(false);
 			watchApartmentButton.setVisible(false);
 		}
+		
 		else
 		{
 			loginOrLogoutButton.setText("התנתק");
@@ -399,8 +388,8 @@ public class ShowAllApartmentView extends Observable {
 		}
 	}
 	
-	public void loginOrLogout() {
-		
+	public void loginOrLogout() 
+	{
 		this.connectedUser=null;
 		mainView.showMainView();
 		frame.setVisible(false);

@@ -13,20 +13,16 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
 
-public class SearchDetailsView extends Observable {
-	
+public class SearchDetailsView extends Observable 
+{
 	ShowAllApartmentView showAllApartmentView;
 	
-
 	private JFrame frame;
 	private JTable mostSearchedApartmentList;
 	
 	protected String connectedUser;
 	protected boolean adminBool;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,9 +41,6 @@ public class SearchDetailsView extends Observable {
 	{
 		this.showAllApartmentView = showAllApartmentView;
 	}
-	/**
-	 * Create the application.
-	 */
 	
 	public SearchDetailsView(ShowAllApartmentView showAllApartmentView) {
 	
@@ -66,10 +59,9 @@ public class SearchDetailsView extends Observable {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+
+	private void initialize() 
+	{
 		frame = new JFrame();
 		frame.setBounds(100, 100, 653, 477);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -23,7 +23,12 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SpinnerNumberModel;
+
+import com.sun.xml.internal.ws.Closeable;
+
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class AddNewApartmentView extends Observable 
 {
@@ -36,6 +41,7 @@ public class AddNewApartmentView extends Observable
 	private JComboBox propertyTypeComboBox;
 	private JLabel floorCountLabel;
 	private JLabel floorNumLabel;
+	
 	private JSpinner floorsBuildingSpinner;
 	private JCheckBox gardenGroundCheckBox;
 	private JLabel apartmentNumberLabel;
@@ -44,6 +50,7 @@ public class AddNewApartmentView extends Observable
 	private JSpinner missingRoomatesSpinner;
 	private JCheckBox elevatorCheckBox;
 	private JCheckBox parkingCheckBox;
+	
 	private JCheckBox airCheckBox;
 	private JCheckBox patioCheckBox;
 	private JCheckBox mamadCheckBox;
@@ -57,13 +64,18 @@ public class AddNewApartmentView extends Observable
 	
 	protected String connectedUser;
 	protected boolean adminBool;
-	
 	protected boolean apartmentType = false;  // ground = false, building = true
+	private JLabel roomatesLabel;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblNewLabel_4;
+	private JLabel citywarningLabel;
+	private JLabel streetLabel;
+	private JLabel amountLabel;
+	protected boolean citybool , streetbool , amountbool ,roomatestbool ;
 
-	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) 
 	{
 		EventQueue.invokeLater(new Runnable() 
@@ -78,10 +90,6 @@ public class AddNewApartmentView extends Observable
 			}
 		});
 	}
-
-	/**
-	 * Create the application.
-	 */
 	
 //	public AddNewApartmentView(ShowAllApartmentView showAllApartmentView) {
 //		this.showAllApartmentView = showAllApartmentView;
@@ -101,25 +109,29 @@ public class AddNewApartmentView extends Observable
 		//this.frame.setEnabled(true);
 	}
 	
-	public void setMain(ShowAllApartmentView showAllApartmentView) {
+	public void setMain(ShowAllApartmentView showAllApartmentView) 
+	{
 		this.showAllApartmentView = showAllApartmentView;
 	}
 	
-	public AddNewApartmentView() {
+	public AddNewApartmentView() 
+	{
 		initialize();
 	}
 
 	
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	private void initialize() 
+	{
 		frame = new JFrame();
 		frame.setBounds(100, 100, 738, 562);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton addButton = new JButton("\u05D4\u05D5\u05E1\u05E4\u05D4");
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		addButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -155,11 +167,23 @@ public class AddNewApartmentView extends Observable
 		frame.getContentPane().add(addressLabel);
 		
 		cityTextFile = new JTextField();
+		cityTextFile.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				checkIfCityEmpty();
+			}
+		});
 		cityTextFile.setBounds(348, 82, 116, 22);
 		frame.getContentPane().add(cityTextFile);
 		cityTextFile.setColumns(10);
 		
 		streetTextFile = new JTextField();
+		streetTextFile.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfStreetEmpty();
+			}
+		});
 		streetTextFile.setBounds(348, 116, 116, 22);
 		frame.getContentPane().add(streetTextFile);
 		streetTextFile.setColumns(10);
@@ -178,6 +202,13 @@ public class AddNewApartmentView extends Observable
 		frame.getContentPane().add(missingRoomatesLabel);
 		
 		missingRoomatesSpinner = new JSpinner();
+		missingRoomatesSpinner.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				
+				System.out.println("yoni");
+			}
+		});
 		missingRoomatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		missingRoomatesSpinner.setBounds(428, 184, 36, 22);
 		frame.getContentPane().add(missingRoomatesSpinner);
@@ -191,21 +222,27 @@ public class AddNewApartmentView extends Observable
 		roomsSpinner.setBounds(428, 213, 36, 22);
 		frame.getContentPane().add(roomsSpinner);
 		
-		JLabel priceLabel = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
+		JLabel priceLabel = new JLabel("מחיר");
 		priceLabel.setBounds(485, 245, 56, 16);
 		frame.getContentPane().add(priceLabel);
 		
 		priceTextField = new JTextField();
+		priceTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfAmountEmpty();
+			}
+		});
 		priceTextField.setBounds(348, 242, 116, 22);
 		frame.getContentPane().add(priceTextField);
 		priceTextField.setColumns(10);
 		
 		elevatorCheckBox = new JCheckBox("\u05DE\u05E2\u05DC\u05D9\u05EA");
-		elevatorCheckBox.setBounds(165, 81, 113, 25);
+		elevatorCheckBox.setBounds(165, 81, 69, 25);
 		frame.getContentPane().add(elevatorCheckBox);
 		
 		parkingCheckBox = new JCheckBox("\u05D7\u05E0\u05D9\u05D4");
-		parkingCheckBox.setBounds(165, 115, 113, 25);
+		parkingCheckBox.setBounds(165, 115, 69, 25);
 		frame.getContentPane().add(parkingCheckBox);
 		
 		airCheckBox = new JCheckBox("\u05DE\u05D9\u05D6\u05D5\u05D2");
@@ -238,6 +275,12 @@ public class AddNewApartmentView extends Observable
 		
 		String apartmentType[] = {"דירת קרקע","דירה בבנין"};
 		propertyTypeComboBox = new JComboBox(apartmentType);
+		propertyTypeComboBox.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+			}
+		});
+		
 		propertyTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"דירת קרקע", "דירה בבניין"}));
 		propertyTypeComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -305,6 +348,55 @@ public class AddNewApartmentView extends Observable
 		floorCountGroundSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		floorCountGroundSpinner.setBounds(528, 340, 36, 25);
 		frame.getContentPane().add(floorCountGroundSpinner);
+		
+		roomatesLabel = new JLabel("מס' גדול מסה\"כ שותפים!");
+		roomatesLabel.setForeground(Color.RED);
+		roomatesLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		roomatesLabel.setBounds(273, 179, 156, 25);
+		frame.getContentPane().add(roomatesLabel);
+		roomatesLabel.setVisible(false);
+		
+		lblNewLabel_1 = new JLabel("*");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1.setForeground(Color.RED);
+		lblNewLabel_1.setBounds(564, 85, 26, 16);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		lblNewLabel_2 = new JLabel("*");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_2.setForeground(Color.RED);
+		lblNewLabel_2.setBounds(564, 118, 26, 16);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+		lblNewLabel_3 = new JLabel("*");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_3.setForeground(Color.RED);
+		lblNewLabel_3.setBounds(564, 244, 26, 16);
+		frame.getContentPane().add(lblNewLabel_3);
+		
+		lblNewLabel_4 = new JLabel("*");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_4.setForeground(Color.RED);
+		lblNewLabel_4.setBounds(564, 287, 19, 16);
+		frame.getContentPane().add(lblNewLabel_4);
+		
+		citywarningLabel = new JLabel("הכנס עיר");
+		citywarningLabel.setForeground(Color.RED);
+		citywarningLabel.setBounds(273, 85, 69, 16);
+		frame.getContentPane().add(citywarningLabel);
+		citywarningLabel.setVisible(false);
+		
+		streetLabel = new JLabel("הכנס רחוב");
+		streetLabel.setForeground(Color.RED);
+		streetLabel.setBounds(270, 119, 69, 16);
+		frame.getContentPane().add(streetLabel);
+		streetLabel.setVisible(false);
+		
+		amountLabel = new JLabel("הכנס מחיר");
+		amountLabel.setForeground(Color.RED);
+		amountLabel.setBounds(262, 245, 80, 16);
+		frame.getContentPane().add(amountLabel);
+		amountLabel.setVisible(false);
 	}
 	
 	public void groundOrBuilding(String type)
@@ -314,17 +406,14 @@ public class AddNewApartmentView extends Observable
 				this.apartmentType = true;
 				floorCountGroundSpinner.setVisible(false);
 				floorCountGroundSpinner.setValue(0);
-				
 				floorCountLabel.setVisible(false);
-				
-				
 				floorNumLabel.setVisible(true);
 				floorsBuildingSpinner.setVisible(true);
 				gardenGroundCheckBox.setVisible(true);
 				apartmentNumberLabel.setVisible(true);
 				apartmentNumberGroundSpinner.setVisible(true);
-				
 		}
+		
 		else if(type.toString().equals("דירת קרקע"))
 		{
 			this.apartmentType = false;
@@ -352,41 +441,42 @@ public class AddNewApartmentView extends Observable
 //			String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()), String.valueOf(storageCheckBox.isSelected()), 
 //			String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected())};
 	
-
 	
 	public void addThisApartment() 
 	{
-		if(apartmentType) // true = building // missed apartmentType and floor count
+		checkIfBiggerThanRoomates();
+		if (citybool && streetbool && amountbool && roomatestbool)
 		{
-		String [] buildingApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
-				missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
-				floorsBuildingSpinner.getValue().toString(), String.valueOf(gardenGroundCheckBox.isSelected()), apartmentNumberGroundSpinner.getValue().toString(), 
-				String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), String.valueOf(airCheckBox.isSelected()), 
-				String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()), String.valueOf(storageCheckBox.isSelected()), 
-				String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected()), connectedUser};
-		
-		setChanged();
-		notifyObservers(new AddBuilding(buildingApartment));
-		
-		}
-		else // false = ground
-		{
-			String [] groundApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
+			if(apartmentType) // true = building // missed apartmentType and floor count
+			{
+			String [] buildingApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
 					missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
-					floorCountGroundSpinner.getValue().toString(),String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), 
-					String.valueOf(airCheckBox.isSelected()), String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()),
-					String.valueOf(storageCheckBox.isSelected()), String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), 
-					String.valueOf(petCheckBox.isSelected()), connectedUser};
+					floorsBuildingSpinner.getValue().toString(), String.valueOf(gardenGroundCheckBox.isSelected()), apartmentNumberGroundSpinner.getValue().toString(), 
+					String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), String.valueOf(airCheckBox.isSelected()), 
+					String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()), String.valueOf(storageCheckBox.isSelected()), 
+					String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected()), connectedUser};
 			
 			setChanged();
-			notifyObservers(new AddGround(groundApartment));
+			notifyObservers(new AddBuilding(buildingApartment));
 			
+			}
 			
+			else // false = ground
+			{
+				String [] groundApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
+						missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
+						floorCountGroundSpinner.getValue().toString(),String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), 
+						String.valueOf(airCheckBox.isSelected()), String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()),
+						String.valueOf(storageCheckBox.isSelected()), String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), 
+						String.valueOf(petCheckBox.isSelected()), connectedUser};
+				
+				setChanged();
+				notifyObservers(new AddGround(groundApartment));
+			}
+			
+			this.frame.setVisible(false); 
+			showAllApartmentView.openShowAllApartment(cityTextFile.getText(),false);	
 		}
-	
-//		this.frame.setVisible(false); 
-//		showAllApartmentView.openShowAllApartment(userName.getText(),false);	
-
 	}
 	
 	public class AddGround
@@ -407,9 +497,62 @@ public class AddNewApartmentView extends Observable
 		}
 	}
 	
+	public void checkIfCityEmpty()
+	{
+		if(cityTextFile.getText().toString().equals(""))	
+		{
+			citywarningLabel.setVisible(true);
+			this.citybool =false;
+		}
+		else
+		{
+			citywarningLabel.setVisible(false);
+			this.citybool =true;
+		}
+	}
+	
+	public void checkIfStreetEmpty()
+	{
+		if(streetTextFile.getText().toString().equals(""))	
+		{
+			streetLabel.setVisible(true);
+			this.streetbool =false;
+		}
+		else
+		{
+			streetLabel.setVisible(false);
+			this.streetbool =true;
+		}
+	}
+	
+	public void checkIfAmountEmpty()
+	{
+		if(priceTextField.getText().toString().equals(""))	
+		{
+			amountLabel.setVisible(true);
+			this.amountbool =false;
+		}
+		else
+		{
+			amountLabel.setVisible(false);
+			this.amountbool =true;
+		}
+	}
 
-	
-	
-	
-	
+	public void checkIfBiggerThanRoomates()
+	{
+		int missing = (Integer)missingRoomatesSpinner.getValue();
+		int roomates = (Integer)numOfRommatesSpinner.getValue();
+		
+		if(missing > roomates)	
+		{
+			roomatesLabel.setVisible(true);
+			this.roomatestbool =false;
+		}
+		else
+		{
+			roomatesLabel.setVisible(false);
+			this.roomatestbool =true;
+		}
+	}
 }

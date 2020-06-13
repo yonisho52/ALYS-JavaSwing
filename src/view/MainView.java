@@ -17,6 +17,7 @@ import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JPasswordField;
 
 public class MainView extends Observable {
 
@@ -25,7 +26,7 @@ public class MainView extends Observable {
 	
 	private JFrame frame;
 	private JTextField userNameTextField;
-	private JTextField passTextField;
+	private JPasswordField passTextField;
 	JLabel failLabel;
 
 	/**
@@ -149,7 +150,7 @@ public class MainView extends Observable {
 		frame.getContentPane().add(userNameTextField);
 		userNameTextField.setColumns(10);
 		
-		passTextField = new JTextField();
+		passTextField = new JPasswordField();
 		passTextField.setColumns(10);
 		passTextField.setBounds(212, 117, 116, 22);
 		frame.getContentPane().add(passTextField);

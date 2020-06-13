@@ -15,23 +15,23 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.JPasswordField;
 
-public class RegisterView extends Observable {
-
+public class RegisterView extends Observable 
+{
 	MainView mainView;
 	ShowAllApartmentView showAllApartmentView;
 	
 	private JFrame frame;
 	private JTextField userName;
-	private JTextField password;
-	private JTextField validatePassword;
+	private JPasswordField password;
+	private JPasswordField validatePassword;
 	private JTextField email;
 	private JTextField phoneNumber;
 	private JTextField firstName;
 	private JTextField lastName;
 	JTextField passwordLabel;
 	private JLabel validatePasswordLabel;
-	
 	private JLabel existUser;
 	private JLabel PasswordEnterLabel_1;
 	
@@ -48,11 +48,9 @@ public class RegisterView extends Observable {
 	private JLabel firstnamelable;
 	private JLabel lastnamelable;
 	private JLabel phonelable;
+	private JPasswordField passwordField;
+	private JPasswordField passwordField_1;
 	
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -83,27 +81,26 @@ public class RegisterView extends Observable {
 			this.userName = user;
 		}
 	}
-	//check push
-	/**
-	 * Create the application.
-	 */
+	
 	public void setMainView(MainView mainView) 
 	{
 		this.mainView = mainView;
 	}
+	
 	public void showRegisterView() {frame.setVisible(true);}
-	public RegisterView(ShowAllApartmentView showAllApartmentView) {
+	
+	public RegisterView(ShowAllApartmentView showAllApartmentView) 
+	{
 		this.showAllApartmentView = showAllApartmentView;
 		initialize();
 	}
+	
 	public RegisterView() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	private void initialize() 
+	{
 		frame = new JFrame();
 		frame.setBounds(100, 100, 567, 495);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,7 +131,7 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(userName);
 		userName.setColumns(10);
 		
-		password = new JTextField();
+		password = new JPasswordField();
 		password.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -145,14 +142,10 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(password);
 		password.setColumns(10);
 		
-		validatePassword = new JTextField();
+		validatePassword = new JPasswordField();
 		validatePassword.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
-//				if (!(password.getText().equals(validatePassword.getText()) ))
-//				{
-//					mismatchPassword.setVisible(true);
-//				}
 				checkIfEmptyPasswordValid();
 			}
 		});
@@ -175,11 +168,7 @@ public class RegisterView extends Observable {
 //				
 //				setChanged();
 //				notifyObservers(newTenant);
-				
-				// after login show allApartmentView on the same user that register
 				openShowAllApartmentView(arg0);
-				
-
 			}
 		});
 		regButton.setBounds(305, 350, 97, 25);
@@ -314,14 +303,14 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(missingText);
 		
 		PasswordEnterLabel_1 = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E1\u05D9\u05E1\u05DE\u05D0");
-		PasswordEnterLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		PasswordEnterLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		PasswordEnterLabel_1.setForeground(Color.RED);
 		PasswordEnterLabel_1.setBounds(93, 119, 82, 16);
 		PasswordEnterLabel_1.setVisible(false);
 		frame.getContentPane().add(PasswordEnterLabel_1);
 		
 		firstnamelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E9\u05DD \u05E4\u05E8\u05D8\u05D9");
-		firstnamelable.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		firstnamelable.setFont(new Font("Tahoma", Font.BOLD, 13));
 		firstnamelable.setForeground(Color.RED);
 		firstnamelable.setBounds(78, 190, 97, 16);
 		firstnamelable.setVisible(false);
@@ -329,20 +318,26 @@ public class RegisterView extends Observable {
 		frame.getContentPane().add(firstnamelable);
 		
 		lastnamelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
+		lastnamelable.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lastnamelable.setForeground(Color.RED);
 		lastnamelable.setBounds(59, 222, 116, 16);
 		frame.getContentPane().add(lastnamelable);
 		lastnamelable.setVisible(false);
 		
-		phonelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05D8\u05DC\u05E4\u05D5\u05DF");
+		phonelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05D8\u05DC\u05E4\u05D5\u05DF \u05EA\u05E7\u05D9\u05DF");
+		phonelable.setFont(new Font("Tahoma", Font.BOLD, 13));
 		phonelable.setForeground(Color.RED);
-		phonelable.setBounds(78, 291, 97, 16);
+		phonelable.setBounds(59, 291, 116, 16);
 		frame.getContentPane().add(phonelable);
 		phonelable.setVisible(false);
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(78, 305, 56, 16);
+		frame.getContentPane().add(lblNewLabel_1);
+		
 	}
 	
-	public void openShowAllApartmentView(MouseEvent arg0) {
-	
+	public void openShowAllApartmentView(MouseEvent arg0)
+	{
 		if(firstNamebool && lastNamebool && passwordbool && phonebool && userbool)
 		{
 			String newTenant[] = {userName.getText().toString(),password.getText().toString(),
@@ -353,12 +348,12 @@ public class RegisterView extends Observable {
 			this.frame.setVisible(false); 
 			showAllApartmentView.openShowAllApartment(userName.getText(),false);	
 		}
+		
 		else 
 		{
 			
 		}
 	}
-	
 	
 	public void userValid(boolean exist)   /// exist = false - the user name are free
 	{
@@ -378,8 +373,8 @@ public class RegisterView extends Observable {
 	{
 		if(password.getText().toString().equals("")) {PasswordEnterLabel_1.setVisible(true);}
 		else {PasswordEnterLabel_1.setVisible(false);}
-			
 	}
+	
 	public void checkIfEmptyPasswordValid()
 	{
 		if (!(password.getText().equals(validatePassword.getText()) ) || validatePassword.getText().toString().equals("") )
@@ -392,13 +387,7 @@ public class RegisterView extends Observable {
 			{
 				mismatchPassword.setVisible(false);
 				this.passwordbool = true;
-			}
-//		if(validatePassword.getText().toString().equals(""))	
-//		{
-//			
-//			mismatchPassword.setVisible(true);
-//		}
-			
+			}			
 	}
 	
 	public void checkIfEmptyfirstName()
@@ -437,17 +426,21 @@ public class RegisterView extends Observable {
 			phonelable.setVisible(true);
 			this.phonebool =false;
 		}
+		
 		else
 		{
 			phonelable.setVisible(false);
 			this.phonebool =true;
 		}
 			
+		for(int i=0 ; i < phoneNumber.getText().length(); i++)
+		{
+			String arr = phoneNumber.getText();
+			if(arr.charAt(i) < '0' || arr.charAt(i) > '9')
+			{
+				phonelable.setVisible(true);
+				this.phonebool = false;
+			}
+		}
 	}
 }
-
-
-
-
-
-
