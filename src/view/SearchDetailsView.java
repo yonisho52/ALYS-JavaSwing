@@ -8,21 +8,28 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTable;
+
+import view.ShowAllUsersView.GetAllUsers;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JPanel;
 
-public class SearchDetailsView extends Observable 
-{
+public class SearchDetailsView extends Observable {
+	
 	ShowAllApartmentView showAllApartmentView;
 	
+
 	private JFrame frame;
-	private JTable mostSearchedApartmentList;
-	
+	private JPanel panel;
 	protected String connectedUser;
 	protected boolean adminBool;
 
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -41,6 +48,9 @@ public class SearchDetailsView extends Observable
 	{
 		this.showAllApartmentView = showAllApartmentView;
 	}
+	/**
+	 * Create the application.
+	 */
 	
 	public SearchDetailsView(ShowAllApartmentView showAllApartmentView) {
 	
@@ -53,15 +63,18 @@ public class SearchDetailsView extends Observable
 		this.adminBool = admin;
 		this.connectedUser = userName;
 		frame.setVisible(true);
+		setChanged();
+		notifyObservers(new TopApartment()); // request to go to the excel file and give me all the users
 		//this.frame.setEnabled(true);
 	}
 	public SearchDetailsView() {
 		initialize();
 	}
 
-
-	private void initialize() 
-	{
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 653, 477);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,10 +101,17 @@ public class SearchDetailsView extends Observable
 		printButton.setBounds(406, 107, 97, 25);
 		frame.getContentPane().add(printButton);
 		
-		
-		mostSearchedApartmentList = new JTable();
-		mostSearchedApartmentList.setBackground(Color.PINK);
-		mostSearchedApartmentList.setBounds(42, 148, 548, 244);
-		frame.getContentPane().add(mostSearchedApartmentList);
+		panel = new JPanel();
+		panel.setBounds(40, 147, 564, 270);
+		frame.getContentPane().add(panel);
 	}
+	
+	public class TopApartment
+	{
+		
+	}
+	
+	
+	
+	
 }

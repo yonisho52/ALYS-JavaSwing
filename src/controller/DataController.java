@@ -129,6 +129,23 @@ public class DataController implements Observer{
 			}
 		}
 		
+		if(arg0 instanceof ShowAllApartmentView) 
+		{
+			if(arg1 instanceof ShowAllApartmentView.Search)
+			{
+				String [] arr = ((ShowAllApartmentView.Search) arg1).search;
+				dataExcelConn.searchApartment(arr);
+			}
+		}
+		
+		if(arg0 instanceof SearchDetailsView) 
+		{
+			if(arg1 instanceof SearchDetailsView.TopApartment)
+			{
+				dataExcelConn.topApartment();
+			}
+		}
+		
 //		String [] groundApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
 //				missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
 //				floorCountGroundSpinner.getValue().toString(),String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), 
@@ -296,16 +313,15 @@ public class DataController implements Observer{
 			}
 		}
 		
-		
-		
-		if(arg0 instanceof DataExcelConn)     
+		if(arg0 instanceof DataExcelConn)
 		{
-			if(arg1 instanceof DataExcelConn.MissRommates)
+			if(arg1 instanceof DataExcelConn.ShowSearchTable)
 			{
-				String arr[] = ((DataExcelConn.MissRommates) arg1).missRommatesList;
-				showAllApartmentView.loadmissingRoomates(arr);
+				JTable jTable = ((DataExcelConn.ShowSearchTable) arg1).searchTable;
+				showAllApartmentView.showSearch(jTable);
 			}
 		}
+		
 	}
 
 }

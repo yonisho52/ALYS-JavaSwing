@@ -45,6 +45,8 @@ public class DataExcelConn extends Observable
 		}
 	}
 	
+	
+	
 	public static DataExcelConn getDataExcelConn() 
 	{
 		return dataExcelConn;
@@ -94,6 +96,15 @@ public class DataExcelConn extends Observable
 		public ShowAllApartments(JTable table)
 		{
 			this.allApartmentTable = table;
+		}
+	}
+	
+	public class ShowSearchTable
+	{
+		public JTable searchTable;
+		public ShowSearchTable(JTable table)
+		{
+			this.searchTable = table;
 		}
 	}
 	
@@ -585,24 +596,102 @@ public class DataExcelConn extends Observable
 		int lastRow = apartments.getLastRowNum();
 		lastRow++;
 		return lastRow;
-		
-//		double lastId;
-//		String str;
-//		row = apartments.getRow(lastRow);
-//		lastIdDB = row.getCell(1); // id cell
-//		str = lastIdDB.toString();
-//		
-//		lastId = Double.parseDouble(str);	
-//		lastId++;
-//		
-//		return (int)lastId;
-
 	}
 	
-	public void searchApartment() 
+	
+	// type , city , missedRommate, start price , limit price
+
+	public void searchApartment(String [] search) 
 	{
+		Row row;
+		Cell typeDB, cityDB, missRommateDB, priceDB;
+		int lastRow = apartments.getLastRowNum();
 		
-	}
+		// for table
+		
+		String [][] data = new String[lastRow][23]; 
+		String [] record = new String[23]; // lines
+		
+		String type = search[0];//10
+		String city = search[1];// 3
+		int missedRommate = Integer.parseInt(search[2]); // 6
+		int startPrice = Integer.parseInt(search[3]); // 8
+		int limitPrice = Integer.parseInt(search[4]);
+		
+		Double ps,ms;
+		
+		String [] userDetails;
+		
+		int j = 0,n,k;
+		
+		int miss,price;
+		
+		for(int i=1;i<=lastRow;i++)
+		{
+			row=apartments.getRow(i);
+			typeDB = row.getCell(10);
+			cityDB = row.getCell(3);
+			missRommateDB = row.getCell(6);
+			priceDB = row.getCell(8);
+			ps = Double.valueOf(priceDB.toString());
+			price = ps.intValue();
+
+			ms = Double.valueOf(missRommateDB.toString());
+			miss = ms.intValue();
+			
+			if(type.equals(typeDB.toString())) 
+			{
+				if(city.equals(cityDB.toString()))
+				{
+					if(missedRommate<=miss)
+					{
+						if(startPrice<=price)
+						{
+							if(limitPrice>=price)
+							{
+								userDetails = userDetailsForApartemnt(row.getCell(0).toString());
+
+								record[0] = userDetails[0];
+								record[1] = userDetails[1];	
+									
+								record[2] = dataFormatter.formatCellValue(row.getCell(3));									
+								record[3] = dataFormatter.formatCellValue(row.getCell(4));
+								record[4] = dataFormatter.formatCellValue(row.getCell(5));
+								record[5] = dataFormatter.formatCellValue(row.getCell(6));
+								record[6] = dataFormatter.formatCellValue(row.getCell(7));
+								record[7] = dataFormatter.formatCellValue(row.getCell(8));
+								record[8] = dataFormatter.formatCellValue(row.getCell(9));
+								record[9] = dataFormatter.formatCellValue(row.getCell(10));
+								record[10] = dataFormatter.formatCellValue(row.getCell(11));
+								record[11] = dataFormatter.formatCellValue(row.getCell(12));
+								record[12] = dataFormatter.formatCellValue(row.getCell(13));									
+								record[13] = dataFormatter.formatCellValue(row.getCell(14));
+								record[14] = dataFormatter.formatCellValue(row.getCell(15));
+								record[15] = dataFormatter.formatCellValue(row.getCell(16));
+								record[16] = dataFormatter.formatCellValue(row.getCell(17));
+								record[17] = dataFormatter.formatCellValue(row.getCell(18));
+								record[18] = dataFormatter.formatCellValue(row.getCell(19));
+								record[19] = dataFormatter.formatCellValue(row.getCell(20));
+								record[20] = dataFormatter.formatCellValue(row.getCell(21));
+								record[21] = dataFormatter.formatCellValue(row.getCell(22));
+								record[22] = dataFormatter.formatCellValue(row.getCell(23));
+								
+								data[j++] = record.clone();
+								}
+							}
+						}
+					}
+				}
+			}
+		
+		String[] allApartmentsColumns = {"שם השוכר","טלפון","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+		JTable jTable = new JTable(data, allApartmentsColumns);
+		setChanged();
+		notifyObservers(new ShowSearchTable(jTable));
+		}
+		
+
+	
 	
 	public String [] userDetailsForApartemnt(String userName)  /// 0 - name and last name, 2 - phone number
 	{
@@ -623,13 +712,6 @@ public class DataExcelConn extends Observable
 		return userDetails;
 	}
 	
-	public void betweenPriceApartment(int start, int end) 
-	{
-		
-	}
-
-
-
 
 
 	public String [] shortCutArray(String [] arr)
@@ -639,20 +721,24 @@ public class DataExcelConn extends Observable
 		for(i=0;i<arr.length;i++)
 		{
 			if(arr[i]=="x") {continue;}
+			if(arr[i]==null) {arr[i]="x"; continue;}
 			for(j=arr.length-1;j>i;j--)
 			{
-				if(arr[i] == arr[j])
+				if(arr[i] == arr[j] || arr[j] == null)
 				{
-					count++;
 					arr[j]="x";
+					continue;
 				}
 			}
 		}
+		for(i=0;i<arr.length;i++)
+		{
+			if(arr[i]!="x")
+				count++;
+		}
 		
-		j = arr.length-count;
 		
-		
-		String [] newArr = new String [j];
+		String [] newArr = new String [count];
 		i=0;
 		for(j=0;j<arr.length;j++)
 		{
@@ -688,35 +774,9 @@ public class DataExcelConn extends Observable
 			}
 		}
 		
-		//
-		
-//		for(i=0;i<k;i++)
-//		{
-//			if(allCityDB[i]=="x") {continue;}
-//			for(j=k-1;j>i;j--)
-//			{
-//				if(allCityDB[i] == allCityDB[j])
-//				{
-//					count++;
-//					allCityDB[j]="x";
-//				}
-//			}
-//		}
-//		
-//		j = k-count;
-//		String [] city = new String [j];
-//		i=0;
-//		for(k=0;k<allCityDB.length;k++)
-//		{
-//				if(allCityDB[k]!="x" && allCityDB[k]!=null)
-//				{
-//					city[i++] = allCityDB[k];
-//				}
-//		}
+
 		
 		String [] city = shortCutArray(allCityDB);
-		
-		///
 		
 		setChanged();
 		notifyObservers(new CityShowRep(city));
@@ -793,39 +853,78 @@ public class DataExcelConn extends Observable
 		
 		String [] missedRommets = shortCutArray(allRommateMissedDB);
 		
-//		for(i=0;i<k;i++)
-//		{
-//			if(allRommateMissedDB[i]=="x") {continue;}
-//			for(j=k-1;j>i;j--)
-//			{
-//				if(allRommateMissedDB[i] == allRommateMissedDB[j])
-//				{
-//					count++;
-//					allRommateMissedDB[j]="x";
-//				}
-//			}
-//		}
-//		
-//		j = k-count;
-//		String [] missedRommets = new String [j];
-//		i=0;
-//		for(k=0;k<allRommateMissedDB.length;k++)
-//		{
-//				if(allRommateMissedDB[k]!="x" && allRommateMissedDB[k]!=null)
-//				{
-//					missedRommets[i++] = allRommateMissedDB[k];
-//				}
-//		}
-//		
+
 		setChanged();
 		notifyObservers(new MissRommates(missedRommets));
 	}
 
+	public void topApartment()
+	{
+		
+		Row row;
+		int lastRow = apartments.getLastRowNum();
+		Cell searchDB;
+		String [][] data = new String[lastRow][22]; // for table
+		String [] record = new String[22]; // lines
+		int j = 0,n,k;
+		
+//		for(int i=1; i<=lastRow; i++)
+//		{
+//			row = apartments.getRow(i);
+//			userNameDB = row.getCell(0);
+//			if(userName.toString().equals(userNameDB.toString())) 
+//			{		
+//				for(n=3,k=0;n<=23;n++,k++)	
+//				{
+//					record[k] = dataFormatter.formatCellValue(row.getCell(n));
+//				}
+//					data[j++] = record.clone();
+//			}
+		}
+		
+//		//{"שם משתמש","id","כמות חיפושים","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+//		String[] UserapartmentsColumns = {"id","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+//		JTable jTable = new JTable(data, UserapartmentsColumns);
+//		//jTable.setBounds(10, 159, 1030, 309);
+//		setChanged();
+//		notifyObservers(new UserApartments(jTable));
+		
+	
+	
+	public String [] topFive()
+	{
+		
+		Row row;
+		Cell searchDB;
+		String [] topApartment = new String[5];
+		int max,min=0;
+		
+		row=apartments.getRow(0);
+		searchDB = row.getCell(2);
+		//max = (Integer)searchDB.toString();
+		
+		for(int i=1;i<=users.getLastRowNum();i++)
+		{
+			row=apartments.getRow(i);
+			searchDB = row.getCell(2);
+			
+//			if(userName.equals(userNameDB.toString())) 
+//			{
+//				userDetails[0] = row.getCell(2).toString() + " " + row.getCell(3).toString();
+//				userDetails[1] = row.getCell(5).toString();
+//				break;
+//			}
+//		}
+//		return userDetails;
+//		}
+		
+		
+		
+	}
 
 
-
-
-
+		return topApartment;
+	}
 
 
 
