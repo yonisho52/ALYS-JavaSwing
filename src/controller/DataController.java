@@ -322,6 +322,15 @@ public class DataController implements Observer{
 			}
 		}
 		
+		if(arg0 instanceof DataExcelConn)
+		{
+			if(arg1 instanceof DataExcelConn.TopApartment)
+			{
+				JTable jTable = ((DataExcelConn.TopApartment) arg1).topTable;
+				searchDetailsView.showTop(jTable);
+			}
+		}
+		
 	}
 
 }

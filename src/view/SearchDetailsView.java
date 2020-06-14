@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class SearchDetailsView extends Observable {
 	
@@ -64,7 +65,7 @@ public class SearchDetailsView extends Observable {
 		this.connectedUser = userName;
 		frame.setVisible(true);
 		setChanged();
-		notifyObservers(new TopApartment()); // request to go to the excel file and give me all the users
+		notifyObservers(new TopApartment()); 
 		//this.frame.setEnabled(true);
 	}
 	public SearchDetailsView() {
@@ -111,7 +112,12 @@ public class SearchDetailsView extends Observable {
 		
 	}
 	
-	
+	public void showTop(JTable table)
+	{
+		JScrollPane scrollPane_2 = new JScrollPane(table);
+		panel.add(scrollPane_2);
+		this.frame.setVisible(true);
+	}
 	
 	
 }
