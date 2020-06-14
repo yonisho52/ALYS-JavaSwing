@@ -27,6 +27,7 @@ public class SearchDetailsView extends Observable {
 	private JPanel panel;
 	protected String connectedUser;
 	protected boolean adminBool;
+	protected boolean analystBool;
 
 	/**
 	 * Launch the application.
@@ -59,10 +60,11 @@ public class SearchDetailsView extends Observable {
 		initialize();
 	}
 	
-	public void showSearchDetailsView(String userName, boolean admin)
+	public void showSearchDetailsView(String userName, boolean admin, boolean analyst)
 	{
 		this.adminBool = admin;
 		this.connectedUser = userName;
+		this.analystBool = analyst;
 		frame.setVisible(true);
 		setChanged();
 		notifyObservers(new TopApartment()); 
@@ -90,7 +92,7 @@ public class SearchDetailsView extends Observable {
 		backButton.setBackground(Color.PINK);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showAllApartmentView.openShowAllApartment(connectedUser, adminBool); ///////////////
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); ///////////////
 				frame.setVisible(false);
 			}
 		});

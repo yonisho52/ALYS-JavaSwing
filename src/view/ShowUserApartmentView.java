@@ -30,6 +30,7 @@ public class ShowUserApartmentView extends Observable {
 	
 	protected String connectedUser;
 	protected boolean adminBool;
+	protected boolean analystBool;
 	
 
 	/**
@@ -86,7 +87,7 @@ public class ShowUserApartmentView extends Observable {
 		backButton.setBackground(Color.PINK);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				showAllApartmentView.openShowAllApartment(connectedUser, adminBool); /////////////////
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); /////////////////
 				frame.setVisible(false);
 			}
 		});
@@ -108,10 +109,11 @@ public class ShowUserApartmentView extends Observable {
 		frame.getContentPane().add(panel);
 	}
 	
-	public void showShowUserApartmentView(String userName, boolean admin)
+	public void showShowUserApartmentView(String userName, boolean admin, boolean analyst)
 	{
 		this.adminBool = admin;
 		this.connectedUser = userName;
+		this.analystBool = analyst;
 		frame.setVisible(true);
 		setChanged();
 		notifyObservers(userName);

@@ -46,7 +46,7 @@ public class DataController implements Observer{
 			if(arg1 instanceof RegisterView.AddUser)
 			{
 				String[] arr = ((RegisterView.AddUser) arg1).userName;
-				Tenant newTenant = new Tenant(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], false);
+				Tenant newTenant = new Tenant(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], false, false);
 				dataExcelConn.addNewTenant(newTenant);
 			}
 			
@@ -84,9 +84,9 @@ public class DataController implements Observer{
 			}
 		}
 		
-		if(arg0 instanceof MainView) 
+		if(arg0 instanceof ShowAllApartmentView) 
 		{
-			if(arg1 instanceof MainView.CreateAllApartmentTable)
+			if(arg1 instanceof ShowAllApartmentView.CreateAllApartmentTable)
 			{
 				dataExcelConn.getAllApartments();
 			}
@@ -143,6 +143,15 @@ public class DataController implements Observer{
 			if(arg1 instanceof SearchDetailsView.TopApartment)
 			{
 				dataExcelConn.topApartment();
+			}
+		}
+		
+		if(arg0 instanceof ShowAllUsersView) 
+		{
+			if(arg1 instanceof ShowAllUsersView.DeleteUser)
+			{
+				int index = ((ShowAllUsersView.DeleteUser) arg1).row;
+				dataExcelConn.deleteUser(index);
 			}
 		}
 		
@@ -257,7 +266,8 @@ public class DataController implements Observer{
 			{
 				boolean validUser = ((DataExcelConn.CheckValidPassClass) arg1).validPass;
 				boolean admin = ((DataExcelConn.CheckValidPassClass) arg1).userType;
-				mainView.loginValid(validUser,admin);
+				boolean analyst = ((DataExcelConn.CheckValidPassClass) arg1).analystType;
+				mainView.loginValid(validUser, admin, analyst);
 			}
 		}
 		
@@ -328,6 +338,14 @@ public class DataController implements Observer{
 			{
 				JTable jTable = ((DataExcelConn.TopApartment) arg1).topTable;
 				searchDetailsView.showTop(jTable);
+			}
+		}
+		
+		if(arg0 instanceof DataExcelConn)
+		{
+			if(arg1 instanceof DataExcelConn.ConfirmDelete)
+			{
+				showAllUsersView.confirmDelete();
 			}
 		}
 		

@@ -64,6 +64,8 @@ public class AddNewApartmentView extends Observable
 	
 	protected String connectedUser;
 	protected boolean adminBool;
+	protected boolean analystBool;
+	
 	protected boolean apartmentType = false;  // ground = false, building = true
 	private JLabel roomatesLabel;
 	private JLabel lblNewLabel_1;
@@ -100,10 +102,11 @@ public class AddNewApartmentView extends Observable
 		this.showAllApartmentView = showAllApartmentView;
 	}
 	
-	public void showAddNewApartmentView(String userName, boolean admin)
+	public void showAddNewApartmentView(String userName, boolean admin, boolean analyst)
 	{
 		this.adminBool = admin;
 		this.connectedUser = userName;
+		this.analystBool = analyst;
 		frame.setVisible(true);
 		//this.frame.setEnabled(true);
 	}
@@ -145,7 +148,7 @@ public class AddNewApartmentView extends Observable
 		cancelButton.setBackground(Color.PINK);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				showAllApartmentView.openShowAllApartment(connectedUser, adminBool); ///////
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); ///////
 				frame.setVisible(false);
 				reasetAddApartment();
 			}
@@ -476,7 +479,7 @@ public class AddNewApartmentView extends Observable
 			}
 			
 			this.frame.setVisible(false); 
-			showAllApartmentView.openShowAllApartment(cityTextFile.getText(),false);	
+			showAllApartmentView.openShowAllApartment(cityTextFile.getText(),adminBool,analystBool);	
 		}
 	}
 	

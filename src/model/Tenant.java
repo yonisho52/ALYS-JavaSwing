@@ -3,7 +3,7 @@ package model;
 public class Tenant extends User 
 {
 	public Tenant(String userName,String password, String firstName, String lastName, String email, String phoneNumber, 
-			boolean adminToF) 
+			boolean adminToF, boolean analyst) 
 	{
 		this.userName=userName;
 		this.password=password;
@@ -12,5 +12,6 @@ public class Tenant extends User
 		this.email=email;
 		this.phoneNumber=phoneNumber;
 		this.adminToF=adminToF;
+		this.analyst=analyst;
 	}
 }

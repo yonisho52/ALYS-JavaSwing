@@ -21,7 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class DataExcelConn extends Observable
 {
 	Sheet users,apartments;
-	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","admin"};
+	private static String[] usersColumns = {"שם משתמש","סיסמא","שם פרטי","שם משפחה","מייל","טלפון","Admin", "Analyst"};
 	private static String[] apartmentsColumns = {"שם משתמש","id","כמות חיפושים","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
 	FileOutputStream fileOutputStream;
 	int usersRow, apartmentsRow;
@@ -38,14 +38,15 @@ public class DataExcelConn extends Observable
 		/// inner class for checking if the user name and pass are correct;
 		public boolean validPass;
 		public boolean userType;
-		public CheckValidPassClass(boolean valid, boolean admin)
+		public boolean analystType;
+		
+		public CheckValidPassClass(boolean valid, boolean admin, boolean analyst)
 		{
 			this.validPass = valid;
 			this.userType = admin;
+			this.analystType = analyst;
 		}
 	}
-	
-	
 	
 	public static DataExcelConn getDataExcelConn() 
 	{
@@ -235,6 +236,7 @@ public class DataExcelConn extends Observable
     	row.createCell(4).setCellValue(tenant.email);
     	row.createCell(5).setCellValue(tenant.phoneNumber);
     	row.createCell(6).setCellValue(tenant.adminToF);
+    	row.createCell(7).setCellValue(tenant.analyst);
 
 
     	FileOutputStream output;
@@ -271,7 +273,7 @@ public class DataExcelConn extends Observable
 	{
 		Row row;
 		int lastRow = users.getLastRowNum();
-		Cell userName, password, firstName, lastName, email, phoneNumber, adminToF;
+		Cell userName, password, firstName, lastName, email, phoneNumber, adminToF, analyst;
 		String [][] data = new String[lastRow][8]; // for table
 		String [] record = new String[8]; // lines
 		int j = 0;
@@ -286,6 +288,7 @@ public class DataExcelConn extends Observable
 			email = row.getCell(4);
 			phoneNumber = row.getCell(5);
 			adminToF = row.getCell(6);
+			analyst = row.getCell(7);
 
 			record[0] = dataFormatter.formatCellValue(userName);
 			record[1] = dataFormatter.formatCellValue(password);
@@ -294,6 +297,7 @@ public class DataExcelConn extends Observable
 			record[4] = dataFormatter.formatCellValue(email);
 			record[5] = dataFormatter.formatCellValue(phoneNumber);
 			record[6] = dataFormatter.formatCellValue(adminToF);
+			record[7] = dataFormatter.formatCellValue(analyst);
 
 			data[j++] = record.clone();
 		}
@@ -329,9 +333,9 @@ public class DataExcelConn extends Observable
 	public void checkValidPass(String userName, String pass) /// if the userName's pass is valid return *true, if not return *false = wrong combination  --- for login
 	{
 		Row row;
-		Cell userNameDB, passDB, adminDB;
+		Cell userNameDB, passDB, adminDB, analystDB;
 		int lastRow = users.getLastRowNum();
-		boolean validFlag = false, adminFlag = false;
+		boolean validFlag = false, adminFlag = false, analystFlag = false;
 		for(int i=1;i<=lastRow;i++) {
 			row=users.getRow(i);
 			userNameDB = row.getCell(0);
@@ -341,37 +345,37 @@ public class DataExcelConn extends Observable
 			{
 				passDB = row.getCell(1);
 				adminDB = row.getCell(6);
+				analystDB = row.getCell(7);
 				//System.out.println(userName + " " + userNameDB.toString());
 				//if(pass == passDB.toString())
 				if(pass.equals(passDB.toString())) 
 				{
+					validFlag = true;
 					connectedUser = new String(userName); //Save the connected users name
 					if(adminDB.toString()=="FALSE") 
 					{
-						validFlag = true;
 						adminFlag = false;
-						//setChanged();
-						//notifyObservers(new CheckValidPassClass(true,false));
+						if(analystDB.toString()=="FALSE")
+						{
+							analystFlag=false;
+						}
+						else
+						{
+							analystFlag=true;
+						}
 					}
 					else 
 					{
 						validFlag = true;
 						adminFlag = true;
-						//setChanged();
-						//notifyObservers(new CheckValidPassClass(true,true));
+						analystFlag = true;
+
 					}
 				} 
-				//else 
-					//{
-					//validFlag = false;
-					//adminFlag = false;
-					//setChanged();
-					//notifyObservers(new CheckValidPassClass(false,false));
-					//}
-				}
+			}
 		}
 		setChanged();
-		notifyObservers(new CheckValidPassClass(validFlag,adminFlag));
+		notifyObservers(new CheckValidPassClass(validFlag,adminFlag,analystFlag));
 	}
 	
 	public boolean checkIfAdmin(String userName) // if the user is admin return *true, if not return *false  --- for showAllApartmentView
@@ -403,7 +407,7 @@ public class DataExcelConn extends Observable
 		String [][] data = new String[lastRow][23]; // for table
 		String [] record = new String[23]; // lines
 		int j = 0;
-		
+		int k=0,n;
 		for(int i=1; i<=lastRow; i++) 
 		{
 			row = apartments.getRow(i);
@@ -411,27 +415,10 @@ public class DataExcelConn extends Observable
 
 			record[0] = userDetails[0];
 			record[1] = userDetails[1];	
-			record[2] = dataFormatter.formatCellValue(row.getCell(1));
-			record[3] = dataFormatter.formatCellValue(row.getCell(2));
-			record[4] = dataFormatter.formatCellValue(row.getCell(3));
-			record[5] = dataFormatter.formatCellValue(row.getCell(4));
-			record[6] = dataFormatter.formatCellValue(row.getCell(5));
-			record[7] = dataFormatter.formatCellValue(row.getCell(6));
-			record[8] = dataFormatter.formatCellValue(row.getCell(7));
-			record[9] = dataFormatter.formatCellValue(row.getCell(8));
-			record[10] = dataFormatter.formatCellValue(row.getCell(9));
-			record[11] = dataFormatter.formatCellValue(row.getCell(10));
-			record[12] = dataFormatter.formatCellValue(row.getCell(11));
-			record[13] = dataFormatter.formatCellValue(row.getCell(12));
-			record[14] = dataFormatter.formatCellValue(row.getCell(13));
-			record[15] = dataFormatter.formatCellValue(row.getCell(14));
-			record[16] = dataFormatter.formatCellValue(row.getCell(15));
-			record[17] = dataFormatter.formatCellValue(row.getCell(16));
-			record[18] = dataFormatter.formatCellValue(row.getCell(17));
-			record[19] = dataFormatter.formatCellValue(row.getCell(18));
-			record[20] = dataFormatter.formatCellValue(row.getCell(19));
-			record[21] = dataFormatter.formatCellValue(row.getCell(20));
-			record[22] = dataFormatter.formatCellValue(row.getCell(21));
+			for(n=3,k=2;n<=23;n++,k++)
+			{
+				record[k] = dataFormatter.formatCellValue(row.getCell(n));
+			}
 		
 			data[j++] = record.clone();
 		}
@@ -613,7 +600,7 @@ public class DataExcelConn extends Observable
 	public void searchApartment(String [] search) 
 	{
 		Row row;
-		Cell typeDB, cityDB, missRommateDB, priceDB;
+		Cell typeDB, cityDB, missRommateDB, priceDB, searchDB;
 		int lastRow = apartments.getLastRowNum();
 		
 		// for table
@@ -629,6 +616,8 @@ public class DataExcelConn extends Observable
 		
 		Double ps,ms;
 		
+		double searchValue;
+		
 		String [] userDetails;
 		
 		int j = 0,n,k;
@@ -642,7 +631,7 @@ public class DataExcelConn extends Observable
 			cityDB = row.getCell(3);
 			missRommateDB = row.getCell(6);
 			priceDB = row.getCell(8);
-			
+			searchDB = row.getCell(2);
 
 			ps = Double.valueOf(priceDB.toString());
 			price = ps.intValue();
@@ -650,6 +639,8 @@ public class DataExcelConn extends Observable
 
 			ms = Double.valueOf(missRommateDB.toString());
 			miss = ms.intValue();
+			
+			searchValue = Double.parseDouble(searchDB.toString());
 			
 			if(type.equals(typeDB.toString())) 
 			{
@@ -689,6 +680,11 @@ public class DataExcelConn extends Observable
 								record[22] = dataFormatter.formatCellValue(row.getCell(23));
 								
 								data[j++] = record.clone();
+								
+								searchValue++;
+								
+								row.createCell(2).setCellValue(searchValue);
+								
 								}
 							}
 						}
@@ -923,48 +919,75 @@ public class DataExcelConn extends Observable
 
 		}
 		
-
 	
 	
-
-	
-	
-	public String [] topFive()
+	public void deleteUser(int index)
 	{
-		
 		Row row;
-		Cell searchDB;
-		String [] topApartment = new String[5];
-		int max,min=0;
+		Cell userNameDB;
+		row = users.getRow(index);
+		userNameDB = row.getCell(0);
+		deleteUsersApartment(userNameDB.toString());
+        //int getLastCell=row.getLastCellNum()-1;
+        int lastIndex = users.getLastRowNum();
+		//users.removeRow(deleteRow);
+        int rowIndexToDelete = row.getRowNum();
+        users.shiftRows(rowIndexToDelete+1, lastIndex, -1);
+
+        
+		FileOutputStream output;
+		try 
+		{
+			output = new FileOutputStream("DataBase.xlsx");
+	    	workBook.write(output);
+	    	output.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 		
-		row=apartments.getRow(0);
-		searchDB = row.getCell(2);
-		//max = (Integer)searchDB.toString();
+
 		
-		for(int i=1;i<=users.getLastRowNum();i++)
+		setChanged();
+		notifyObservers(new ConfirmDelete());
+		
+	}
+
+	public void deleteUsersApartment(String userName)
+	{
+		Row row;
+		Cell userNameDB;
+		int rowIndexToDelete,lastIndex;
+		
+		for(int i=1;i<=apartments.getLastRowNum();i++)
 		{
 			row=apartments.getRow(i);
-			searchDB = row.getCell(2);
-			
-//			if(userName.equals(userNameDB.toString())) 
-//			{
-//				userDetails[0] = row.getCell(2).toString() + " " + row.getCell(3).toString();
-//				userDetails[1] = row.getCell(5).toString();
-//				break;
-//			}
-//		}
-//		return userDetails;
-//		}
+			userNameDB = row.getCell(0);
+			lastIndex = apartments.getLastRowNum();
+			rowIndexToDelete = row.getRowNum();
+			if(userName.equals(userNameDB.toString())) 
+			{
+		        apartments.shiftRows(rowIndexToDelete+1, lastIndex, -1);
+			}
+		}
 		
-		
-		
+		FileOutputStream output;
+		try 
+		{
+			output = new FileOutputStream("DataBase.xlsx");
+	    	workBook.write(output);
+	    	output.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 	}
-
-
-		return topApartment;
-	}
-
-
+	
+	
+	
+public class ConfirmDelete{}
 
 
 

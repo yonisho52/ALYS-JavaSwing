@@ -71,9 +71,9 @@ public class MainView extends Observable {
 		// for the controller 
 	}
 	
-	public class CreateAllApartmentTable {
-		// for the controller 
-	}
+//	public class CreateAllApartmentTable {
+//		// for the controller 
+//	}
 	
 	/**
 	 * Initialize the contents of the frame.
@@ -131,7 +131,7 @@ public class MainView extends Observable {
 		guestViewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {  ////// send to the function down becuase problem with the initialize function
-				openShowAllApartment(null,false);
+				openShowAllApartment(null,false,false);
 			}
 		});
 		guestViewButton.setBounds(212, 362, 169, 25);
@@ -179,22 +179,22 @@ public class MainView extends Observable {
 		this.frame.setEnabled(true);
 	}
 	
-	public void openShowAllApartment(String userName, boolean userType) {  //// userType - true = admin
+	public void openShowAllApartment(String userName, boolean userType, boolean analyst) {  //// userType - true = admin
 		showAllApartmentView.setMainView(this);
 		userNameTextField.setText(""); // to eraize the field when you come back
 		passTextField.setText("");
 		this.frame.setVisible(false); 
-		showAllApartmentView.openShowAllApartment(userName,userType);
-		setChanged();
-		notifyObservers(new CreateAllApartmentTable());
+		showAllApartmentView.openShowAllApartment(userName,userType,analyst);
+//		setChanged();
+//		notifyObservers(new CreateAllApartmentTable());
 		
 	}
 	
-	public void loginValid(boolean valid, boolean admin) {
+	public void loginValid(boolean valid, boolean admin, boolean analyst) {
 		
 		if(valid)
 		{
-			openShowAllApartment(userNameTextField.getText(),admin); //////from here send userName
+			openShowAllApartment(userNameTextField.getText(),admin,analyst); //////from here send userName
 		}
 		else
 		{

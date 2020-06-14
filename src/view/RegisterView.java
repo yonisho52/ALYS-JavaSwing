@@ -347,7 +347,7 @@ public class RegisterView extends Observable
 			setChanged();
 			notifyObservers(new AddUser(newTenant));
 			this.frame.setVisible(false); 
-			showAllApartmentView.openShowAllApartment(userName.getText(),false);	
+			showAllApartmentView.openShowAllApartment(userName.getText(),false,false);	
 		}
 		
 		else 

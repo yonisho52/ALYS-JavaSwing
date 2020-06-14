@@ -17,6 +17,8 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JPanel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ShowAllUsersView extends Observable{
 
@@ -24,9 +26,11 @@ public class ShowAllUsersView extends Observable{
 	ShowAllApartmentView showAllApartmentView;
 	ShowAllUsersView showAllUsersView;
 	JPanel panel;
+	JTable usersTable;
 	
 	protected String connectedUser;
 	protected boolean adminBool;
+	protected boolean analystBool;
 
 
 	/**
@@ -67,6 +71,16 @@ public class ShowAllUsersView extends Observable{
 		frame.getContentPane().setLayout(null);
 		
 		JButton deleteUserButton = new JButton("\u05DE\u05D7\u05E7");
+		deleteUserButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		deleteUserButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				deleteUser();
+			}
+		});
 		deleteUserButton.setBackground(Color.PINK);
 		deleteUserButton.setBounds(453, 335, 97, 25);
 		frame.getContentPane().add(deleteUserButton);
@@ -76,7 +90,7 @@ public class ShowAllUsersView extends Observable{
 		returnButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				showAllApartmentView.openShowAllApartment(connectedUser, adminBool);
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool);
 				frame.setVisible(false);
 				
 			}
@@ -94,17 +108,29 @@ public class ShowAllUsersView extends Observable{
 		frame.getContentPane().add(panel);
 	}
 
+	public void deleteUser()
+	{
+		int index = this.usersTable.getSelectedRow();
+		index++;
+
+		
+		setChanged();
+		notifyObservers(new DeleteUser(index));
+		setChanged();
+		notifyObservers(new GetAllUsers());
+	}
 	
-	public void showAllUsersView(String userName, boolean admin) {
+	public void showAllUsersView(String userName, boolean admin,boolean analyst) {
 		this.adminBool = admin;
 		this.connectedUser = userName;
+		this.analystBool = analyst;
 		frame.setVisible(true);
 		setChanged();
 		notifyObservers(new GetAllUsers()); // request to go to the excel file and give me all the users
 	}
 	
 	
-	public void crateAllUsers(JTable usersTable) {
+	public void crateAllUsers(JTable usersTable1) {
 		
 //		JFrame tableFrame=new JFrame();
 //		//create table
@@ -114,16 +140,35 @@ public class ShowAllUsersView extends Observable{
 //		tableFrame.setVisible(true);
 		
 		
-		
+		this.usersTable = usersTable1;
 		JScrollPane scrollPane_1 = new JScrollPane(usersTable);
 		panel.add(scrollPane_1);
 		this.frame.setVisible(true);
+		
+	}
+	
+	
+	
+	public void confirmDelete()
+	{
+		this.usersTable.updateUI();
+		System.out.println(" deleted ! and also his apartment ");
+		
 	}
 	
 
 	//inner class for the controller
 	public class GetAllUsers {
 		// controller notify
+	}
+	
+	public class DeleteUser
+	{
+		public int row;
+		public DeleteUser(int index)
+		{
+			this.row = index;
+		}
 	}
 }
 

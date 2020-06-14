@@ -16,7 +16,7 @@ public class Ground extends Apartment
 	public Ground(int floorNumbers) {
 		super();
 		this.floorNumbers = floorNumbers;
-		this.propertyType = "קרקעי";
+		this.propertyType = "קרקע";
 	}
 
 }
