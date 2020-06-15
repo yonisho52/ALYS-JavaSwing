@@ -94,10 +94,10 @@ public class DataController implements Observer{
 		
 		if(arg0 instanceof ShowUserApartmentView) 
 		{
-			if(arg1 instanceof String)
+			if(arg1 instanceof ShowUserApartmentView.ShowUserApartments)
 			{
-				String user = (String)arg1;
-				dataExcelConn.showUserApartments(user);
+				String user = ((ShowUserApartmentView.ShowUserApartments) arg1).userName;
+				dataExcelConn.createUserApartmnetTable(user);
 			}
 		}
 		
@@ -154,6 +154,18 @@ public class DataController implements Observer{
 				dataExcelConn.deleteUser(index);
 			}
 		}
+		
+		if(arg0 instanceof ShowUserApartmentView) 
+		{
+			if(arg1 instanceof ShowUserApartmentView.DeleteUserApartment)
+			{
+				String userName = ((ShowUserApartmentView.DeleteUserApartment) arg1).userName;
+				int index = ((ShowUserApartmentView.DeleteUserApartment) arg1).row;
+				dataExcelConn.deleteUserApartment(userName, index);
+			}
+		}
+		
+		
 		
 //		String [] groundApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
 //				missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
@@ -345,7 +357,15 @@ public class DataController implements Observer{
 		{
 			if(arg1 instanceof DataExcelConn.ConfirmDelete)
 			{
-				showAllUsersView.confirmDelete();
+				showAllUsersView.confirmUserDelete();
+			}
+		}
+		
+		if(arg0 instanceof DataExcelConn)
+		{
+			if(arg1 instanceof DataExcelConn.ConfirmDeletedUserApartment)
+			{
+				showUserApartmentView.confirmApartmentDelete();
 			}
 		}
 		

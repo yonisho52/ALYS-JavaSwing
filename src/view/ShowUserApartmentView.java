@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 
+import view.ShowAllUsersView.DeleteUser;
 import view.ShowAllUsersView.GetAllUsers;
 
 import javax.swing.JList;
@@ -19,6 +20,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ShowUserApartmentView extends Observable {
 
@@ -27,6 +30,8 @@ public class ShowUserApartmentView extends Observable {
 	
 	private JFrame frame;
 	private JPanel panel;
+	private JTable userApartmentsTable;
+	JLabel confirmdeleteLabel;
 	
 	protected String connectedUser;
 	protected boolean adminBool;
@@ -100,6 +105,12 @@ public class ShowUserApartmentView extends Observable {
 		frame.getContentPane().add(editApartmentButton);
 		
 		JButton deleteButton = new JButton("\u05DE\u05D7\u05E7 \u05D3\u05D9\u05E8\u05D4 \u05DE\u05E1\u05D5\u05DE\u05E0\u05EA");
+		deleteButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				deleteUserApartment();
+			}
+		});
 		deleteButton.setBackground(Color.PINK);
 		deleteButton.setBounds(28, 100, 194, 25);
 		frame.getContentPane().add(deleteButton);
@@ -107,6 +118,10 @@ public class ShowUserApartmentView extends Observable {
 		panel = new JPanel();
 		panel.setBounds(10, 159, 1030, 309);
 		frame.getContentPane().add(panel);
+		
+		confirmdeleteLabel = new JLabel("\u05E0\u05DE\u05D7\u05E7");
+		confirmdeleteLabel.setBounds(93, 134, 46, 14);
+		frame.getContentPane().add(confirmdeleteLabel);
 	}
 	
 	public void showShowUserApartmentView(String userName, boolean admin, boolean analyst)
@@ -114,17 +129,28 @@ public class ShowUserApartmentView extends Observable {
 		this.adminBool = admin;
 		this.connectedUser = userName;
 		this.analystBool = analyst;
+		this.confirmdeleteLabel.setVisible(false);
 		frame.setVisible(true);
 		setChanged();
-		notifyObservers(userName);
+		notifyObservers(new ShowUserApartments(userName));
+	}
+	
+	public class ShowUserApartments
+	{
+		public String userName;
+		public ShowUserApartments(String user)
+		{
+			this.userName = user;
+		}
 	}
 	
 	
-	
-	public void crateAllUserApartments(JTable usersTable) {
+	public void crateAllUserApartments(JTable userApartments) {
+		this.userApartmentsTable = userApartments;
+		
 		Dimension listSize = new Dimension(500, 500);
-		usersTable.setBounds(10, 159, 1030, 309);
-		JScrollPane scrollPane_1 = new JScrollPane(usersTable);
+		userApartmentsTable.setBounds(10, 159, 1030, 309);
+		JScrollPane scrollPane_1 = new JScrollPane(userApartmentsTable);
 		scrollPane_1.setBounds(10, 159, 1030, 309);
 		panel.add(scrollPane_1);
 		this.frame.setVisible(true);
@@ -135,6 +161,35 @@ public class ShowUserApartmentView extends Observable {
 //		// controller notify
 //		
 //	}
+	
+	public void confirmApartmentDelete()
+	{
+		this.confirmdeleteLabel.setVisible(true);
+		this.userApartmentsTable.updateUI();
+		System.out.println(" delete apartment ");
+	}
+	
+	public void deleteUserApartment()
+	{
+		int index = this.userApartmentsTable.getSelectedRow();
+//		index++;
+
+		setChanged();
+		notifyObservers(new DeleteUserApartment(connectedUser,index));
+//		setChanged();
+//		notifyObservers(new GetAllUsers());
+	}
+	
+	public class DeleteUserApartment
+	{
+		public int row;
+		public String userName;
+		public DeleteUserApartment(String user, int index)
+		{
+			this.userName = user;
+			this.row = index;
+		}
+	}
 	
 	
 }

@@ -416,7 +416,7 @@ public class DataExcelConn extends Observable
 		notifyObservers(new ShowAllApartments(jTable));
 	}
 
-	public void showUserApartments(String userName) 
+	public String [][] showUserApartments(String userName) 
 	{
 		Row row;
 		int lastRow = apartments.getLastRowNum();
@@ -431,20 +431,89 @@ public class DataExcelConn extends Observable
 			userNameDB = row.getCell(0);
 			if(userName.toString().equals(userNameDB.toString())) 
 			{		
-				for(n=3,k=0;n<=23;n++,k++)	
+				rowArr[0] = dataFormatter.formatCellValue(row.getCell(1));
+				for(n=3,k=1;n<=23;n++,k++)	
 				{
 					rowArr[k] = dataFormatter.formatCellValue(row.getCell(n));
 				}
 					matrixArr[j++] = rowArr.clone();
 			}
 		}
+		return matrixArr;
+//		String[] UserapartmentsColumns = {"id","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+//		JTable jTable = new JTable(matrixArr, UserapartmentsColumns);
+//		setChanged();
+//		notifyObservers(new UserApartments(jTable));
+	}
+	
+	public void deleteUserApartment(String userName, int index)
+	{
 		
+		String excelFilePath = "DataBase.xlsx";
+    	FileInputStream inputStream;
+		try 
+		{
+			inputStream = new FileInputStream(new File(excelFilePath));
+	    	Workbook workBook = WorkbookFactory.create(inputStream);
+
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+		String [][] apartmentUserMatrixArr = showUserApartments(userName);
+		Row row;
+		Cell apartmentIdDB;
+		String apartmentId = apartmentUserMatrixArr[index][0];
+		int rowIndexToDelete,lastIndex;
+		
+		
+		for(int i=1; i<apartments.getLastRowNum(); i++)
+		{
+			row=apartments.getRow(i);
+			apartmentIdDB = row.getCell(1);
+			
+			if(apartmentId.toString().equals(apartmentIdDB.toString().substring(0, apartmentIdDB.toString().length() - 2))) 
+			{
+				lastIndex = apartments.getLastRowNum();
+				rowIndexToDelete = row.getRowNum();
+		        apartments.shiftRows(rowIndexToDelete+1, lastIndex, -1);
+		        break;
+			}
+		}
+		
+    	FileOutputStream outputStream;
+    	
+		try 
+		{
+			outputStream = new FileOutputStream("DataBase.xlsx");
+	    	workBook.write(outputStream);
+	    	outputStream.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		setChanged();
+		notifyObservers(new ConfirmDeletedUserApartment());
+	}
+	
+	public class ConfirmDeletedUserApartment{}
+	
+	public void createUserApartmnetTable(String userName)
+	{
+		String [][] apartmentUserMatrixArr = showUserApartments(userName);
 		String[] UserapartmentsColumns = {"id","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
-		JTable jTable = new JTable(matrixArr, UserapartmentsColumns);
+		JTable jTable = new JTable(apartmentUserMatrixArr, UserapartmentsColumns);
 		setChanged();
 		notifyObservers(new UserApartments(jTable));
 	}
 
+	
+	
 	public void addNewApartmentGround(Ground ground) 
 	{  
 		String excelFilePath = "DataBase.xlsx";
@@ -906,6 +975,19 @@ public class DataExcelConn extends Observable
 		
 	public void deleteUser(int index)
 	{
+		String excelFilePath = "DataBase.xlsx";
+    	FileInputStream inputStream;
+		try 
+		{
+			inputStream = new FileInputStream(new File(excelFilePath));
+	    	Workbook workBook = WorkbookFactory.create(inputStream);
+
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
 		Row row;
 		Cell userNameDB;
 		row = users.getRow(index);
@@ -918,7 +1000,8 @@ public class DataExcelConn extends Observable
         users.shiftRows(rowIndexToDelete+1, lastIndex, -1);
 
         
-		FileOutputStream outputStream;
+    	FileOutputStream outputStream;
+    	
 		try 
 		{
 			outputStream = new FileOutputStream("DataBase.xlsx");

@@ -27,6 +27,7 @@ public class ShowAllUsersView extends Observable{
 	ShowAllUsersView showAllUsersView;
 	JPanel panel;
 	JTable usersTable;
+	JLabel confirmdeleteLabel;
 	
 	protected String connectedUser;
 	protected boolean adminBool;
@@ -106,6 +107,10 @@ public class ShowAllUsersView extends Observable{
 		panel = new JPanel();
 		panel.setBounds(57, 69, 679, 195);
 		frame.getContentPane().add(panel);
+		
+		confirmdeleteLabel = new JLabel("\u05E0\u05DE\u05D7\u05E7 \u05D4\u05D1\u05E6\u05DC\u05D7\u05D4");
+		confirmdeleteLabel.setBounds(145, 281, 46, 14);
+		frame.getContentPane().add(confirmdeleteLabel);
 	}
 
 	public void deleteUser()
@@ -124,6 +129,7 @@ public class ShowAllUsersView extends Observable{
 		this.adminBool = admin;
 		this.connectedUser = userName;
 		this.analystBool = analyst;
+		this.confirmdeleteLabel.setVisible(false);
 		frame.setVisible(true);
 		setChanged();
 		notifyObservers(new GetAllUsers()); // request to go to the excel file and give me all the users
@@ -149,8 +155,9 @@ public class ShowAllUsersView extends Observable{
 	
 	
 	
-	public void confirmDelete()
+	public void confirmUserDelete()
 	{
+		this.confirmdeleteLabel.setVisible(true);
 		this.usersTable.updateUI();
 		System.out.println(" deleted ! and also his apartment ");
 		
