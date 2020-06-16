@@ -41,6 +41,20 @@ public class DataController implements Observer{
 		
 		/// view to data
 		
+		if(arg0 instanceof MainView) 
+		{
+			if(arg1 instanceof MainView.CloseTheExcel)
+			{
+				dataExcelConn.closeFile();
+			}
+			else if(arg1 instanceof String[])
+			{
+				String [] user = (String[])arg1;
+				dataExcelConn.checkValidPass(user[0], user[1]);
+			}
+			
+		}
+		
 		if(arg0 instanceof RegisterView)
 		{
 			if(arg1 instanceof RegisterView.AddUser)
@@ -49,8 +63,8 @@ public class DataController implements Observer{
 				Tenant newTenant = new Tenant(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], false, false);
 				dataExcelConn.addNewTenant(newTenant);
 			}
-			
-			if(arg1 instanceof RegisterView.CheckExsistUser)   //// for register validation
+		
+			else if(arg1 instanceof RegisterView.CheckExsistUser)   //// for register validation
 			{
 				String userName = ((RegisterView.CheckExsistUser) arg1).userNameCheck;
 
@@ -58,37 +72,53 @@ public class DataController implements Observer{
 			}
 		}
 
-		
-		if(arg0 instanceof MainView) 
-		{
-			if(arg1 instanceof MainView.CloseTheExcel)
-			{
-				dataExcelConn.closeFile();
-			}
-			
-		}
 		if(arg0 instanceof ShowAllUsersView)
+		{
 			if(arg1 instanceof ShowAllUsersView.GetAllUsers)
 			{
 				dataExcelConn.getAllUsers();
 			}
+			
+			else if(arg1 instanceof ShowAllUsersView.DeleteUser)
+			{
+				int index = ((ShowAllUsersView.DeleteUser) arg1).row;
+				dataExcelConn.deleteUser(index);
+			}
+		}
 		
 		//update new if - instance of addNewApartment button - important!!!!!!!!!!!!!!!!!!!!!!!!!!! (we think) - wrong
 		
-		if(arg0 instanceof MainView) 
-		{
-			if(arg1 instanceof String[])
-			{
-				String [] user = (String[])arg1;
-				dataExcelConn.checkValidPass(user[0], user[1]);
-			}
-		}
+
 		
 		if(arg0 instanceof ShowAllApartmentView) 
 		{
 			if(arg1 instanceof ShowAllApartmentView.CreateAllApartmentTable)
 			{
 				dataExcelConn.getAllApartments();
+			}
+			
+			else if(arg1 instanceof ShowAllApartmentView.CityShow)
+			{
+				int index = ((ShowAllApartmentView.CityShow) arg1).index;
+				dataExcelConn.citysShow(index);
+			}
+			
+			else if(arg1 instanceof ShowAllApartmentView.PropertType)
+			{
+				dataExcelConn.propertShow();
+			}
+			
+			else if(arg1 instanceof ShowAllApartmentView.MissedRommateNumShow)
+			{
+				int type = ((ShowAllApartmentView.MissedRommateNumShow) arg1).propretyType;
+				String city = ((ShowAllApartmentView.MissedRommateNumShow) arg1).city;
+				dataExcelConn.missedRommateShow(type,city);
+			}
+			
+			else if(arg1 instanceof ShowAllApartmentView.Search)
+			{
+				String [] arr = ((ShowAllApartmentView.Search) arg1).search;
+				dataExcelConn.searchApartment(arr);
 			}
 		}
 		
@@ -99,44 +129,15 @@ public class DataController implements Observer{
 				String user = ((ShowUserApartmentView.ShowUserApartments) arg1).userName;
 				dataExcelConn.createUserApartmnetTable(user);
 			}
-		}
-		
-		if(arg0 instanceof ShowAllApartmentView) 
-		{
-			if(arg1 instanceof ShowAllApartmentView.CityShow)
+			
+			else if(arg1 instanceof ShowUserApartmentView.DeleteUserApartment)
 			{
-				
-				int index = ((ShowAllApartmentView.CityShow) arg1).index;
-				dataExcelConn.citysShow(index);
+				String userName = ((ShowUserApartmentView.DeleteUserApartment) arg1).userName;
+				int index = ((ShowUserApartmentView.DeleteUserApartment) arg1).row;
+				dataExcelConn.deleteUserApartment(userName, index);
 			}
 		}
-		
-		if(arg0 instanceof ShowAllApartmentView) 
-		{
-			if(arg1 instanceof ShowAllApartmentView.PropertType)
-			{
-				dataExcelConn.propertShow();
-			}
-		}
-		
-		if(arg0 instanceof ShowAllApartmentView) 
-		{
-			if(arg1 instanceof ShowAllApartmentView.MissedRommateNumShow)
-			{
-				int type = ((ShowAllApartmentView.MissedRommateNumShow) arg1).propretyType;
-				String city = ((ShowAllApartmentView.MissedRommateNumShow) arg1).city;
-				dataExcelConn.missedRommateShow(type,city);
-			}
-		}
-		
-		if(arg0 instanceof ShowAllApartmentView) 
-		{
-			if(arg1 instanceof ShowAllApartmentView.Search)
-			{
-				String [] arr = ((ShowAllApartmentView.Search) arg1).search;
-				dataExcelConn.searchApartment(arr);
-			}
-		}
+
 		
 		if(arg0 instanceof SearchDetailsView) 
 		{
@@ -146,40 +147,11 @@ public class DataController implements Observer{
 			}
 		}
 		
-		if(arg0 instanceof ShowAllUsersView) 
-		{
-			if(arg1 instanceof ShowAllUsersView.DeleteUser)
-			{
-				int index = ((ShowAllUsersView.DeleteUser) arg1).row;
-				dataExcelConn.deleteUser(index);
-			}
-		}
-		
-		if(arg0 instanceof ShowUserApartmentView) 
-		{
-			if(arg1 instanceof ShowUserApartmentView.DeleteUserApartment)
-			{
-				String userName = ((ShowUserApartmentView.DeleteUserApartment) arg1).userName;
-				int index = ((ShowUserApartmentView.DeleteUserApartment) arg1).row;
-				dataExcelConn.deleteUserApartment(userName, index);
-			}
-		}
-		
-		
-		
-//		String [] groundApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
-//				missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
-//				floorCountGroundSpinner.getValue().toString(),String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), 
-//				String.valueOf(airCheckBox.isSelected()), String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()),
-//				String.valueOf(storageCheckBox.isSelected()), String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), 
-//				String.valueOf(petCheckBox.isSelected()), connectedUser};
-		
 		
 		if(arg0 instanceof AddNewApartmentView)
 		{
 			if(arg1 instanceof AddNewApartmentView.AddGround)
 			{
-				//String[]arr = (String[])arg1; // unpack the arg
 				String[] arr = ((AddNewApartmentView.AddGround) arg1).ground;
 				Ground newGround = new Ground(Integer.parseInt(arr[7]));
 				newGround.setPropertyID(dataExcelConn.getTheLastApartmentId());
@@ -203,23 +175,11 @@ public class DataController implements Observer{
 				newGround.setFurniture(Boolean.parseBoolean(arr[15]));
 				newGround.setPet(Boolean.parseBoolean(arr[16]));
 				
-				
 				dataExcelConn.addNewApartmentGround(newGround);
 			}
-		}
-		
-//		String [] buildingApartment = {cityTextFile.getText().toString(),streetTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
-//				missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
-//				floorsBuildingSpinner.getValue().toString(), String.valueOf(gardenGroundCheckBox.isSelected()), apartmentNumberGroundSpinner.getValue().toString(), 
-//				String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), String.valueOf(airCheckBox.isSelected()), 
-//				String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()), String.valueOf(storageCheckBox.isSelected()), 
-//				String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected()), connectedUser};
-		
-		if(arg0 instanceof AddNewApartmentView)
-		{
-			if(arg1 instanceof AddNewApartmentView.AddBuilding)
+			
+			else if(arg1 instanceof AddNewApartmentView.AddBuilding)
 			{
-				//String[]arr = (String[])arg1; // unpack the arg
 				String[] arr = ((AddNewApartmentView.AddBuilding) arg1).building;
 				Building newBuilding = new Building((int)Double.parseDouble(arr[7]), Boolean.parseBoolean(arr[8]), (int)Double.parseDouble(arr[9]));
 				newBuilding.setPropertyID(dataExcelConn.getTheLastApartmentId());
@@ -232,10 +192,6 @@ public class DataController implements Observer{
 				newBuilding.setRooms((int)Double.parseDouble(arr[4]));
 				newBuilding.setPrice((int)Double.parseDouble(arr[5]));
 				newBuilding.setDescription(arr[6]);
-//				newBuilding.setFloor((int)Double.parseDouble(arr[7]));
-//				newBuilding.setGarden(Boolean.parseBoolean(arr[8]));
-//				newBuilding.setApartmentNumber((int)Double.parseDouble(arr[9]));
-				//newGround.setPropertyType();
 				newBuilding.setElevator(Boolean.parseBoolean(arr[10]));
 				newBuilding.setParking(Boolean.parseBoolean(arr[11]));
 				newBuilding.setAirCon(Boolean.parseBoolean(arr[12]));
@@ -246,10 +202,10 @@ public class DataController implements Observer{
 				newBuilding.setFurniture(Boolean.parseBoolean(arr[17]));
 				newBuilding.setPet(Boolean.parseBoolean(arr[18]));
 				
-				
 				dataExcelConn.addNewApartmentBuilding(newBuilding);
 			}
 		}
+
 
 		
 		///// data to view
@@ -261,114 +217,73 @@ public class DataController implements Observer{
 				JTable jTable = ((DataExcelConn.UsersTable) arg1).usersTable;
 				showAllUsersView.crateAllUsers(jTable);
 			}
-		}
-		
-		if(arg0 instanceof DataExcelConn)   /// not connected to view
-		{
-			if(arg1 instanceof DataExcelConn.ApartmentsTable)
-			{
-				JTable jTable = ((DataExcelConn.ApartmentsTable) arg1).apartmentsTable;
-	//			showAllUsersView.crateAllUsers(jTable);
-			}
-		}
-		
-		if(arg0 instanceof DataExcelConn)   
-		{
-			if(arg1 instanceof DataExcelConn.CheckValidPassClass)
+			
+//			else if(arg1 instanceof DataExcelConn.ApartmentsTable)   /// not connected to view 
+//			{
+//				JTable jTable = ((DataExcelConn.ApartmentsTable) arg1).apartmentsTable;
+//				showAllUsersView.crateAllUsers(jTable);
+//			}
+			
+			else if(arg1 instanceof DataExcelConn.CheckValidPassClass)
 			{
 				boolean validUser = ((DataExcelConn.CheckValidPassClass) arg1).validPass;
 				boolean admin = ((DataExcelConn.CheckValidPassClass) arg1).userType;
 				boolean analyst = ((DataExcelConn.CheckValidPassClass) arg1).analystType;
 				mainView.loginValid(validUser, admin, analyst);
 			}
-		}
-		
-		if(arg0 instanceof DataExcelConn)    //// for register validation /// not connected to view
-		{
-			if(arg1 instanceof DataExcelConn.ExistsUser)
+			
+			else if(arg1 instanceof DataExcelConn.ExistsUser)
 			{
 				boolean exsistUser = ((DataExcelConn.ExistsUser) arg1).exixst;
 				registerView.userValid(exsistUser); 
 			}
-		}
-		
-		if(arg0 instanceof DataExcelConn)     /// not connected to view
-		{
-			if(arg1 instanceof DataExcelConn.UserApartments)
+			
+			else if(arg1 instanceof DataExcelConn.UserApartments)
 			{
 				JTable jTable = ((DataExcelConn.UserApartments) arg1).userApartmentTable;
 				showUserApartmentView.crateAllUserApartments(jTable);	
 			}
-		}
-		
-		
-		
-		if(arg0 instanceof DataExcelConn)     
-		{
-			if(arg1 instanceof DataExcelConn.ShowAllApartments)
+			
+			else if(arg1 instanceof DataExcelConn.ShowAllApartments)
 			{
 				JTable jTable = ((DataExcelConn.ShowAllApartments) arg1).allApartmentTable;
 				showAllApartmentView.createAllApartment(jTable);
 			}
-		}
-		
-		
-		
-		if(arg0 instanceof DataExcelConn)     
-		{
-			if(arg1 instanceof DataExcelConn.CityShowRep)
+			
+			else if(arg1 instanceof DataExcelConn.CityShowRep)
 			{
 				String arr[] = ((DataExcelConn.CityShowRep) arg1).cityList;
 				showAllApartmentView.loadCities(arr);
 			}
-		}
-		
-		
-		
-		
-		if(arg0 instanceof DataExcelConn)     
-		{
-			if(arg1 instanceof DataExcelConn.PropertType)
+			
+			else if(arg1 instanceof DataExcelConn.PropertType)
 			{
 				Boolean arr[] = ((DataExcelConn.PropertType) arg1).propertType;
 				showAllApartmentView.loadPropertType(arr);
 			}
-		}
-		
-		if(arg0 instanceof DataExcelConn)
-		{
-			if(arg1 instanceof DataExcelConn.ShowSearchTable)
+			
+			else if(arg1 instanceof DataExcelConn.ShowSearchTable)
 			{
 				JTable jTable = ((DataExcelConn.ShowSearchTable) arg1).searchTable;
 				showAllApartmentView.showSearch(jTable);
 			}
-		}
-		
-		if(arg0 instanceof DataExcelConn)
-		{
-			if(arg1 instanceof DataExcelConn.TopApartment)
+			
+			else if(arg1 instanceof DataExcelConn.TopApartment)
 			{
 				JTable jTable = ((DataExcelConn.TopApartment) arg1).topTable;
 				searchDetailsView.showTop(jTable);
 			}
-		}
-		
-		if(arg0 instanceof DataExcelConn)
-		{
-			if(arg1 instanceof DataExcelConn.ConfirmDelete)
+			
+			else if(arg1 instanceof DataExcelConn.ConfirmDelete)
 			{
 				showAllUsersView.confirmUserDelete();
 			}
-		}
-		
-		if(arg0 instanceof DataExcelConn)
-		{
-			if(arg1 instanceof DataExcelConn.ConfirmDeletedUserApartment)
+			
+			else if(arg1 instanceof DataExcelConn.ConfirmDeletedUserApartment)
 			{
 				showUserApartmentView.confirmApartmentDelete();
 			}
-		}
-		
+		}		
 	}
 
 }

@@ -82,14 +82,14 @@ public class DataExcelConn extends Observable
 		}
 	}
 	
-	public class ApartmentsTable
-	{
-		public JTable apartmentsTable;
-		public ApartmentsTable(JTable table)
-		{
-			this.apartmentsTable = table;
-		}
-	}
+//	public class ApartmentsTable
+//	{
+//		public JTable apartmentsTable;
+//		public ApartmentsTable(JTable table)
+//		{
+//			this.apartmentsTable = table;
+//		}
+//	}
 	
 	public class UserApartments
 	{
