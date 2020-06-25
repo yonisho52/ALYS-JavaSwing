@@ -147,7 +147,7 @@ public class DataExcelConn extends Observable
 
 	public class ConfirmDelete{}
 	
-	private DataExcelConn() // singleton *
+	protected DataExcelConn() // singleton *
 	{	
 		if(file.exists()) 
 		{
@@ -211,7 +211,6 @@ public class DataExcelConn extends Observable
 		{
 			inputStream = new FileInputStream(new File(excelFilePath));
 	    	Workbook workBook = WorkbookFactory.create(inputStream);
-
 		} 
 		catch (Exception e) 
 		{
