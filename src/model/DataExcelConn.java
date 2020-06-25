@@ -36,6 +36,10 @@ public class DataExcelConn extends Observable
 	
 	static DataExcelConn dataExcelConn = new DataExcelConn(); //for singleton DP
 
+	public static DataExcelConn getDataExcelConn() 
+	{
+		return dataExcelConn;
+	}
 	
 	public class CheckValidPassClass
 	{
@@ -50,10 +54,7 @@ public class DataExcelConn extends Observable
 		}
 	}
 	
-	public static DataExcelConn getDataExcelConn() 
-	{
-		return dataExcelConn;
-	}
+
 
 	public class ExistsUser
 	{
@@ -147,7 +148,7 @@ public class DataExcelConn extends Observable
 
 	public class ConfirmDelete{}
 	
-	protected DataExcelConn() // singleton *
+	private DataExcelConn() // singleton *
 	{	
 		if(file.exists()) 
 		{
@@ -420,8 +421,8 @@ public class DataExcelConn extends Observable
 		Row row;
 		int lastRow = apartments.getLastRowNum();
 		Cell userNameDB;
-		String [][] matrixArr = new String[lastRow][22]; // for table
-		String [] rowArr = new String[22]; // lines
+		String [][] matrixArr = new String[lastRow][8]; // for table
+		String [] rowArr = new String[8]; // lines
 		int j = 0,n,k;
 		
 		for(int i=1; i<=lastRow; i++)
@@ -430,8 +431,8 @@ public class DataExcelConn extends Observable
 			userNameDB = row.getCell(0);
 			if(userName.toString().equals(userNameDB.toString())) 
 			{		
-				rowArr[0] = dataFormatter.formatCellValue(row.getCell(1));
-				for(n=3,k=1;n<=23;n++,k++)	
+				
+				for(n=3,k=0;n<=10;n++,k++)	
 				{
 					rowArr[k] = dataFormatter.formatCellValue(row.getCell(n));
 				}
@@ -439,10 +440,6 @@ public class DataExcelConn extends Observable
 			}
 		}
 		return matrixArr;
-//		String[] UserapartmentsColumns = {"id","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
-//		JTable jTable = new JTable(matrixArr, UserapartmentsColumns);
-//		setChanged();
-//		notifyObservers(new UserApartments(jTable));
 	}
 	
 	public void deleteUserApartment(String userName, int index)
@@ -505,14 +502,12 @@ public class DataExcelConn extends Observable
 	public void createUserApartmnetTable(String userName)
 	{
 		String [][] apartmentUserMatrixArr = showUserApartments(userName);
-		String[] UserapartmentsColumns = {"id","עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס","קומה","גינה","מספר דירה","מספר קומות","מעלית","חניה","מיזוג","מרפסת","ממד","מחסן","גישה לנכים","מרוהטת","חיות מחמד"};
+		String[] UserapartmentsColumns = {"עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס"};
 		JTable jTable = new JTable(apartmentUserMatrixArr, UserapartmentsColumns);
 		setChanged();
 		notifyObservers(new UserApartments(jTable));
 	}
 
-	
-	
 	public void addNewApartmentGround(Ground ground) 
 	{  
 		String excelFilePath = "DataBase.xlsx";
@@ -924,53 +919,66 @@ public class DataExcelConn extends Observable
 		
 		Row row;
 		int lastRow = apartments.getLastRowNum();
-		Cell searchDB;
+		Cell searchDB, apartmentIdDB;
 		String [][] matrixArr = new String[lastRow][8]; // for table
 		String [] rowArr = new String[8]; // lines
-		double [] search = new double[lastRow];
-		int j=0, k=0, n=0,i;
+		double [] order = new double[lastRow];
+		String [][]search = new String[2][lastRow];
 		
+		int j=0, k=0, n=0,i;
 		
 		for(i=1;i<=lastRow;i++)
 		{
 			row = apartments.getRow(i);
 			searchDB = row.getCell(2);
-			search[j++]=Double.parseDouble(searchDB.toString());
+			apartmentIdDB = row.getCell(1);
+			search[0][j] = searchDB.toString();
+			search[1][j] = apartmentIdDB.toString();
+			order[j] = Double.parseDouble(searchDB.toString());
+			j++;
 		}
 		
-		Arrays.parallelSort(search);
+		Arrays.parallelSort(order);
 		
-		for(j=search.length-1;j>=0;j--)
+		for(int t=order.length-1;t>=0;t--)
 		{
-			for(i=1; i<=lastRow; i++)
+			for(int s=0;s<lastRow;s++)
 			{
-				row = apartments.getRow(i);
-				searchDB = row.getCell(2);
-				if(search[j]==Double.parseDouble(searchDB.toString()))
+				if(order[t] == Double.parseDouble(search[0][s].toString()) && search[1][s] !=null)
 				{
-					rowArr[k++] = dataFormatter.formatCellValue(row.getCell(0));
-					rowArr[k++] = dataFormatter.formatCellValue(row.getCell(2));
-					rowArr[k++] = dataFormatter.formatCellValue(row.getCell(3));
-					rowArr[k++] = dataFormatter.formatCellValue(row.getCell(4));
-					rowArr[k++] = dataFormatter.formatCellValue(row.getCell(6));
-					rowArr[k++] = dataFormatter.formatCellValue(row.getCell(7));
-					rowArr[k++] = dataFormatter.formatCellValue(row.getCell(8));
-					rowArr[k++] = dataFormatter.formatCellValue(row.getCell(10));
-					matrixArr[n++] = rowArr.clone();
-					k=0;
-					break;
+					for(i=0;i<=lastRow;i++)
+					{
+						row = apartments.getRow(i);
+						searchDB = row.getCell(2);
+						apartmentIdDB = row.getCell(1);
+						
+						if(apartmentIdDB.toString().equals(search[1][s]))
+						{
+							rowArr[k++] = dataFormatter.formatCellValue(row.getCell(0));
+							rowArr[k++] = dataFormatter.formatCellValue(row.getCell(2));
+							rowArr[k++] = dataFormatter.formatCellValue(row.getCell(3));
+							rowArr[k++] = dataFormatter.formatCellValue(row.getCell(4));
+							rowArr[k++] = dataFormatter.formatCellValue(row.getCell(6));
+							rowArr[k++] = dataFormatter.formatCellValue(row.getCell(7));
+							rowArr[k++] = dataFormatter.formatCellValue(row.getCell(8));
+							rowArr[k++] = dataFormatter.formatCellValue(row.getCell(10));
+							matrixArr[n++] = rowArr.clone();
+							k=0;
+							search[1][s] = null;
+							break;
+						}
+					}
 				}
 			}
 		}
-		
+
 		String[] UserapartmentsColumns = {"משתמש","כמות חיפושים","עיר","רחוב","שותפים חסרים","חדרים","מחיר","סוג הנכס"};
 		JTable jTable = new JTable(matrixArr, UserapartmentsColumns);
 		//jTable.setBounds(10, 159, 1030, 309);
 		setChanged();
 		notifyObservers(new TopApartment(jTable));
 		
-
-		}
+	}
 		
 	public void deleteUser(int index)
 	{
@@ -996,8 +1004,10 @@ public class DataExcelConn extends Observable
         int lastIndex = users.getLastRowNum();
 		//users.removeRow(deleteRow);
         int rowIndexToDelete = row.getRowNum();
-        users.shiftRows(rowIndexToDelete+1, lastIndex, -1);
-
+        if(rowIndexToDelete!=lastIndex)
+        	users.shiftRows(rowIndexToDelete + 1, lastIndex, -1);
+        else 
+        	users.removeRow(row);
         
     	FileOutputStream outputStream;
     	
@@ -1012,8 +1022,8 @@ public class DataExcelConn extends Observable
 			e.printStackTrace();
 		}
 
-		setChanged();
-		notifyObservers(new ConfirmDelete());	
+//		setChanged();
+//		notifyObservers(new ConfirmDelete());	
 	}
 
 	public void deleteUsersApartment(String userName)
