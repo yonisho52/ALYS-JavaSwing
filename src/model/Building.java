@@ -6,6 +6,15 @@ public class Building extends Apartment
 	private boolean garden;
 	private int apartmentNumber;
 
+	public Building(int floor, boolean garden, int apartmentNumber) 
+	{
+		super();
+		this.floor = floor;
+		this.garden = garden;
+		this.apartmentNumber = apartmentNumber;
+		this.propertyType = "בניין";
+	}
+	
 	public int getFloor() 
 	{
 		return floor;
@@ -35,15 +44,4 @@ public class Building extends Apartment
 	{
 		this.apartmentNumber = apartmentNumber;
 	}
-
-
-	public Building(int floor, boolean garden, int apartmentNumber) {
-		super();
-		this.floor = floor;
-		this.garden = garden;
-		this.apartmentNumber = apartmentNumber;
-		this.propertyType = "בניין";
-	}
-	
-	
 }

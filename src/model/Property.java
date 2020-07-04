@@ -48,8 +48,3 @@ public interface Property
 }
 //String [] buildingApartment = {city,Address,numOfRommates,missingRoomates, rooms, price, description,propertyType, floorsBuilding,gardenGround, apartmentNumberGround, floorCountGround,
 //elevator, parking, airCon, patio, mamad, storage, accesible, furniture, pet};
-//
-//
-//
-//
-//

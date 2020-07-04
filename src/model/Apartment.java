@@ -2,7 +2,6 @@ package model;
 
 public abstract class Apartment implements Property 
 {
-
 	protected int propertyID;
 	protected String userId;
 	protected int searchCount;
@@ -23,9 +22,6 @@ public abstract class Apartment implements Property
 	protected boolean accesible;
 	protected boolean furniture;
 	protected boolean pet;
-	
-	
-	
 
 	@Override
 	public int getPropertyID() {
@@ -128,8 +124,7 @@ public abstract class Apartment implements Property
 		return pet;
 	}
 
-
-//////////////////////////////////////// set
+	//setter's
 	
 	@Override
 	public void setPropertyID(int apartmentId) {
@@ -235,7 +230,4 @@ public abstract class Apartment implements Property
 		// TODO Auto-generated method stub
 		this.pet = pet;
 	}
-	
-	
-
 }

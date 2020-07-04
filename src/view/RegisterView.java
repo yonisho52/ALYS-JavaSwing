@@ -16,6 +16,8 @@ import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JPasswordField;
+import java.awt.Panel;
+import javax.swing.ImageIcon;
 
 public class RegisterView extends Observable 
 {
@@ -50,6 +52,8 @@ public class RegisterView extends Observable
 	private JLabel phonelable;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
+	private Panel panel;
+	private JLabel lblNewLabel_2;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -102,24 +106,20 @@ public class RegisterView extends Observable
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 567, 495);
+		frame.setBounds(100, 100, 545, 633);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton cancelButton = new JButton("\u05D7\u05D6\u05D5\u05E8");
-		cancelButton.setBackground(Color.PINK);
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				mainView.showMainView();
-				frame.setVisible(false);
-				resetRegisterForm();
-			}
-		});
-		
-		cancelButton.setBounds(119, 350, 97, 25);
-		frame.getContentPane().add(cancelButton);
+		panel = new Panel();
+		panel.setBackground(new Color(0, 0, 51));
+		panel.setBounds(0, 0, 527, 586);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
 		
 		userName = new JTextField();
+		userName.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		userName.setBounds(196, 196, 130, 28);
+		panel.add(userName);
 		userName.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -128,34 +128,231 @@ public class RegisterView extends Observable
 				notifyObservers(new CheckExsistUser(userName.getText()));
 			}
 		});
-		userName.setBounds(192, 79, 116, 22);
-		frame.getContentPane().add(userName);
 		userName.setColumns(10);
 		
 		password = new JPasswordField();
+		password.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		password.setBounds(196, 231, 130, 28);
+		panel.add(password);
 		password.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
 				checkIfEmptyPassword();
 			}
 		});
-		password.setBounds(192, 114, 116, 22);
-		frame.getContentPane().add(password);
 		password.setColumns(10);
 		
 		validatePassword = new JPasswordField();
+		validatePassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		validatePassword.setBounds(196, 266, 130, 28);
+		panel.add(validatePassword);
 		validatePassword.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
 				checkIfEmptyPasswordValid();
 			}
 		});
-		validatePassword.setBounds(192, 149, 116, 22);
-		frame.getContentPane().add(validatePassword);
 		validatePassword.setColumns(10);
 		
+		JLabel userNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9");
+		userNameLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		userNameLabel.setForeground(new Color(255, 255, 255));
+		userNameLabel.setBounds(346, 198, 100, 16);
+		panel.add(userNameLabel);
+		
+		JLabel passwordLabel_1 = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0");
+		passwordLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		passwordLabel_1.setForeground(new Color(255, 255, 255));
+		passwordLabel_1.setBounds(344, 233, 58, 16);
+		panel.add(passwordLabel_1);
+		
+		validatePasswordLabel = new JLabel("\u05D0\u05D9\u05DE\u05D5\u05EA \u05E1\u05D9\u05E1\u05DE\u05D0");
+		validatePasswordLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		validatePasswordLabel.setForeground(new Color(255, 255, 255));
+		validatePasswordLabel.setBounds(344, 271, 97, 16);
+		panel.add(validatePasswordLabel);
+		
+		email = new JTextField();
+		email.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		email.setBounds(196, 373, 130, 28);
+		panel.add(email);
+		email.setColumns(10);
+		
+		JLabel emailLabel = new JLabel("\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC");
+		emailLabel.setForeground(new Color(255, 255, 255));
+		emailLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		emailLabel.setBounds(346, 378, 56, 16);
+		panel.add(emailLabel);
+		
+		JLabel phoneLabel = new JLabel("\u05E4\u05DC\u05D0\u05E4\u05D5\u05DF");
+		phoneLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		phoneLabel.setForeground(new Color(255, 255, 255));
+		phoneLabel.setBounds(346, 407, 56, 16);
+		panel.add(phoneLabel);
+		
+		phoneNumber = new JTextField();
+		phoneNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		phoneNumber.setBounds(196, 408, 130, 28);
+		panel.add(phoneNumber);
+		phoneNumber.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfEmptyphone();
+			}
+		});
+		phoneNumber.setColumns(10);
+		
+		JLabel firstNameLabel = new JLabel("\u05E9\u05DD \u05E4\u05E8\u05D8\u05D9");
+		firstNameLabel.setForeground(new Color(255, 255, 255));
+		firstNameLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		firstNameLabel.setBounds(344, 306, 82, 16);
+		panel.add(firstNameLabel);
+		
+		firstName = new JTextField();
+		firstName.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		firstName.setBounds(196, 301, 130, 28);
+		panel.add(firstName);
+		firstName.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfEmptyfirstName();
+			}
+		});
+		firstName.setColumns(10);
+		
+		lastName = new JTextField();
+		lastName.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lastName.setBounds(196, 336, 130, 28);
+		panel.add(lastName);
+		lastName.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfEmptylastName();
+			}
+		});
+		lastName.setColumns(10);
+		
+		JLabel lastNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
+		lastNameLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lastNameLabel.setForeground(new Color(255, 255, 255));
+		lastNameLabel.setBounds(344, 341, 82, 16);
+		panel.add(lastNameLabel);
+		
+		JLabel lblNewLabel = new JLabel("\u05D4\u05E8\u05E9\u05DE\u05D4");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBounds(217, 135, 81, 36);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 19));
+		
+		existUser = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9 \u05EA\u05E4\u05D5\u05E1/\u05E8\u05D9\u05E7");
+		existUser.setBounds(40, 199, 144, 16);
+		panel.add(existUser);
+		existUser.setForeground(Color.RED);
+		existUser.setVisible(false);
+		existUser.setFont(existUser.getFont().deriveFont(existUser.getFont().getStyle() | Font.BOLD));
+		
+		mismatchPassword = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0 \u05DC\u05D0 \u05EA\u05D5\u05D0\u05DE\u05EA. \u05E8\u05D9\u05E7\u05D4");
+		mismatchPassword.setBounds(28, 269, 154, 16);
+		panel.add(mismatchPassword);
+		mismatchPassword.setForeground(Color.RED);
+		mismatchPassword.setVisible(false);
+		mismatchPassword.setFont(mismatchPassword.getFont().deriveFont(mismatchPassword.getFont().getStyle() | Font.BOLD));
+		
+		star1 = new JLabel("*");
+		star1.setBounds(450, 198, 18, 16);
+		panel.add(star1);
+		star1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		star1.setForeground(Color.RED);
+		
+		star2 = new JLabel("*");
+		star2.setBounds(450, 233, 18, 16);
+		panel.add(star2);
+		star2.setForeground(Color.RED);
+		star2.setFont(new Font("Tahoma", Font.BOLD, 17));
+		
+		star3 = new JLabel("*");
+		star3.setBounds(450, 271, 18, 16);
+		panel.add(star3);
+		star3.setForeground(Color.RED);
+		star3.setFont(new Font("Tahoma", Font.BOLD, 17));
+		
+		star4 = new JLabel("*");
+		star4.setBounds(450, 304, 18, 16);
+		panel.add(star4);
+		star4.setForeground(Color.RED);
+		star4.setFont(new Font("Tahoma", Font.BOLD, 17));
+		
+		star5 = new JLabel("*");
+		star5.setBounds(450, 336, 18, 16);
+		panel.add(star5);
+		star5.setFont(new Font("Tahoma", Font.BOLD, 17));
+		star5.setForeground(Color.RED);
+		
+		star6 = new JLabel("*");
+		star6.setBounds(450, 407, 16, 16);
+		panel.add(star6);
+		star6.setForeground(Color.RED);
+		star6.setFont(new Font("Tahoma", Font.BOLD, 17));
+		
+		missingText = new JLabel("\u05E0\u05D0 \u05DC\u05DE\u05DC\u05D0 \u05D0\u05EA \u05D4\u05E4\u05E8\u05D8\u05D9\u05DD \u05D4\u05DE\u05E1\u05D5\u05DE\u05E0\u05D9\u05DD \u05D1\u05DB\u05D5\u05DB\u05D1\u05D9\u05EA!");
+		missingText.setBounds(142, 446, 260, 16);
+		panel.add(missingText);
+		missingText.setForeground(Color.RED);
+		missingText.setVisible(false);
+		missingText.setFont(missingText.getFont().deriveFont(missingText.getFont().getStyle() | Font.BOLD));
+		
+		PasswordEnterLabel_1 = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E1\u05D9\u05E1\u05DE\u05D0");
+		PasswordEnterLabel_1.setBounds(97, 236, 82, 16);
+		panel.add(PasswordEnterLabel_1);
+		PasswordEnterLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		PasswordEnterLabel_1.setForeground(Color.RED);
+		
+		firstnamelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E9\u05DD \u05E4\u05E8\u05D8\u05D9");
+		firstnamelable.setBounds(82, 307, 97, 16);
+		panel.add(firstnamelable);
+		firstnamelable.setFont(new Font("Tahoma", Font.BOLD, 13));
+		firstnamelable.setForeground(Color.RED);
+		
+		lastnamelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
+		lastnamelable.setBounds(63, 339, 116, 16);
+		panel.add(lastnamelable);
+		lastnamelable.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lastnamelable.setForeground(Color.RED);
+		
+		phonelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05D8\u05DC\u05E4\u05D5\u05DF \u05EA\u05E7\u05D9\u05DF");
+		phonelable.setBounds(62, 413, 116, 16);
+		panel.add(phonelable);
+		phonelable.setFont(new Font("Tahoma", Font.BOLD, 13));
+		phonelable.setForeground(Color.RED);
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(74, 351, 56, 16);
+		panel.add(lblNewLabel_1);
+		
 		JButton regButton = new JButton("\u05D4\u05D9\u05E8\u05E9\u05DD");
-		regButton.setBackground(Color.PINK);
+		regButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		regButton.setForeground(new Color(255, 255, 255));
+		regButton.setBounds(196, 473, 120, 50);
+		panel.add(regButton);
+		regButton.setBackground(new Color(0, 153, 204));
+		
+		JButton cancelButton = new JButton("\u05D7\u05D6\u05D5\u05E8");
+		cancelButton.setForeground(new Color(255, 255, 255));
+		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		cancelButton.setBounds(11, 14, 97, 25);
+		panel.add(cancelButton);
+		cancelButton.setBackground(new Color(0, 153, 204));
+		
+		lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(RegisterView.class.getResource("/Images/icons8-male-user-100.png")));
+		lblNewLabel_2.setBounds(206, 22, 104, 100);
+		panel.add(lblNewLabel_2);
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mainView.showMainView();
+				frame.setVisible(false);
+				resetRegisterForm();
+			}
+		});
 		regButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -172,168 +369,10 @@ public class RegisterView extends Observable
 				openShowAllApartmentView(arg0);
 			}
 		});
-		regButton.setBounds(305, 350, 97, 25);
-		frame.getContentPane().add(regButton);
-		
-		JLabel userNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9");
-		userNameLabel.setBounds(322, 82, 82, 16);
-		frame.getContentPane().add(userNameLabel);
-		
-		JLabel passwordLabel = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0");
-		passwordLabel.setBounds(320, 117, 58, 16);
-		frame.getContentPane().add(passwordLabel);
-		
-		validatePasswordLabel = new JLabel("\u05D0\u05D9\u05DE\u05D5\u05EA \u05E1\u05D9\u05E1\u05DE\u05D0");
-		validatePasswordLabel.setBounds(320, 155, 97, 16);
-		frame.getContentPane().add(validatePasswordLabel);
-		
-		email = new JTextField();
-		email.setBounds(192, 256, 116, 22);
-		frame.getContentPane().add(email);
-		email.setColumns(10);
-		
-		JLabel emailLabel = new JLabel("\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC");
-		emailLabel.setBounds(322, 262, 56, 16);
-		frame.getContentPane().add(emailLabel);
-		
-		JLabel phoneLabel = new JLabel("\u05E4\u05DC\u05D0\u05E4\u05D5\u05DF");
-		phoneLabel.setBounds(322, 291, 56, 16);
-		frame.getContentPane().add(phoneLabel);
-		
-		phoneNumber = new JTextField();
-		phoneNumber.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				checkIfEmptyphone();
-			}
-		});
-		phoneNumber.setBounds(192, 291, 116, 22);
-		frame.getContentPane().add(phoneNumber);
-		phoneNumber.setColumns(10);
-		
-		JLabel firstNameLabel = new JLabel("\u05E9\u05DD \u05E4\u05E8\u05D8\u05D9");
-		firstNameLabel.setBounds(320, 190, 82, 16);
-		frame.getContentPane().add(firstNameLabel);
-		
-		firstName = new JTextField();
-		firstName.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				checkIfEmptyfirstName();
-			}
-		});
-		firstName.setColumns(10);
-		firstName.setBounds(192, 184, 116, 22);
-		frame.getContentPane().add(firstName);
-		
-		lastName = new JTextField();
-		lastName.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				checkIfEmptylastName();
-			}
-		});
-		lastName.setColumns(10);
-		lastName.setBounds(192, 219, 116, 22);
-		frame.getContentPane().add(lastName);
-		
-		JLabel lastNameLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
-		lastNameLabel.setBounds(320, 225, 82, 16);
-		frame.getContentPane().add(lastNameLabel);
-		
-		JLabel lblNewLabel = new JLabel("\u05D4\u05E8\u05E9\u05DE\u05D4");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblNewLabel.setBounds(222, 28, 86, 20);
-		frame.getContentPane().add(lblNewLabel);
-		
-		existUser = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9 \u05EA\u05E4\u05D5\u05E1/\u05E8\u05D9\u05E7");
-		existUser.setForeground(Color.RED);
-		existUser.setBounds(36, 82, 144, 16);
-		existUser.setVisible(false);
-		existUser.setFont(existUser.getFont().deriveFont(existUser.getFont().getStyle() | Font.BOLD));
-		frame.getContentPane().add(existUser);
-		
-		mismatchPassword = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0 \u05DC\u05D0 \u05EA\u05D5\u05D0\u05DE\u05EA. \u05E8\u05D9\u05E7\u05D4");
-		mismatchPassword.setForeground(Color.RED);
-		mismatchPassword.setBounds(24, 152, 154, 16);
-		mismatchPassword.setVisible(false);
-		mismatchPassword.setFont(mismatchPassword.getFont().deriveFont(mismatchPassword.getFont().getStyle() | Font.BOLD));
-		frame.getContentPane().add(mismatchPassword);
-		
-		star1 = new JLabel("*");
-		star1.setFont(new Font("Tahoma", Font.BOLD, 17));
-		star1.setForeground(Color.RED);
-		star1.setBounds(418, 82, 18, 16);
-		frame.getContentPane().add(star1);
-		
-		star2 = new JLabel("*");
-		star2.setForeground(Color.RED);
-		star2.setFont(new Font("Tahoma", Font.BOLD, 17));
-		star2.setBounds(418, 117, 18, 16);
-		frame.getContentPane().add(star2);
-		
-		star3 = new JLabel("*");
-		star3.setForeground(Color.RED);
-		star3.setFont(new Font("Tahoma", Font.BOLD, 17));
-		star3.setBounds(418, 155, 18, 16);
-		frame.getContentPane().add(star3);
-		
-		star4 = new JLabel("*");
-		star4.setForeground(Color.RED);
-		star4.setFont(new Font("Tahoma", Font.BOLD, 17));
-		star4.setBounds(418, 188, 18, 16);
-		frame.getContentPane().add(star4);
-		
-		star5 = new JLabel("*");
-		star5.setFont(new Font("Tahoma", Font.BOLD, 17));
-		star5.setForeground(Color.RED);
-		star5.setBounds(418, 220, 18, 16);
-		frame.getContentPane().add(star5);
-		
-		star6 = new JLabel("*");
-		star6.setForeground(Color.RED);
-		star6.setFont(new Font("Tahoma", Font.BOLD, 17));
-		star6.setBounds(418, 291, 29, 16);
-		frame.getContentPane().add(star6);
-		
-		missingText = new JLabel("\u05E0\u05D0 \u05DC\u05DE\u05DC\u05D0 \u05D0\u05EA \u05D4\u05E4\u05E8\u05D8\u05D9\u05DD \u05D4\u05DE\u05E1\u05D5\u05DE\u05E0\u05D9\u05DD \u05D1\u05DB\u05D5\u05DB\u05D1\u05D9\u05EA!");
-		missingText.setForeground(Color.RED);
-		missingText.setBounds(142, 321, 260, 16);
-		missingText.setVisible(false);
-		missingText.setFont(missingText.getFont().deriveFont(missingText.getFont().getStyle() | Font.BOLD));
-		frame.getContentPane().add(missingText);
-		
-		PasswordEnterLabel_1 = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E1\u05D9\u05E1\u05DE\u05D0");
-		PasswordEnterLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		PasswordEnterLabel_1.setForeground(Color.RED);
-		PasswordEnterLabel_1.setBounds(93, 119, 82, 16);
-		PasswordEnterLabel_1.setVisible(false);
-		frame.getContentPane().add(PasswordEnterLabel_1);
-		
-		firstnamelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E9\u05DD \u05E4\u05E8\u05D8\u05D9");
-		firstnamelable.setFont(new Font("Tahoma", Font.BOLD, 13));
-		firstnamelable.setForeground(Color.RED);
-		firstnamelable.setBounds(78, 190, 97, 16);
-		firstnamelable.setVisible(false);
-		
-		frame.getContentPane().add(firstnamelable);
-		
-		lastnamelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4");
-		lastnamelable.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lastnamelable.setForeground(Color.RED);
-		lastnamelable.setBounds(59, 222, 116, 16);
-		frame.getContentPane().add(lastnamelable);
-		lastnamelable.setVisible(false);
-		
-		phonelable = new JLabel("\u05D4\u05DB\u05E0\u05E1 \u05D8\u05DC\u05E4\u05D5\u05DF \u05EA\u05E7\u05D9\u05DF");
-		phonelable.setFont(new Font("Tahoma", Font.BOLD, 13));
-		phonelable.setForeground(Color.RED);
-		phonelable.setBounds(59, 291, 116, 16);
-		frame.getContentPane().add(phonelable);
 		phonelable.setVisible(false);
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(78, 305, 56, 16);
-		frame.getContentPane().add(lblNewLabel_1);
+		lastnamelable.setVisible(false);
+		firstnamelable.setVisible(false);
+		PasswordEnterLabel_1.setVisible(false);
 		
 	}
 	

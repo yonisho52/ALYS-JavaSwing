@@ -18,6 +18,8 @@ import java.util.Observable;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPasswordField;
+import java.awt.Panel;
+import javax.swing.ImageIcon;
 
 public class MainView extends Observable {
 
@@ -80,7 +82,7 @@ public class MainView extends Observable {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 674, 472);
+		frame.setBounds(100, 100, 805, 594);
 	//	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.addWindowListener(new WindowAdapter() {
@@ -93,7 +95,23 @@ public class MainView extends Observable {
 
 		frame.getContentPane().setLayout(null);
 		
+		Panel panelMainDark = new Panel();
+		panelMainDark.setBackground(new Color(0, 153, 204));
+		panelMainDark.setBounds(0, 0, 390, 547);
+		frame.getContentPane().add(panelMainDark);
+		panelMainDark.setLayout(null);
+		
+		Panel panel = new Panel();
+		panel.setBackground(new Color(0, 0, 51));
+		panel.setBounds(384, 0, 403, 547);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
 		JButton loginButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8\u05D5\u05EA");
+		loginButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		loginButton.setForeground(new Color(255, 255, 255));
+		loginButton.setBounds(64, 241, 201, 38);
+		panel.add(loginButton);
 		loginButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -103,16 +121,66 @@ public class MainView extends Observable {
 				notifyObservers(user);
 			}
 		});
-		loginButton.setBackground(Color.PINK);
-		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		loginButton.setBounds(224, 175, 169, 25);
-		frame.getContentPane().add(loginButton);
+		loginButton.setBackground(new Color(0, 153, 204));
+		
+		passTextField = new JPasswordField();
+		passTextField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		passTextField.setBackground(new Color(255, 255, 255));
+		passTextField.setBounds(83, 187, 149, 30);
+		panel.add(passTextField);
+		passTextField.setColumns(10);
+		
+		userNameTextField = new JTextField();
+		userNameTextField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		userNameTextField.setBackground(new Color(255, 255, 255));
+		userNameTextField.setBounds(83, 144, 149, 30);
+		panel.add(userNameTextField);
+		userNameTextField.setColumns(10);
+		
+		JLabel userName = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9");
+		userName.setFont(new Font("Tahoma", Font.BOLD, 16));
+		userName.setForeground(new Color(255, 255, 255));
+		userName.setBounds(244, 143, 100, 30);
+		panel.add(userName);
+		
+		JLabel password = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0");
+		password.setFont(new Font("Tahoma", Font.BOLD, 16));
+		password.setForeground(new Color(255, 255, 255));
+		password.setBounds(246, 193, 63, 16);
+		panel.add(password);
+		
+		failLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9 \u05D0\u05D5 \u05E1\u05D9\u05E1\u05DE\u05D0 \u05DC\u05D0 \u05E0\u05DB\u05D5\u05E0\u05D9\u05DD");
+		failLabel.setBounds(83, 291, 169, 16);
+		panel.add(failLabel);
+		failLabel.setForeground(Color.RED);
+		failLabel.setVisible(false);
+		failLabel.setFont(failLabel.getFont().deriveFont(failLabel.getFont().getStyle() | Font.BOLD));
 		
 		JButton registerButton = new JButton("\u05D4\u05D9\u05E8\u05E9\u05DD");
-		registerButton.setBackground(Color.PINK);
+		registerButton.setBounds(122, 426, 143, 38);
+		panel.add(registerButton);
+		registerButton.setForeground(new Color(255, 255, 255));
+		registerButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		registerButton.setBackground(new Color(0, 153, 204));
+		
+		JLabel lblNewLabel = new JLabel("\u05E2\u05D3\u05D9\u05D9\u05DF \u05DC\u05D0 \u05E0\u05E8\u05E9\u05DE\u05EA?");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBounds(122, 393, 143, 20);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		JButton guestViewButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05DC\u05DC\u05D0 \u05DE\u05E0\u05D5\u05D9");
+		guestViewButton.setBounds(242, 13, 149, 30);
+		panel.add(guestViewButton);
+		guestViewButton.setForeground(new Color(255, 255, 255));
+		guestViewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		guestViewButton.setBackground(new Color(0, 153, 204));
+		guestViewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {  ////// send to the function down becuase problem with the initialize function
+				openShowAllApartment(null,false,false);
+			}
+		});
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -123,49 +191,10 @@ public class MainView extends Observable {
 				openRegisterView(arg0);
 			}
 		});
-		registerButton.setBounds(212, 313, 169, 25);
-		frame.getContentPane().add(registerButton);
-		
-		JButton guestViewButton = new JButton("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05DC\u05DC\u05D0 \u05DE\u05E0\u05D5\u05D9");
-		guestViewButton.setBackground(Color.PINK);
-		guestViewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {  ////// send to the function down becuase problem with the initialize function
-				openShowAllApartment(null,false,false);
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		guestViewButton.setBounds(212, 362, 169, 25);
-		frame.getContentPane().add(guestViewButton);
-		
-		JLabel userName = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9");
-		userName.setBounds(343, 74, 120, 30);
-		frame.getContentPane().add(userName);
-		
-		JLabel password = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0");
-		password.setBounds(364, 120, 56, 16);
-		frame.getContentPane().add(password);
-		
-		userNameTextField = new JTextField();
-		userNameTextField.setBounds(212, 74, 116, 22);
-		frame.getContentPane().add(userNameTextField);
-		userNameTextField.setColumns(10);
-		
-		passTextField = new JPasswordField();
-		passTextField.setColumns(10);
-		passTextField.setBounds(212, 117, 116, 22);
-		frame.getContentPane().add(passTextField);
-		
-		JLabel lblNewLabel = new JLabel("\u05E2\u05D3\u05D9\u05D9\u05DF \u05DC\u05D0 \u05E0\u05E8\u05E9\u05DE\u05EA?");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setBounds(224, 280, 157, 20);
-		frame.getContentPane().add(lblNewLabel);
-		
-		failLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9 \u05D0\u05D5 \u05E1\u05D9\u05E1\u05DE\u05D0 \u05DC\u05D0 \u05E0\u05DB\u05D5\u05E0\u05D9\u05DD");
-		failLabel.setBounds(193, 224, 169, 16);
-		failLabel.setForeground(Color.RED);
-		failLabel.setVisible(false);
-		failLabel.setFont(failLabel.getFont().deriveFont(failLabel.getFont().getStyle() | Font.BOLD));
-		frame.getContentPane().add(failLabel);
 	}
 
 	protected void openRegisterView(MouseEvent arg0) {
