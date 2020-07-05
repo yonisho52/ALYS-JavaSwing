@@ -125,7 +125,7 @@ public class AddNewApartmentView extends Observable
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 738, 562);
+		frame.setBounds(100, 100, 829, 669);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		

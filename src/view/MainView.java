@@ -1,7 +1,5 @@
 package view;
 
-
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -21,8 +19,8 @@ import javax.swing.JPasswordField;
 import java.awt.Panel;
 import javax.swing.ImageIcon;
 
-public class MainView extends Observable {
-
+public class MainView extends Observable 
+{
 	RegisterView registerView;
 	ShowAllApartmentView showAllApartmentView;
 	
@@ -51,21 +49,24 @@ public class MainView extends Observable {
 	 * Create the application.
 	 */
 	
-	public MainView(RegisterView registerView,ShowAllApartmentView showAllApartmentView) {
+	public MainView(RegisterView registerView,ShowAllApartmentView showAllApartmentView) 
+	{
 		this.registerView = registerView;
 		this.showAllApartmentView = showAllApartmentView;
 		initialize();
-		try {
+		try 
+		{
 			//MainView window = new MainView();
 			this.frame.setVisible(true);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 	}
-	public MainView() {
-		
-		
 	
+	public MainView() 
+	{
 		initialize();
 	}
 
@@ -101,6 +102,23 @@ public class MainView extends Observable {
 		frame.getContentPane().add(panelMainDark);
 		panelMainDark.setLayout(null);
 		
+		JLabel housePhoto = new JLabel("");
+		housePhoto.setIcon(new ImageIcon(MainView.class.getResource("/Images/icons8-home-256.png")));
+		housePhoto.setBounds(71, 28, 256, 248);
+		panelMainDark.add(housePhoto);
+		
+		JLabel AlysLabel = new JLabel("ALYS");
+		AlysLabel.setForeground(Color.WHITE);
+		AlysLabel.setFont(new Font("Times New Roman", Font.BOLD, 44));
+		AlysLabel.setBounds(137, 273, 123, 48);
+		panelMainDark.add(AlysLabel);
+		
+		JLabel sloganLabel = new JLabel("The easiest way to find apartment");
+		sloganLabel.setForeground(Color.WHITE);
+		sloganLabel.setFont(new Font("Book Antiqua", Font.BOLD, 22));
+		sloganLabel.setBounds(32, 322, 346, 28);
+		panelMainDark.add(sloganLabel);
+		
 		Panel panel = new Panel();
 		panel.setBackground(new Color(0, 0, 51));
 		panel.setBounds(384, 0, 403, 547);
@@ -110,7 +128,7 @@ public class MainView extends Observable {
 		JButton loginButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8\u05D5\u05EA");
 		loginButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		loginButton.setForeground(new Color(255, 255, 255));
-		loginButton.setBounds(64, 241, 201, 38);
+		loginButton.setBounds(64, 256, 201, 38);
 		panel.add(loginButton);
 		loginButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -126,31 +144,31 @@ public class MainView extends Observable {
 		passTextField = new JPasswordField();
 		passTextField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		passTextField.setBackground(new Color(255, 255, 255));
-		passTextField.setBounds(83, 187, 149, 30);
+		passTextField.setBounds(83, 202, 149, 30);
 		panel.add(passTextField);
 		passTextField.setColumns(10);
 		
 		userNameTextField = new JTextField();
 		userNameTextField.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		userNameTextField.setBackground(new Color(255, 255, 255));
-		userNameTextField.setBounds(83, 144, 149, 30);
+		userNameTextField.setBounds(83, 159, 149, 30);
 		panel.add(userNameTextField);
 		userNameTextField.setColumns(10);
 		
 		JLabel userName = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9");
 		userName.setFont(new Font("Tahoma", Font.BOLD, 16));
 		userName.setForeground(new Color(255, 255, 255));
-		userName.setBounds(244, 143, 100, 30);
+		userName.setBounds(244, 158, 100, 30);
 		panel.add(userName);
 		
 		JLabel password = new JLabel("\u05E1\u05D9\u05E1\u05DE\u05D0");
 		password.setFont(new Font("Tahoma", Font.BOLD, 16));
 		password.setForeground(new Color(255, 255, 255));
-		password.setBounds(246, 193, 63, 16);
+		password.setBounds(246, 208, 63, 16);
 		panel.add(password);
 		
 		failLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9 \u05D0\u05D5 \u05E1\u05D9\u05E1\u05DE\u05D0 \u05DC\u05D0 \u05E0\u05DB\u05D5\u05E0\u05D9\u05DD");
-		failLabel.setBounds(83, 291, 169, 16);
+		failLabel.setBounds(83, 306, 169, 16);
 		panel.add(failLabel);
 		failLabel.setForeground(Color.RED);
 		failLabel.setVisible(false);
@@ -175,6 +193,16 @@ public class MainView extends Observable {
 		guestViewButton.setForeground(new Color(255, 255, 255));
 		guestViewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		guestViewButton.setBackground(new Color(0, 153, 204));
+		
+		JLabel passwordIconMain = new JLabel("");
+		passwordIconMain.setIcon(new ImageIcon(MainView.class.getResource("/Images/icons8-key-30.png")));
+		passwordIconMain.setBounds(343, 202, 36, 30);
+		panel.add(passwordIconMain);
+		
+		JLabel userIconMain = new JLabel("");
+		userIconMain.setIcon(new ImageIcon(MainView.class.getResource("/Images/icons8-male-user-30.png")));
+		userIconMain.setBounds(343, 151, 36, 38);
+		panel.add(userIconMain);
 		guestViewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {  ////// send to the function down becuase problem with the initialize function
@@ -216,11 +244,10 @@ public class MainView extends Observable {
 		showAllApartmentView.openShowAllApartment(userName,userType,analyst);
 //		setChanged();
 //		notifyObservers(new CreateAllApartmentTable());
-		
 	}
 	
-	public void loginValid(boolean valid, boolean admin, boolean analyst) {
-		
+	public void loginValid(boolean valid, boolean admin, boolean analyst) 
+	{	
 		if(valid)
 		{
 			openShowAllApartment(userNameTextField.getText(),admin,analyst); //////from here send userName
@@ -229,6 +256,5 @@ public class MainView extends Observable {
 		{
 			failLabel.setVisible(true);
 		}
-		
 	}
 }

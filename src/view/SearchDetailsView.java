@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import java.awt.Panel;
 
 public class SearchDetailsView extends Observable {
 	
@@ -79,34 +80,46 @@ public class SearchDetailsView extends Observable {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 653, 477);
+		frame.setBounds(100, 100, 751, 529);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		Panel panel_1 = new Panel();
+		panel_1.setBackground(new Color(0, 153, 204));
+		panel_1.setBounds(0, 0, 741, 489);
+		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
 		JLabel mostSearchedApartmentsLabel = new JLabel("\u05D4\u05D3\u05D9\u05E8\u05D5\u05EA \u05E9\u05D7\u05D9\u05E4\u05E9\u05D5 \u05D4\u05DB\u05D9 \u05D4\u05E8\u05D1\u05D4");
-		mostSearchedApartmentsLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		mostSearchedApartmentsLabel.setBounds(186, 16, 255, 21);
-		frame.getContentPane().add(mostSearchedApartmentsLabel);
+		mostSearchedApartmentsLabel.setForeground(new Color(255, 255, 255));
+		mostSearchedApartmentsLabel.setBounds(236, 13, 238, 21);
+		panel_1.add(mostSearchedApartmentsLabel);
+		mostSearchedApartmentsLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		
+		panel = new JPanel();
+		panel.setBackground(new Color(0, 153, 204));
+		panel.setBounds(94, 47, 564, 299);
+		panel_1.add(panel);
 		
 		JButton backButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
-		backButton.setBackground(Color.PINK);
+		backButton.setForeground(new Color(255, 255, 255));
+		backButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		backButton.setBounds(236, 375, 125, 35);
+		panel_1.add(backButton);
+		backButton.setBackground(new Color(0, 0, 51));
+		
+		JButton printButton = new JButton("\u05D4\u05D3\u05E4\u05E1");
+		printButton.setForeground(new Color(255, 255, 255));
+		printButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		printButton.setBounds(396, 375, 125, 35);
+		panel_1.add(printButton);
+		printButton.setBackground(new Color(0, 0, 51));
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); ///////////////
 				frame.setVisible(false);
 			}
 		});
-		backButton.setBounds(91, 107, 97, 25);
-		frame.getContentPane().add(backButton);
-		
-		JButton printButton = new JButton("\u05D4\u05D3\u05E4\u05E1");
-		printButton.setBackground(Color.PINK);
-		printButton.setBounds(406, 107, 97, 25);
-		frame.getContentPane().add(printButton);
-		
-		panel = new JPanel();
-		panel.setBounds(40, 147, 564, 270);
-		frame.getContentPane().add(panel);
 	}
 	
 	public class TopApartment
@@ -120,6 +133,4 @@ public class SearchDetailsView extends Observable {
 		panel.add(scrollPane_2);
 		this.frame.setVisible(true);
 	}
-	
-	
 }

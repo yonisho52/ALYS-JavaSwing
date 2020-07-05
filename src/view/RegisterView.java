@@ -53,7 +53,7 @@ public class RegisterView extends Observable
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
 	private Panel panel;
-	private JLabel lblNewLabel_2;
+	private JLabel userMenPhoto;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -342,10 +342,10 @@ public class RegisterView extends Observable
 		panel.add(cancelButton);
 		cancelButton.setBackground(new Color(0, 153, 204));
 		
-		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(RegisterView.class.getResource("/Images/icons8-male-user-100.png")));
-		lblNewLabel_2.setBounds(206, 22, 104, 100);
-		panel.add(lblNewLabel_2);
+		userMenPhoto = new JLabel("");
+		userMenPhoto.setIcon(new ImageIcon(RegisterView.class.getResource("/Images/icons8-male-user-100.png")));
+		userMenPhoto.setBounds(206, 22, 104, 100);
+		panel.add(userMenPhoto);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mainView.showMainView();

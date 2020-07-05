@@ -25,6 +25,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.Panel;
+import javax.swing.ImageIcon;
 
 public class ShowAllApartmentView extends Observable {
 	
@@ -94,44 +96,44 @@ public class ShowAllApartmentView extends Observable {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 880, 486);
+		frame.setBounds(100, 100, 820, 689);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		CityLabel = new JLabel("\u05E2\u05D9\u05E8"); /// example for all
-		CityLabel.setBounds(658, 219, 36, 16);
+		CityLabel.setBounds(590, 228, 36, 16);
 		frame.getContentPane().add(CityLabel);
 		
 		JLabel missingRoomatesLabel = new JLabel("שותפים כניסה לדירה");
-		missingRoomatesLabel.setBounds(617, 259, 157, 16);
+		missingRoomatesLabel.setBounds(549, 268, 157, 16);
 		frame.getContentPane().add(missingRoomatesLabel);
 		
 		JLabel startPriceLabel = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
-		startPriceLabel.setBounds(663, 310, 56, 16);
+		startPriceLabel.setBounds(595, 319, 56, 16);
 		frame.getContentPane().add(startPriceLabel);
 		
 		JLabel limitPriceLabel = new JLabel("\u05E2\u05D3 \u05DE\u05D7\u05D9\u05E8");
-		limitPriceLabel.setBounds(663, 342, 90, 16);
+		limitPriceLabel.setBounds(595, 351, 90, 16);
 		frame.getContentPane().add(limitPriceLabel);
 		
 		limitPrice = new JTextField();
 		limitPrice.setColumns(10);
-		limitPrice.setBounds(519, 339, 116, 22);
+		limitPrice.setBounds(451, 348, 116, 22);
 		frame.getContentPane().add(limitPrice);
 		
 		startPrice = new JTextField();
 		startPrice.setColumns(10);
-		startPrice.setBounds(519, 307, 116, 22);
+		startPrice.setBounds(451, 316, 116, 22);
 		frame.getContentPane().add(startPrice);
 		
 		missingRoomatesSpinner = new JSpinner();
 		missingRoomatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		missingRoomatesSpinner.setBounds(569, 256, 36, 22);
+		missingRoomatesSpinner.setBounds(501, 265, 36, 22);
 		frame.getContentPane().add(missingRoomatesSpinner);
 		
 		JLabel searchApartmentLabel = new JLabel("\u05D7\u05D9\u05E4\u05D5\u05E9 \u05D3\u05D9\u05E8\u05D4");
 		searchApartmentLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		searchApartmentLabel.setBounds(363, 31, 116, 19);
+		searchApartmentLabel.setBounds(446, 41, 116, 19);
 		frame.getContentPane().add(searchApartmentLabel);
 		
 		JButton searchButton = new JButton("\u05D7\u05E4\u05E9");
@@ -143,11 +145,109 @@ public class ShowAllApartmentView extends Observable {
 			}
 		});
 		searchButton.setBackground(Color.PINK);
-		searchButton.setBounds(544, 385, 97, 25);
+		searchButton.setBounds(476, 394, 97, 25);
 		frame.getContentPane().add(searchButton);
 		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(495, 292, -84, 8);
+		frame.getContentPane().add(comboBox);
+		
+		propertyTypecomboBox = new JComboBox();
+		propertyTypecomboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				propertyTypeComboBox();
+				
+			}
+		});
+
+		
+		propertyTypecomboBox.setBounds(446, 165, 116, 32);
+		frame.getContentPane().add(propertyTypecomboBox);
+		
+		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
+		propertyTypeLabel.setBounds(577, 167, 69, 20);
+		frame.getContentPane().add(propertyTypeLabel);
+		
+		userNameLabel = new JLabel("user name here");
+		userNameLabel.setBounds(704, 40, 36, 25);
+		frame.getContentPane().add(userNameLabel);
+		userNameLabel.setText("guest");
+		
+		adminLabel = new JLabel("Admin");
+		adminLabel.setBounds(704, 66, 46, 14);
+		frame.getContentPane().add(adminLabel);
+		
+		cityComboBox = new JComboBox();
+		
+		cityComboBox.setBounds(489, 226, 90, 20);
+		frame.getContentPane().add(cityComboBox);
+		
+		Panel panel = new Panel();
+		panel.setBackground(new Color(0, 0, 51));
+		panel.setForeground(new Color(0, 153, 153));
+		panel.setBounds(0, 0, 247, 642);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JButton showAllApartmentButton = new JButton("הצג את כל הדירות");
+		showAllApartmentButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		showAllApartmentButton.setForeground(new Color(255, 255, 255));
+		showAllApartmentButton.setBounds(0, 13, 247, 63);
+		panel.add(showAllApartmentButton);
+		showAllApartmentButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				setChanged();
+				notifyObservers(new CreateAllApartmentTable());
+			}
+		});
+		showAllApartmentButton.setBackground(new Color(0, 153, 204));
+		
+		watchSearchResultButton = new JButton("נתוני חיפוש");
+		watchSearchResultButton.setForeground(new Color(255, 255, 255));
+		watchSearchResultButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		watchSearchResultButton.setBounds(0, 244, 247, 63);
+		panel.add(watchSearchResultButton);
+		watchSearchResultButton.setBackground(new Color(0, 153, 204));
+		
+		showAllUsersButton = new JButton("כל המשתמשים");
+		showAllUsersButton.setForeground(new Color(255, 255, 255));
+		showAllUsersButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		showAllUsersButton.setBounds(0, 338, 247, 63);
+		panel.add(showAllUsersButton);
+		showAllUsersButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		showAllUsersButton.setBackground(new Color(0, 153, 204));
+		
+		JButton printSearchResultButton = new JButton("הדפס");
+		printSearchResultButton.setForeground(new Color(255, 255, 255));
+		printSearchResultButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		printSearchResultButton.setBounds(0, 427, 247, 63);
+		panel.add(printSearchResultButton);
+		printSearchResultButton.setBackground(new Color(0, 153, 204));
+		
+		watchApartmentButton = new JButton("הדירות שלך");
+		watchApartmentButton.setBounds(0, 102, 247, 61);
+		panel.add(watchApartmentButton);
+		watchApartmentButton.setForeground(new Color(255, 255, 255));
+		watchApartmentButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		watchApartmentButton.setBackground(new Color(0, 153, 204));
+		
+		addApartmentButton = new JButton("הוספת דירה");
+		addApartmentButton.setBounds(0, 176, 247, 55);
+		panel.add(addApartmentButton);
+		addApartmentButton.setForeground(new Color(255, 255, 255));
+		addApartmentButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		addApartmentButton.setBackground(new Color(0, 153, 204));
+		
 		loginOrLogoutButton = new JButton("\u05D4\u05EA\u05D7\u05D1\u05E8/\u05D4\u05EA\u05E0\u05EA\u05E7");
-		loginOrLogoutButton.setBackground(Color.PINK);
+		loginOrLogoutButton.setBounds(0, 518, 247, 55);
+		panel.add(loginOrLogoutButton);
+		loginOrLogoutButton.setForeground(new Color(255, 255, 255));
+		loginOrLogoutButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		loginOrLogoutButton.setBackground(new Color(0, 153, 204));
 		loginOrLogoutButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -157,11 +257,6 @@ public class ShowAllApartmentView extends Observable {
 //				frame.setVisible(false);
 			}
 		});
-		loginOrLogoutButton.setBounds(10, 91, 97, 25);
-		frame.getContentPane().add(loginOrLogoutButton);
-		
-		addApartmentButton = new JButton("הוספת דירה");
-		addApartmentButton.setBackground(Color.PINK);
 		addApartmentButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 			}
@@ -172,11 +267,6 @@ public class ShowAllApartmentView extends Observable {
 				openAddNewApartmentView(arg0);
 			}
 		});
-		addApartmentButton.setBounds(203, 91, 97, 25);
-		frame.getContentPane().add(addApartmentButton);
-		
-		watchApartmentButton = new JButton("הדירות שלך");
-		watchApartmentButton.setBackground(Color.PINK);
 		watchApartmentButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -189,12 +279,16 @@ public class ShowAllApartmentView extends Observable {
 				openShowUserApartmentView(arg0);
 			}
 		});
-		
-		watchApartmentButton.setBounds(309, 91, 107, 25);
-		frame.getContentPane().add(watchApartmentButton);
-		
-		watchSearchResultButton = new JButton("נתוני חיפוש");
-		watchSearchResultButton.setBackground(Color.PINK);
+		printSearchResultButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		showAllUsersButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				openShowAllUserView(arg0);
+			}
+		});
 		watchSearchResultButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -206,78 +300,6 @@ public class ShowAllApartmentView extends Observable {
 				//searchDetailsView.showSearchDetailsView(connectedUser,adminBool);
 				//frame.setVisible(false);
 			}});
-		watchSearchResultButton.setBounds(10, 127, 116, 25);
-		frame.getContentPane().add(watchSearchResultButton);
-		
-		JButton printSearchResultButton = new JButton("הדפס");
-		printSearchResultButton.setBackground(Color.PINK);
-		printSearchResultButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		printSearchResultButton.setBounds(117, 91, 76, 25);
-		frame.getContentPane().add(printSearchResultButton);
-		
-		showAllUsersButton = new JButton("כל המשתמשים");
-		showAllUsersButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		showAllUsersButton.setBackground(Color.PINK);
-		showAllUsersButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				openShowAllUserView(arg0);
-			}
-		});
-		showAllUsersButton.setBounds(10, 163, 116, 25);
-		frame.getContentPane().add(showAllUsersButton);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(563, 283, -84, 8);
-		frame.getContentPane().add(comboBox);
-		
-		propertyTypecomboBox = new JComboBox();
-		propertyTypecomboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				propertyTypeComboBox();
-				
-			}
-		});
-
-		
-		propertyTypecomboBox.setBounds(514, 156, 116, 32);
-		frame.getContentPane().add(propertyTypecomboBox);
-		
-		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
-		propertyTypeLabel.setBounds(645, 158, 69, 20);
-		frame.getContentPane().add(propertyTypeLabel);
-		
-		userNameLabel = new JLabel("user name here");
-		userNameLabel.setBounds(772, 31, 36, 25);
-		frame.getContentPane().add(userNameLabel);
-		userNameLabel.setText("guest");
-		
-		adminLabel = new JLabel("Admin");
-		adminLabel.setBounds(772, 57, 46, 14);
-		frame.getContentPane().add(adminLabel);
-		
-		cityComboBox = new JComboBox();
-		
-		cityComboBox.setBounds(557, 217, 90, 20);
-		frame.getContentPane().add(cityComboBox);
-		
-		JButton showAllApartmentButton = new JButton("הצג את כל הדירות");
-		showAllApartmentButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				setChanged();
-				notifyObservers(new CreateAllApartmentTable());
-			}
-		});
-		showAllApartmentButton.setBackground(Color.PINK);
-		showAllApartmentButton.setBounds(363, 385, 131, 25);
-		frame.getContentPane().add(showAllApartmentButton);
 	}
 	
 	public void openAddNewApartmentView(MouseEvent arg0)
