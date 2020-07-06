@@ -106,12 +106,13 @@ public class RegisterView extends Observable
 	private void initialize() 
 	{
 		frame = new JFrame();
+		frame.setBackground(new Color(169, 169, 169));
 		frame.setBounds(100, 100, 545, 633);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		panel = new Panel();
-		panel.setBackground(new Color(0, 0, 51));
+		panel.setBackground(new Color(219, 112, 147));
 		panel.setBounds(0, 0, 527, 586);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -333,14 +334,14 @@ public class RegisterView extends Observable
 		regButton.setForeground(new Color(255, 255, 255));
 		regButton.setBounds(196, 473, 120, 50);
 		panel.add(regButton);
-		regButton.setBackground(new Color(0, 153, 204));
+		regButton.setBackground(new Color(169, 169, 169));
 		
 		JButton cancelButton = new JButton("\u05D7\u05D6\u05D5\u05E8");
 		cancelButton.setForeground(new Color(255, 255, 255));
 		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 15));
-		cancelButton.setBounds(11, 14, 97, 25);
+		cancelButton.setBounds(11, 14, 97, 36);
 		panel.add(cancelButton);
-		cancelButton.setBackground(new Color(0, 153, 204));
+		cancelButton.setBackground(new Color(169, 169, 169));
 		
 		userMenPhoto = new JLabel("");
 		userMenPhoto.setIcon(new ImageIcon(RegisterView.class.getResource("/Images/icons8-male-user-100.png")));

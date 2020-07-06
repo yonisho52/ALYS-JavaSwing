@@ -18,6 +18,7 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import java.awt.Panel;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 public class MainView extends Observable 
 {
@@ -97,7 +98,7 @@ public class MainView extends Observable
 		frame.getContentPane().setLayout(null);
 		
 		Panel panelMainDark = new Panel();
-		panelMainDark.setBackground(new Color(0, 153, 204));
+		panelMainDark.setBackground(new Color(219, 112, 147));
 		panelMainDark.setBounds(0, 0, 390, 547);
 		frame.getContentPane().add(panelMainDark);
 		panelMainDark.setLayout(null);
@@ -120,7 +121,7 @@ public class MainView extends Observable
 		panelMainDark.add(sloganLabel);
 		
 		Panel panel = new Panel();
-		panel.setBackground(new Color(0, 0, 51));
+		panel.setBackground(new Color(119, 136, 153));
 		panel.setBounds(384, 0, 403, 547);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -139,7 +140,7 @@ public class MainView extends Observable
 				notifyObservers(user);
 			}
 		});
-		loginButton.setBackground(new Color(0, 153, 204));
+		loginButton.setBackground(new Color(169, 169, 169));
 		
 		passTextField = new JPasswordField();
 		passTextField.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -168,18 +169,18 @@ public class MainView extends Observable
 		panel.add(password);
 		
 		failLabel = new JLabel("\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9 \u05D0\u05D5 \u05E1\u05D9\u05E1\u05DE\u05D0 \u05DC\u05D0 \u05E0\u05DB\u05D5\u05E0\u05D9\u05DD");
-		failLabel.setBounds(83, 306, 169, 16);
+		failLabel.setBounds(54, 307, 234, 16);
 		panel.add(failLabel);
 		failLabel.setForeground(Color.RED);
 		failLabel.setVisible(false);
-		failLabel.setFont(failLabel.getFont().deriveFont(failLabel.getFont().getStyle() | Font.BOLD));
+		failLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JButton registerButton = new JButton("\u05D4\u05D9\u05E8\u05E9\u05DD");
 		registerButton.setBounds(122, 426, 143, 38);
 		panel.add(registerButton);
 		registerButton.setForeground(new Color(255, 255, 255));
 		registerButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		registerButton.setBackground(new Color(0, 153, 204));
+		registerButton.setBackground(new Color(169, 169, 169));
 		
 		JLabel lblNewLabel = new JLabel("\u05E2\u05D3\u05D9\u05D9\u05DF \u05DC\u05D0 \u05E0\u05E8\u05E9\u05DE\u05EA?");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
@@ -192,7 +193,7 @@ public class MainView extends Observable
 		panel.add(guestViewButton);
 		guestViewButton.setForeground(new Color(255, 255, 255));
 		guestViewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		guestViewButton.setBackground(new Color(0, 153, 204));
+		guestViewButton.setBackground(new Color(169, 169, 169));
 		
 		JLabel passwordIconMain = new JLabel("");
 		passwordIconMain.setIcon(new ImageIcon(MainView.class.getResource("/Images/icons8-key-30.png")));

@@ -22,10 +22,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Panel;
 
-public class ShowUserApartmentView extends Observable {
-
-
+public class ShowUserApartmentView extends Observable 
+{
 	ShowAllApartmentView showAllApartmentView;
 	
 	private JFrame frame;
@@ -37,7 +37,6 @@ public class ShowUserApartmentView extends Observable {
 	protected boolean adminBool;
 	protected boolean analystBool;
 	
-
 	/**
 	 * Launch the application.
 	 */
@@ -78,50 +77,66 @@ public class ShowUserApartmentView extends Observable {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1066, 586);
+		frame.setBounds(100, 100, 939, 561);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		Panel panel_1 = new Panel();
+		panel_1.setBackground(new Color(119, 136, 153));
+		panel_1.setBounds(0, 0, 926, 516);
+		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
 		JLabel showApartmentsLabel = new JLabel("\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05D3\u05D9\u05E8\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD");
+		showApartmentsLabel.setForeground(new Color(255, 255, 255));
+		showApartmentsLabel.setBounds(346, 24, 240, 31);
+		panel_1.add(showApartmentsLabel);
 		showApartmentsLabel.setBackground(Color.BLACK);
-		showApartmentsLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		showApartmentsLabel.setBounds(198, 30, 214, 31);
-		frame.getContentPane().add(showApartmentsLabel);
+		showApartmentsLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		
+		panel = new JPanel();
+		panel.setBackground(new Color(119, 136, 153));
+		panel.setBounds(12, 80, 892, 334);
+		panel_1.add(panel);
 		
 		JButton backButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
-		backButton.setBackground(Color.PINK);
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); /////////////////
-				frame.setVisible(false);
-			}
-		});
-		backButton.setBounds(40, 495, 97, 25);
-		frame.getContentPane().add(backButton);
+		backButton.setForeground(new Color(255, 255, 255));
+		backButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		backButton.setBounds(12, 26, 163, 31);
+		panel_1.add(backButton);
+		backButton.setBackground(new Color(169, 169, 169));
 		
 		JButton editApartmentButton = new JButton("\u05E2\u05E8\u05D5\u05DA \u05D3\u05D9\u05E8\u05D4 \u05DE\u05E1\u05D5\u05DE\u05E0\u05EA");
-		editApartmentButton.setBackground(Color.PINK);
-		editApartmentButton.setBounds(403, 102, 194, 23);
-		frame.getContentPane().add(editApartmentButton);
+		editApartmentButton.setBounds(531, 442, 208, 46);
+		panel_1.add(editApartmentButton);
+		editApartmentButton.setForeground(new Color(255, 255, 255));
+		editApartmentButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		editApartmentButton.setBackground(new Color(169, 169, 169));
 		
 		JButton deleteButton = new JButton("\u05DE\u05D7\u05E7 \u05D3\u05D9\u05E8\u05D4 \u05DE\u05E1\u05D5\u05DE\u05E0\u05EA");
+		deleteButton.setBounds(245, 442, 208, 46);
+		panel_1.add(deleteButton);
+		deleteButton.setForeground(new Color(255, 255, 255));
+		deleteButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		deleteButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				deleteUserApartment();
 			}
 		});
-		deleteButton.setBackground(Color.PINK);
-		deleteButton.setBounds(28, 100, 194, 25);
-		frame.getContentPane().add(deleteButton);
-		
-		panel = new JPanel();
-		panel.setBounds(10, 159, 1030, 309);
-		frame.getContentPane().add(panel);
+		deleteButton.setBackground(new Color(169, 169, 169));
 		
 		confirmdeleteLabel = new JLabel("\u05E0\u05DE\u05D7\u05E7");
-		confirmdeleteLabel.setBounds(93, 134, 46, 14);
-		frame.getContentPane().add(confirmdeleteLabel);
+		confirmdeleteLabel.setBounds(327, 489, 46, 14);
+		panel_1.add(confirmdeleteLabel);
+		confirmdeleteLabel.setForeground(new Color(255, 255, 255));
+		confirmdeleteLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); /////////////////
+				frame.setVisible(false);
+			}
+		});
 	}
 	
 	public void showShowUserApartmentView(String userName, boolean admin, boolean analyst)
@@ -143,7 +158,6 @@ public class ShowUserApartmentView extends Observable {
 			this.userName = user;
 		}
 	}
-	
 	
 	public void crateAllUserApartments(JTable userApartments) {
 		this.userApartmentsTable = userApartments;
@@ -190,6 +204,4 @@ public class ShowUserApartmentView extends Observable {
 			this.row = index;
 		}
 	}
-	
-	
 }

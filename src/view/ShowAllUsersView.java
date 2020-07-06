@@ -19,9 +19,10 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Panel;
 
-public class ShowAllUsersView extends Observable{
-
+public class ShowAllUsersView extends Observable
+{
 	private JFrame frame;
 	ShowAllApartmentView showAllApartmentView;
 	ShowAllUsersView showAllUsersView;
@@ -67,11 +68,32 @@ public class ShowAllUsersView extends Observable{
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 821, 443);
+		frame.setBounds(100, 100, 821, 421);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		Panel panel_1 = new Panel();
+		panel_1.setBackground(new Color(219, 112, 147));
+		panel_1.setBounds(0, 0, 803, 377);
+		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("\u05EA\u05E6\u05D5\u05D2\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD");
+		lblNewLabel.setBounds(303, 13, 181, 20);
+		panel_1.add(lblNewLabel);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		
+		panel = new JPanel();
+		panel.setBackground(new Color(219, 112, 147));
+		panel.setBounds(64, 80, 679, 195);
+		panel_1.add(panel);
+		
 		JButton deleteUserButton = new JButton("\u05DE\u05D7\u05E7");
+		deleteUserButton.setBounds(341, 288, 121, 37);
+		panel_1.add(deleteUserButton);
+		deleteUserButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		deleteUserButton.setForeground(new Color(255, 255, 255));
 		deleteUserButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -82,12 +104,20 @@ public class ShowAllUsersView extends Observable{
 				deleteUser();
 			}
 		});
-		deleteUserButton.setBackground(Color.PINK);
-		deleteUserButton.setBounds(453, 335, 97, 25);
-		frame.getContentPane().add(deleteUserButton);
+		deleteUserButton.setBackground(new Color(169, 169, 169));
 		
 		JButton returnButton  = new JButton("\u05D7\u05D6\u05D5\u05E8");
-		returnButton.setBackground(Color.PINK);
+		returnButton.setBounds(12, 7, 121, 37);
+		panel_1.add(returnButton);
+		returnButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		returnButton.setForeground(new Color(255, 255, 255));
+		returnButton.setBackground(new Color(169, 169, 169));
+		
+		confirmdeleteLabel = new JLabel("\u05E0\u05DE\u05D7\u05E7 \u05D1\u05D4\u05E6\u05DC\u05D7\u05D4");
+		confirmdeleteLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		confirmdeleteLabel.setForeground(new Color(255, 255, 255));
+		confirmdeleteLabel.setBounds(351, 333, 121, 14);
+		panel_1.add(confirmdeleteLabel);
 		returnButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -96,21 +126,6 @@ public class ShowAllUsersView extends Observable{
 				
 			}
 		});
-		returnButton.setBounds(224, 335, 97, 25);
-		frame.getContentPane().add(returnButton);
-		
-		JLabel lblNewLabel = new JLabel("\u05EA\u05E6\u05D5\u05D2\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblNewLabel.setBounds(283, 28, 155, 20);
-		frame.getContentPane().add(lblNewLabel);
-		
-		panel = new JPanel();
-		panel.setBounds(57, 69, 679, 195);
-		frame.getContentPane().add(panel);
-		
-		confirmdeleteLabel = new JLabel("\u05E0\u05DE\u05D7\u05E7 \u05D4\u05D1\u05E6\u05DC\u05D7\u05D4");
-		confirmdeleteLabel.setBounds(145, 281, 46, 14);
-		frame.getContentPane().add(confirmdeleteLabel);
 	}
 
 	public void deleteUser()
@@ -150,10 +165,7 @@ public class ShowAllUsersView extends Observable{
 		JScrollPane scrollPane_1 = new JScrollPane(usersTable);
 		panel.add(scrollPane_1);
 		this.frame.setVisible(true);
-		
 	}
-	
-	
 	
 	public void confirmUserDelete()
 	{
@@ -178,12 +190,3 @@ public class ShowAllUsersView extends Observable{
 		}
 	}
 }
-
-
-
-
-
-
-
-
-

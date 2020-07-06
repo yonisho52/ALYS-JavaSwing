@@ -19,10 +19,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.awt.Panel;
 
-public class SearchDetailsView extends Observable {
-	
+public class SearchDetailsView extends Observable 
+{
 	ShowAllApartmentView showAllApartmentView;
-	
 
 	private JFrame frame;
 	private JPanel panel;
@@ -85,7 +84,7 @@ public class SearchDetailsView extends Observable {
 		frame.getContentPane().setLayout(null);
 		
 		Panel panel_1 = new Panel();
-		panel_1.setBackground(new Color(0, 153, 204));
+		panel_1.setBackground(new Color(219, 112, 147));
 		panel_1.setBounds(0, 0, 741, 489);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
@@ -97,7 +96,7 @@ public class SearchDetailsView extends Observable {
 		mostSearchedApartmentsLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		panel = new JPanel();
-		panel.setBackground(new Color(0, 153, 204));
+		panel.setBackground(new Color(219, 112, 147));
 		panel.setBounds(94, 47, 564, 299);
 		panel_1.add(panel);
 		
@@ -106,14 +105,14 @@ public class SearchDetailsView extends Observable {
 		backButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		backButton.setBounds(236, 375, 125, 35);
 		panel_1.add(backButton);
-		backButton.setBackground(new Color(0, 0, 51));
+		backButton.setBackground(new Color(169, 169, 169));
 		
 		JButton printButton = new JButton("\u05D4\u05D3\u05E4\u05E1");
 		printButton.setForeground(new Color(255, 255, 255));
 		printButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		printButton.setBounds(396, 375, 125, 35);
 		panel_1.add(printButton);
-		printButton.setBackground(new Color(0, 0, 51));
+		printButton.setBackground(new Color(169, 169, 169));
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); ///////////////

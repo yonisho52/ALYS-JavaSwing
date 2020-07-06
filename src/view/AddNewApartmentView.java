@@ -29,6 +29,8 @@ import com.sun.xml.internal.ws.Closeable;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.Panel;
+import javax.swing.ImageIcon;
 
 public class AddNewApartmentView extends Observable 
 {
@@ -125,11 +127,162 @@ public class AddNewApartmentView extends Observable
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 829, 669);
+		frame.setBounds(100, 100, 856, 758);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		String apartmentType[] = {"דירת קרקע","דירה בבנין"};
+		
+		Panel panel = new Panel();
+		panel.setBackground(new Color(119, 136, 153));
+		panel.setBounds(0, 0, 841, 719);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JButton cancelButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
+		cancelButton.setBounds(12, 13, 116, 37);
+		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		cancelButton.setForeground(new Color(255, 255, 255));
+		panel.add(cancelButton);
+		cancelButton.setBackground(new Color(169, 169, 169));
+		
+		JLabel cityLabel = new JLabel("\u05E2\u05D9\u05E8");
+		cityLabel.setBounds(721, 146, 36, 16);
+		panel.add(cityLabel);
+		cityLabel.setForeground(new Color(255, 255, 255));
+		cityLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		cityTextFile = new JTextField();
+		cityTextFile.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cityTextFile.setBounds(562, 143, 138, 25);
+		panel.add(cityTextFile);
+		cityTextFile.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				checkIfCityEmpty();
+			}
+		});
+		cityTextFile.setColumns(10);
+		
+		citywarningLabel = new JLabel("הכנס עיר");
+		citywarningLabel.setBounds(463, 152, 63, 16);
+		panel.add(citywarningLabel);
+		citywarningLabel.setForeground(Color.RED);
+		
+		JLabel addressLabel = new JLabel("\u05E8\u05D7\u05D5\u05D1");
+		addressLabel.setBounds(714, 185, 49, 16);
+		panel.add(addressLabel);
+		addressLabel.setForeground(new Color(255, 255, 255));
+		addressLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		streetTextFile = new JTextField();
+		streetTextFile.setBounds(562, 182, 138, 25);
+		panel.add(streetTextFile);
+		streetTextFile.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfStreetEmpty();
+			}
+		});
+		streetTextFile.setColumns(10);
+		
+		streetLabel = new JLabel("הכנס רחוב");
+		streetLabel.setBounds(457, 186, 69, 16);
+		panel.add(streetLabel);
+		streetLabel.setForeground(Color.RED);
+		
+		lblNewLabel_1 = new JLabel("*");
+		lblNewLabel_1.setBounds(763, 146, 14, 16);
+		panel.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1.setForeground(Color.RED);
+		
+		lblNewLabel_2 = new JLabel("*");
+		lblNewLabel_2.setBounds(763, 185, 14, 16);
+		panel.add(lblNewLabel_2);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_2.setForeground(Color.RED);
+		
+		JLabel numOfRoomatesLabel = new JLabel("\u05E1\u05D4\"\u05DB \u05E9\u05D5\u05EA\u05E4\u05D9\u05DD");
+		numOfRoomatesLabel.setBounds(651, 224, 106, 16);
+		panel.add(numOfRoomatesLabel);
+		numOfRoomatesLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		numOfRoomatesLabel.setForeground(new Color(255, 255, 255));
+		
+		numOfRommatesSpinner = new JSpinner();
+		numOfRommatesSpinner.setBounds(590, 220, 36, 22);
+		panel.add(numOfRommatesSpinner);
+		numOfRommatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		
+		JLabel missingRoomatesLabel = new JLabel("\u05E9\u05D5\u05EA\u05E4\u05D9\u05DD \u05D7\u05E1\u05E8\u05D9\u05DD");
+		missingRoomatesLabel.setBounds(641, 257, 116, 16);
+		panel.add(missingRoomatesLabel);
+		missingRoomatesLabel.setForeground(new Color(255, 255, 255));
+		missingRoomatesLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		missingRoomatesSpinner = new JSpinner();
+		missingRoomatesSpinner.setBounds(590, 255, 36, 22);
+		panel.add(missingRoomatesSpinner);
+		missingRoomatesSpinner.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				
+				System.out.println("yoni");
+			}
+		});
+		missingRoomatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		
+		JLabel roomsLabel = new JLabel("\u05D7\u05D3\u05E8\u05D9\u05DD");
+		roomsLabel.setBounds(701, 292, 56, 16);
+		panel.add(roomsLabel);
+		roomsLabel.setForeground(new Color(255, 255, 255));
+		roomsLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		roomsSpinner = new JSpinner();
+		roomsSpinner.setBounds(590, 290, 36, 22);
+		panel.add(roomsSpinner);
+		roomsSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		
+		JLabel priceLabel = new JLabel("מחיר");
+		priceLabel.setBounds(714, 333, 49, 16);
+		panel.add(priceLabel);
+		priceLabel.setForeground(new Color(255, 255, 255));
+		priceLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		priceTextField = new JTextField();
+		priceTextField.setBounds(562, 330, 138, 25);
+		panel.add(priceTextField);
+		priceTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkIfAmountEmpty();
+				checkValidPrice();
+			}
+		});
+		priceTextField.setColumns(10);
+		
+		roomatesLabel = new JLabel("מס' גדול מסה\"כ שותפים!");
+		roomatesLabel.setBounds(420, 254, 156, 25);
+		panel.add(roomatesLabel);
+		roomatesLabel.setForeground(Color.RED);
+		roomatesLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		lblNewLabel_3 = new JLabel("*");
+		lblNewLabel_3.setBounds(763, 333, 26, 16);
+		panel.add(lblNewLabel_3);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_3.setForeground(Color.RED);
+		
+		amountLabel = new JLabel("הכנס מחיר תקין");
+		amountLabel.setBounds(444, 334, 106, 16);
+		panel.add(amountLabel);
+		amountLabel.setForeground(Color.RED);
+		
 		JButton addButton = new JButton("\u05D4\u05D5\u05E1\u05E4\u05D4");
+		addButton.setBounds(84, 612, 133, 52);
+		panel.add(addButton);
+		addButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		addButton.setForeground(new Color(255, 255, 255));
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -140,145 +293,99 @@ public class AddNewApartmentView extends Observable
 				addThisApartment();	
 			}
 		});
-		addButton.setBackground(Color.PINK);
-		addButton.setBounds(175, 418, 97, 25);
-		frame.getContentPane().add(addButton);
+		addButton.setBackground(new Color(169, 169, 169));
 		
-		JButton cancelButton = new JButton("\u05D7\u05D6\u05E8\u05D4");
-		cancelButton.setBackground(Color.PINK);
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); ///////
-				frame.setVisible(false);
-				reasetAddApartment();
-			}
-		});
-		cancelButton.setBounds(48, 418, 97, 25);
-		frame.getContentPane().add(cancelButton);
+		JLabel descriptionLabel = new JLabel("\u05EA\u05D9\u05D0\u05D5\u05E8");
+		descriptionLabel.setBounds(329, 292, 49, 20);
+		panel.add(descriptionLabel);
+		descriptionLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		descriptionLabel.setForeground(new Color(255, 255, 255));
 		
-		JLabel addNewApartmentLabel = new JLabel("\u05D4\u05D5\u05E1\u05E4\u05EA \u05D3\u05D9\u05E8\u05D4 \u05D7\u05D3\u05E9\u05D4");
-		addNewApartmentLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		addNewApartmentLabel.setBounds(293, 28, 171, 16);
-		frame.getContentPane().add(addNewApartmentLabel);
-		
-		JLabel cityLabel = new JLabel("\u05E2\u05D9\u05E8");
-		cityLabel.setBounds(485, 85, 36, 16);
-		frame.getContentPane().add(cityLabel);
-		
-		JLabel addressLabel = new JLabel("\u05E8\u05D7\u05D5\u05D1");
-		addressLabel.setBounds(485, 119, 90, 16);
-		frame.getContentPane().add(addressLabel);
-		
-		cityTextFile = new JTextField();
-		cityTextFile.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				checkIfCityEmpty();
-			}
-		});
-		cityTextFile.setBounds(348, 82, 116, 22);
-		frame.getContentPane().add(cityTextFile);
-		cityTextFile.setColumns(10);
-		
-		streetTextFile = new JTextField();
-		streetTextFile.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				checkIfStreetEmpty();
-			}
-		});
-		streetTextFile.setBounds(348, 116, 116, 22);
-		frame.getContentPane().add(streetTextFile);
-		streetTextFile.setColumns(10);
-		
-		JLabel numOfRoomatesLabel = new JLabel("\u05E1\u05D4\"\u05DB \u05E9\u05D5\u05EA\u05E4\u05D9\u05DD");
-		numOfRoomatesLabel.setBounds(485, 158, 116, 16);
-		frame.getContentPane().add(numOfRoomatesLabel);
-		
-		numOfRommatesSpinner = new JSpinner();
-		numOfRommatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		numOfRommatesSpinner.setBounds(428, 155, 36, 22);
-		frame.getContentPane().add(numOfRommatesSpinner);
-		
-		JLabel missingRoomatesLabel = new JLabel("\u05E9\u05D5\u05EA\u05E4\u05D9\u05DD \u05D7\u05E1\u05E8\u05D9\u05DD");
-		missingRoomatesLabel.setBounds(485, 187, 116, 16);
-		frame.getContentPane().add(missingRoomatesLabel);
-		
-		missingRoomatesSpinner = new JSpinner();
-		missingRoomatesSpinner.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				
-				System.out.println("yoni");
-			}
-		});
-		missingRoomatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		missingRoomatesSpinner.setBounds(428, 184, 36, 22);
-		frame.getContentPane().add(missingRoomatesSpinner);
-		
-		JLabel roomsLabel = new JLabel("\u05D7\u05D3\u05E8\u05D9\u05DD");
-		roomsLabel.setBounds(485, 216, 56, 16);
-		frame.getContentPane().add(roomsLabel);
-		
-		roomsSpinner = new JSpinner();
-		roomsSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		roomsSpinner.setBounds(428, 213, 36, 22);
-		frame.getContentPane().add(roomsSpinner);
-		
-		JLabel priceLabel = new JLabel("מחיר");
-		priceLabel.setBounds(485, 245, 56, 16);
-		frame.getContentPane().add(priceLabel);
-		
-		priceTextField = new JTextField();
-		priceTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				checkIfAmountEmpty();
-				checkValidPrice();
-			}
-		});
-		priceTextField.setBounds(348, 242, 116, 22);
-		frame.getContentPane().add(priceTextField);
-		priceTextField.setColumns(10);
+		descriptionTextArea = new JTextArea();
+		descriptionTextArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		descriptionTextArea.setBounds(44, 325, 336, 143);
+		panel.add(descriptionTextArea);
 		
 		elevatorCheckBox = new JCheckBox("\u05DE\u05E2\u05DC\u05D9\u05EA");
-		elevatorCheckBox.setBounds(165, 81, 69, 25);
-		frame.getContentPane().add(elevatorCheckBox);
+		elevatorCheckBox.setBounds(284, 150, 80, 25);
+		elevatorCheckBox.setBackground(new Color(119, 136, 153));
+		panel.add(elevatorCheckBox);
+		elevatorCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
+		elevatorCheckBox.setForeground(new Color(255, 255, 255));
 		
 		parkingCheckBox = new JCheckBox("\u05D7\u05E0\u05D9\u05D4");
-		parkingCheckBox.setBounds(165, 115, 69, 25);
-		frame.getContentPane().add(parkingCheckBox);
+		parkingCheckBox.setBounds(182, 220, 69, 25);
+		parkingCheckBox.setBackground(new Color(119, 136, 153));
+		panel.add(parkingCheckBox);
+		parkingCheckBox.setForeground(new Color(255, 255, 255));
+		parkingCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		airCheckBox = new JCheckBox("\u05DE\u05D9\u05D6\u05D5\u05D2");
-		airCheckBox.setBounds(165, 154, 113, 25);
-		frame.getContentPane().add(airCheckBox);
+		airCheckBox.setBounds(295, 185, 69, 25);
+		airCheckBox.setBackground(new Color(119, 136, 153));
+		panel.add(airCheckBox);
+		airCheckBox.setForeground(new Color(255, 255, 255));
+		airCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		patioCheckBox = new JCheckBox("\u05DE\u05E8\u05E4\u05E1\u05EA");
-		patioCheckBox.setBounds(165, 187, 113, 25);
-		frame.getContentPane().add(patioCheckBox);
+		patioCheckBox.setBounds(84, 146, 88, 25);
+		patioCheckBox.setBackground(new Color(119, 136, 153));
+		panel.add(patioCheckBox);
+		patioCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
+		patioCheckBox.setForeground(new Color(255, 255, 255));
 		
 		mamadCheckBox = new JCheckBox("\u05DE\u05DE\"\u05D3");
-		mamadCheckBox.setBounds(165, 225, 69, 25);
-		frame.getContentPane().add(mamadCheckBox);
+		mamadCheckBox.setBounds(201, 185, 69, 25);
+		mamadCheckBox.setBackground(new Color(119, 136, 153));
+		panel.add(mamadCheckBox);
+		mamadCheckBox.setForeground(new Color(255, 255, 255));
+		mamadCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		storageCheckBox = new JCheckBox("\u05DE\u05D7\u05E1\u05DF");
-		storageCheckBox.setBounds(48, 81, 113, 25);
-		frame.getContentPane().add(storageCheckBox);
+		storageCheckBox.setBounds(182, 147, 80, 25);
+		storageCheckBox.setBackground(new Color(119, 136, 153));
+		panel.add(storageCheckBox);
+		storageCheckBox.setForeground(new Color(255, 255, 255));
+		storageCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		accesibleCheckBox = new JCheckBox("\u05D2\u05D9\u05E9\u05D4 \u05DC\u05E0\u05DB\u05D9\u05DD");
-		accesibleCheckBox.setBounds(48, 115, 113, 25);
-		frame.getContentPane().add(accesibleCheckBox);
+		accesibleCheckBox.setBounds(257, 220, 121, 25);
+		accesibleCheckBox.setBackground(new Color(119, 136, 153));
+		panel.add(accesibleCheckBox);
+		accesibleCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
+		accesibleCheckBox.setForeground(new Color(255, 255, 255));
 		
 		furnitureCheckBox = new JCheckBox("\u05DE\u05E8\u05D5\u05D4\u05D8\u05EA");
-		furnitureCheckBox.setBounds(48, 154, 113, 25);
-		frame.getContentPane().add(furnitureCheckBox);
+		furnitureCheckBox.setBounds(84, 185, 106, 25);
+		furnitureCheckBox.setBackground(new Color(119, 136, 153));
+		panel.add(furnitureCheckBox);
+		furnitureCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
+		furnitureCheckBox.setForeground(new Color(255, 255, 255));
 		
 		petCheckBox = new JCheckBox("\u05D7\u05D9\u05D5\u05EA \u05DE\u05D7\u05DE\u05D3");
-		petCheckBox.setBounds(48, 187, 113, 25);
-		frame.getContentPane().add(petCheckBox);
+		petCheckBox.setBounds(59, 220, 113, 25);
+		petCheckBox.setBackground(new Color(119, 136, 153));
+		panel.add(petCheckBox);
+		petCheckBox.setForeground(new Color(255, 255, 255));
+		petCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		String apartmentType[] = {"דירת קרקע","דירה בבנין"};
+		
+		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
+		propertyTypeLabel.setBounds(678, 414, 80, 20);
+		panel.add(propertyTypeLabel);
+		propertyTypeLabel.setForeground(new Color(255, 255, 255));
+		propertyTypeLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		lblNewLabel_4 = new JLabel("*");
+		lblNewLabel_4.setBounds(758, 415, 19, 16);
+		panel.add(lblNewLabel_4);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_4.setForeground(Color.RED);
 		propertyTypeComboBox = new JComboBox(apartmentType);
+		propertyTypeComboBox.setBounds(516, 405, 147, 32);
+		panel.add(propertyTypeComboBox);
+		propertyTypeComboBox.setFont(new Font("Tahoma", Font.BOLD, 16));
+		propertyTypeComboBox.setForeground(new Color(0, 0, 0));
 		propertyTypeComboBox.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -292,115 +399,84 @@ public class AddNewApartmentView extends Observable
 			}
 		});
 		propertyTypeComboBox.setEditable(true);
-		propertyTypeComboBox.setBounds(312, 280, 171, 32);
 		propertyTypeComboBox.setEditable(false);
-		frame.getContentPane().add(propertyTypeComboBox);
-		
-		
-		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
-		propertyTypeLabel.setBounds(495, 286, 69, 20);
-		frame.getContentPane().add(propertyTypeLabel);
-		
-		descriptionTextArea = new JTextArea();
-		descriptionTextArea.setBounds(15, 260, 146, 71);
-		frame.getContentPane().add(descriptionTextArea);
-		
-		JLabel descriptionLabel = new JLabel("\u05EA\u05D9\u05D0\u05D5\u05E8");
-		descriptionLabel.setBounds(175, 262, 69, 20);
-		frame.getContentPane().add(descriptionLabel);
 		
 		floorCountLabel = new JLabel("מספר קומות");
-		floorCountLabel.setBounds(595, 344, 69, 16);
-		frame.getContentPane().add(floorCountLabel);
-		
-		JLabel label_5 = new JLabel("\u05DB\u05E9\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1 \u05D1\u05D9\u05EA \u05E7\u05E8\u05E7\u05E2");
-		label_5.setBounds(505, 317, 127, 16);
-		frame.getContentPane().add(label_5);
-		
-		floorNumLabel = new JLabel("\u05E7\u05D5\u05DE\u05D4");
-		floorNumLabel.setBounds(584, 395, 56, 16);
-		floorNumLabel.setVisible(false);
-		frame.getContentPane().add(floorNumLabel);
-		
-		apartmentNumberLabel = new JLabel("מספר דירה");
-		apartmentNumberLabel.setBounds(584, 455, 80, 16);
-		apartmentNumberLabel.setVisible(false);
-		frame.getContentPane().add(apartmentNumberLabel);
-		
-		JLabel label_5_1 = new JLabel("\u05DB\u05E9\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1 \u05D1\u05D9\u05EA \u05D1\u05D1\u05E0\u05D9\u05D9\u05DF");
-		label_5_1.setBounds(505, 371, 127, 16);
-		frame.getContentPane().add(label_5_1);
-		
-		gardenGroundCheckBox = new JCheckBox("\u05D2\u05D9\u05E0\u05D4");
-		gardenGroundCheckBox.setBounds(527, 423, 113, 25);
-		gardenGroundCheckBox.setVisible(false);
-		frame.getContentPane().add(gardenGroundCheckBox);
-		
-		floorsBuildingSpinner = new JSpinner();
-		floorsBuildingSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		floorsBuildingSpinner.setBounds(528, 391, 36, 22);
-		floorsBuildingSpinner.setVisible(false);
-		frame.getContentPane().add(floorsBuildingSpinner);
-		
-		apartmentNumberGroundSpinner = new JSpinner();
-		apartmentNumberGroundSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		apartmentNumberGroundSpinner.setBounds(528, 453, 36, 22);
-		apartmentNumberGroundSpinner.setVisible(false);
-		frame.getContentPane().add(apartmentNumberGroundSpinner);
+		floorCountLabel.setBounds(645, 481, 95, 16);
+		panel.add(floorCountLabel);
+		floorCountLabel.setForeground(new Color(255, 255, 255));
+		floorCountLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
 		floorCountGroundSpinner = new JSpinner();
+		floorCountGroundSpinner.setBounds(595, 478, 36, 25);
+		panel.add(floorCountGroundSpinner);
 		floorCountGroundSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		floorCountGroundSpinner.setBounds(528, 340, 36, 25);
-		frame.getContentPane().add(floorCountGroundSpinner);
 		
-		roomatesLabel = new JLabel("מס' גדול מסה\"כ שותפים!");
-		roomatesLabel.setForeground(Color.RED);
-		roomatesLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		roomatesLabel.setBounds(273, 179, 156, 25);
-		frame.getContentPane().add(roomatesLabel);
-		roomatesLabel.setVisible(false);
+		JLabel label_5 = new JLabel("\u05DB\u05E9\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1 \u05D1\u05D9\u05EA \u05E7\u05E8\u05E7\u05E2");
+		label_5.setBounds(605, 452, 146, 16);
+		label_5.setForeground(new Color(255, 255, 255));
+		panel.add(label_5);
 		
-		lblNewLabel_1 = new JLabel("*");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setForeground(Color.RED);
-		lblNewLabel_1.setBounds(564, 85, 26, 16);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel label_5_1 = new JLabel("\u05DB\u05E9\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1 \u05D1\u05D9\u05EA \u05D1\u05D1\u05E0\u05D9\u05D9\u05DF");
+		label_5_1.setBounds(605, 508, 146, 16);
+		panel.add(label_5_1);
+		label_5_1.setForeground(new Color(255, 255, 255));
 		
-		lblNewLabel_2 = new JLabel("*");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_2.setForeground(Color.RED);
-		lblNewLabel_2.setBounds(564, 118, 26, 16);
-		frame.getContentPane().add(lblNewLabel_2);
+		floorNumLabel = new JLabel("\u05E7\u05D5\u05DE\u05D4");
+		floorNumLabel.setBounds(694, 537, 49, 16);
+		panel.add(floorNumLabel);
+		floorNumLabel.setForeground(new Color(255, 255, 255));
+		floorNumLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		lblNewLabel_3 = new JLabel("*");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_3.setForeground(Color.RED);
-		lblNewLabel_3.setBounds(564, 244, 26, 16);
-		frame.getContentPane().add(lblNewLabel_3);
+		floorsBuildingSpinner = new JSpinner();
+		floorsBuildingSpinner.setBounds(646, 535, 36, 22);
+		panel.add(floorsBuildingSpinner);
+		floorsBuildingSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		
-		lblNewLabel_4 = new JLabel("*");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_4.setForeground(Color.RED);
-		lblNewLabel_4.setBounds(564, 287, 19, 16);
-		frame.getContentPane().add(lblNewLabel_4);
+		gardenGroundCheckBox = new JCheckBox("\u05D2\u05D9\u05E0\u05D4");
+		gardenGroundCheckBox.setBounds(551, 533, 80, 25);
+		panel.add(gardenGroundCheckBox);
+		gardenGroundCheckBox.setForeground(new Color(255, 255, 255));
+		gardenGroundCheckBox.setFont(new Font("Tahoma", Font.BOLD, 16));
+		gardenGroundCheckBox.setBackground(new Color(119, 136, 153));
 		
-		citywarningLabel = new JLabel("הכנס עיר");
-		citywarningLabel.setForeground(Color.RED);
-		citywarningLabel.setBounds(273, 85, 69, 16);
-		frame.getContentPane().add(citywarningLabel);
-		citywarningLabel.setVisible(false);
+		apartmentNumberGroundSpinner = new JSpinner();
+		apartmentNumberGroundSpinner.setBounds(561, 572, 36, 22);
+		panel.add(apartmentNumberGroundSpinner);
+		apartmentNumberGroundSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		
-		streetLabel = new JLabel("הכנס רחוב");
-		streetLabel.setForeground(Color.RED);
-		streetLabel.setBounds(270, 119, 69, 16);
-		frame.getContentPane().add(streetLabel);
-		streetLabel.setVisible(false);
+		apartmentNumberLabel = new JLabel("מספר דירה");
+		apartmentNumberLabel.setBounds(645, 574, 87, 16);
+		panel.add(apartmentNumberLabel);
+		apartmentNumberLabel.setForeground(new Color(255, 255, 255));
+		apartmentNumberLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		amountLabel = new JLabel("הכנס מחיר תקין");
-		amountLabel.setForeground(Color.RED);
-		amountLabel.setBounds(236, 245, 106, 16);
-		frame.getContentPane().add(amountLabel);
+		JLabel addNewApartmentLabel = new JLabel("\u05D4\u05D5\u05E1\u05E4\u05EA \u05D3\u05D9\u05E8\u05D4 \u05D7\u05D3\u05E9\u05D4");
+		addNewApartmentLabel.setBounds(307, 51, 231, 28);
+		panel.add(addNewApartmentLabel);
+		addNewApartmentLabel.setForeground(Color.WHITE);
+		addNewApartmentLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(AddNewApartmentView.class.getResource("/Images/icons8-plus-95.png")));
+		lblNewLabel.setBounds(550, 13, 90, 97);
+		panel.add(lblNewLabel);
+		apartmentNumberLabel.setVisible(false);
+		apartmentNumberGroundSpinner.setVisible(false);
+		gardenGroundCheckBox.setVisible(false);
+		floorsBuildingSpinner.setVisible(false);
+		floorNumLabel.setVisible(false);
 		amountLabel.setVisible(false);
+		roomatesLabel.setVisible(false);
+		streetLabel.setVisible(false);
+		citywarningLabel.setVisible(false);
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); ///////
+				frame.setVisible(false);
+				reasetAddApartment();
+			}
+		});
 	}
 	
 	public void groundOrBuilding(String type)
@@ -604,5 +680,4 @@ public class AddNewApartmentView extends Observable
 			}
 		}
 	}
-
 }
