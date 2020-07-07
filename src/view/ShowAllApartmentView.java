@@ -183,14 +183,14 @@ public class ShowAllApartmentView extends Observable
 		panel.add(lblNewLabel_1);
 		
 		JLabel propertyTypeLabel = new JLabel("\u05E1\u05D5\u05D2 \u05D4\u05E0\u05DB\u05E1");
-		propertyTypeLabel.setBounds(580, 171, 90, 20);
+		propertyTypeLabel.setBounds(594, 171, 90, 20);
 		panel.add(propertyTypeLabel);
 		propertyTypeLabel.setForeground(new Color(255, 255, 255));
 		propertyTypeLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		propertyTypecomboBox = new JComboBox();
 		propertyTypecomboBox.setFont(new Font("Tahoma", Font.BOLD, 16));
-		propertyTypecomboBox.setBounds(433, 167, 116, 32);
+		propertyTypecomboBox.setBounds(447, 167, 116, 32);
 		panel.add(propertyTypecomboBox);
 		
 		JButton searchButton = new JButton("\u05D7\u05E4\u05E9");
@@ -207,48 +207,48 @@ public class ShowAllApartmentView extends Observable
 		searchButton.setBackground(new Color(219, 112, 147));
 		
 		CityLabel = new JLabel("\u05E2\u05D9\u05E8"); /// example for all
-		CityLabel.setBounds(634, 216, 36, 16);
+		CityLabel.setBounds(648, 216, 36, 16);
 		panel.add(CityLabel);
 		CityLabel.setForeground(new Color(255, 255, 255));
 		CityLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		JLabel missingRoomatesLabel = new JLabel("שותפים כניסה לדירה");
-		missingRoomatesLabel.setBounds(490, 271, 188, 16);
+		missingRoomatesLabel.setBounds(504, 271, 188, 16);
 		panel.add(missingRoomatesLabel);
 		missingRoomatesLabel.setForeground(new Color(255, 255, 255));
 		missingRoomatesLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		JLabel startPriceLabel = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
-		startPriceLabel.setBounds(596, 322, 74, 16);
+		startPriceLabel.setBounds(610, 322, 74, 16);
 		panel.add(startPriceLabel);
 		startPriceLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		startPriceLabel.setForeground(new Color(255, 255, 255));
 		
 		JLabel limitPriceLabel = new JLabel("\u05E2\u05D3 \u05DE\u05D7\u05D9\u05E8");
-		limitPriceLabel.setBounds(588, 377, 90, 16);
+		limitPriceLabel.setBounds(602, 377, 90, 16);
 		panel.add(limitPriceLabel);
 		limitPriceLabel.setForeground(new Color(255, 255, 255));
 		limitPriceLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		limitPrice = new JTextField();
-		limitPrice.setBounds(433, 371, 116, 32);
+		limitPrice.setBounds(447, 371, 116, 32);
 		panel.add(limitPrice);
 		limitPrice.setColumns(10);
 		limitPrice.setText("");
 		
 		startPrice = new JTextField();
-		startPrice.setBounds(433, 317, 116, 32);
+		startPrice.setBounds(447, 317, 116, 32);
 		panel.add(startPrice);
 		startPrice.setColumns(10);
 		startPrice.setText("");
 		
 		missingRoomatesSpinner = new JSpinner();
-		missingRoomatesSpinner.setBounds(432, 270, 36, 22);
+		missingRoomatesSpinner.setBounds(446, 270, 36, 22);
 		panel.add(missingRoomatesSpinner);
 		missingRoomatesSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(444, 395, -87, 20);
+		comboBox.setBounds(458, 395, -87, 20);
 		panel.add(comboBox);
 		
 		userNameLabel = new JLabel("user name here");
@@ -266,7 +266,7 @@ public class ShowAllApartmentView extends Observable
 		
 		cityComboBox = new JComboBox();
 		cityComboBox.setFont(new Font("Tahoma", Font.BOLD, 16));
-		cityComboBox.setBounds(433, 212, 116, 32);
+		cityComboBox.setBounds(447, 212, 116, 32);
 		panel.add(cityComboBox);
 		
 		lblNewLabel_2 = new JLabel("");
@@ -275,19 +275,27 @@ public class ShowAllApartmentView extends Observable
 		panel.add(lblNewLabel_2);
 		
 		priceLabel = new JLabel("הכנס מחיר התחלתי");
-		priceLabel.setBounds(308, 327, 104, 14);
+		priceLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		priceLabel.setForeground(Color.RED);
+		priceLabel.setBounds(304, 325, 131, 14);
 		panel.add(priceLabel);
 		
 		endPriceLabel = new JLabel("הכנס מחיר סופי");
-		endPriceLabel.setBounds(317, 381, 95, 14);
+		endPriceLabel.setForeground(Color.RED);
+		endPriceLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		endPriceLabel.setBounds(331, 380, 104, 14);
 		panel.add(endPriceLabel);
 		
 		priceLabel_1 = new JLabel("*");
-		priceLabel_1.setBounds(693, 326, 12, 14);
+		priceLabel_1.setForeground(Color.RED);
+		priceLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		priceLabel_1.setBounds(707, 326, 12, 14);
 		panel.add(priceLabel_1);
 		
 		priceLabel_2 = new JLabel("*");
-		priceLabel_2.setBounds(693, 385, 12, 14);
+		priceLabel_2.setFont(new Font("Tahoma", Font.BOLD, 17));
+		priceLabel_2.setForeground(Color.RED);
+		priceLabel_2.setBounds(707, 385, 12, 14);
 		panel.add(priceLabel_2);
 		propertyTypecomboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
