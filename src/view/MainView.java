@@ -71,14 +71,7 @@ public class MainView extends Observable
 		initialize();
 	}
 
-	public class CloseTheExcel {
-		// for the controller 
-	}
-	
-//	public class CreateAllApartmentTable {
-//		// for the controller 
-//	}
-	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -134,7 +127,6 @@ public class MainView extends Observable
 		loginButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//	String [] user = {userNameTextField.toString(),passTextField.toString()};
 				String [] user = {userNameTextField.getText(),passTextField.getText()};
 				setChanged();
 				notifyObservers(user);
@@ -232,6 +224,7 @@ public class MainView extends Observable
 		this.frame.setEnabled(false); // lock the 'this' (main) window
 		registerView.showRegisterView();
 	}
+	
 	public void showMainView() {
 		frame.setVisible(true);
 		this.frame.setEnabled(true);
@@ -243,8 +236,6 @@ public class MainView extends Observable
 		passTextField.setText("");
 		this.frame.setVisible(false); 
 		showAllApartmentView.openShowAllApartment(userName,userType,analyst);
-//		setChanged();
-//		notifyObservers(new CreateAllApartmentTable());
 	}
 	
 	public void loginValid(boolean valid, boolean admin, boolean analyst) 
@@ -258,4 +249,8 @@ public class MainView extends Observable
 			failLabel.setVisible(true);
 		}
 	}
+	
+	////// inner classes
+	public class CloseTheExcel {}
+	
 }

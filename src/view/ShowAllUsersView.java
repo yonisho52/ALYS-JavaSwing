@@ -13,6 +13,9 @@ import javax.swing.JTable;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+
+import view.ShowUserApartmentView.ShowUserApartments;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -153,14 +156,6 @@ public class ShowAllUsersView extends Observable
 	
 	public void crateAllUsers(JTable usersTable1) {
 		
-//		JFrame tableFrame=new JFrame();
-//		//create table
-//		JScrollPane scrollPane = new JScrollPane(usersTable);
-//		tableFrame.getContentPane().add(scrollPane);
-//		tableFrame.setSize(500,700);
-//		tableFrame.setVisible(true);
-		
-		
 		this.usersTable = usersTable1;
 		JScrollPane scrollPane_1 = new JScrollPane(usersTable);
 		panel.add(scrollPane_1);
@@ -169,17 +164,16 @@ public class ShowAllUsersView extends Observable
 	
 	public void confirmUserDelete()
 	{
+		this.usersTable.removeAll();
+		this.panel.removeAll();
+		setChanged();
+		notifyObservers(new GetAllUsers());
 		this.confirmdeleteLabel.setVisible(true);
-		this.usersTable.updateUI();
-		System.out.println(" deleted ! and also his apartment ");
-		
 	}
-	
 
-	//inner class for the controller
-	public class GetAllUsers {
-		// controller notify
-	}
+	////// inner classes
+	
+	public class GetAllUsers {}
 	
 	public class DeleteUser
 	{

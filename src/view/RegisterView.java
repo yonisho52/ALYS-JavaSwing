@@ -32,11 +32,10 @@ public class RegisterView extends Observable
 	private JTextField phoneNumber;
 	private JTextField firstName;
 	private JTextField lastName;
-	JTextField passwordLabel;
+	private JTextField passwordLabel;
 	private JLabel validatePasswordLabel;
 	private JLabel existUser;
 	private JLabel PasswordEnterLabel_1;
-	
 	private JLabel mismatchPassword;
 	private JLabel star1;
 	private JLabel star2;
@@ -45,8 +44,6 @@ public class RegisterView extends Observable
 	private JLabel star5;
 	private JLabel star6;
 	private JLabel missingText;
-	
-	protected boolean userbool , passwordbool , firstNamebool , lastNamebool , phonebool;
 	private JLabel firstnamelable;
 	private JLabel lastnamelable;
 	private JLabel phonelable;
@@ -54,6 +51,9 @@ public class RegisterView extends Observable
 	private JPasswordField passwordField_1;
 	private Panel panel;
 	private JLabel userMenPhoto;
+	
+	protected boolean userbool , passwordbool , firstNamebool , lastNamebool , phonebool;
+
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -66,24 +66,6 @@ public class RegisterView extends Observable
 				}
 			}
 		});
-	}
-	
-	public class CheckExsistUser
-	{
-		public String userNameCheck;
-		public CheckExsistUser(String userCheck)
-		{
-			this.userNameCheck = userCheck;
-		}
-	}
-	
-	public class AddUser
-	{
-		public String [] userName;
-		public AddUser(String [] user)
-		{
-			this.userName = user;
-		}
 	}
 	
 	public void setMainView(MainView mainView) 
@@ -361,12 +343,6 @@ public class RegisterView extends Observable
 		regButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-//				String newTenant[] = {userName.getText().toString(),password.getText().toString(),
-//						firstName.getText().toString(),lastName.getText().toString(), email.getText().toString(),
-//						phoneNumber.getText().toString()};
-//				
-//				setChanged();
-//				notifyObservers(newTenant);
 				openShowAllApartmentView(arg0);
 			}
 		});
@@ -478,6 +454,7 @@ public class RegisterView extends Observable
 		}
 			
 	}
+	
 	public void checkIfEmptyphone()
 	{
 		if(phoneNumber.getText().toString().equals(""))	
@@ -502,4 +479,25 @@ public class RegisterView extends Observable
 			}
 		}
 	}
+
+
+	////// inner classes 
+	public class CheckExsistUser
+	{
+		public String userNameCheck;
+		public CheckExsistUser(String userCheck)
+		{
+			this.userNameCheck = userCheck;
+		}
+	}
+	
+	public class AddUser
+	{
+		public String [] userName;
+		public AddUser(String [] user)
+		{
+			this.userName = user;
+		}
+	}
+	
 }

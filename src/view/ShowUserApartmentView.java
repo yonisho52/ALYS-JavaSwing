@@ -133,7 +133,9 @@ public class ShowUserApartmentView extends Observable
 		confirmdeleteLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool); /////////////////
+				userApartmentsTable.removeAll();/////////
+				panel.removeAll();
+				showAllApartmentView.openShowAllApartment(connectedUser, adminBool, analystBool);
 				frame.setVisible(false);
 			}
 		});
@@ -150,15 +152,6 @@ public class ShowUserApartmentView extends Observable
 		notifyObservers(new ShowUserApartments(userName));
 	}
 	
-	public class ShowUserApartments
-	{
-		public String userName;
-		public ShowUserApartments(String user)
-		{
-			this.userName = user;
-		}
-	}
-	
 	public void crateAllUserApartments(JTable userApartments) {
 		this.userApartmentsTable = userApartments;
 		
@@ -170,28 +163,33 @@ public class ShowUserApartmentView extends Observable
 		this.frame.setVisible(true);
 	}
 	
-	//inner class for the controller
-//	public class GetAllUserApartment {
-//		// controller notify
-//		
-//	}
-	
 	public void confirmApartmentDelete()
 	{
+		this.userApartmentsTable.removeAll();
+		this.panel.removeAll();
+		setChanged();
+		notifyObservers(new ShowUserApartments(connectedUser));
 		this.confirmdeleteLabel.setVisible(true);
-		this.userApartmentsTable.updateUI();
+
 		System.out.println(" delete apartment ");
 	}
 	
 	public void deleteUserApartment()
 	{
 		int index = this.userApartmentsTable.getSelectedRow();
-//		index++;
-
 		setChanged();
 		notifyObservers(new DeleteUserApartment(connectedUser,index));
-//		setChanged();
-//		notifyObservers(new GetAllUsers());
+	}
+	
+	/////// inner classes
+	
+	public class ShowUserApartments
+	{
+		public String userName;
+		public ShowUserApartments(String user)
+		{
+			this.userName = user;
+		}
 	}
 	
 	public class DeleteUserApartment
@@ -205,3 +203,8 @@ public class ShowUserApartmentView extends Observable
 		}
 	}
 }
+
+
+
+
+

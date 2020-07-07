@@ -43,7 +43,6 @@ public class AddNewApartmentView extends Observable
 	private JComboBox propertyTypeComboBox;
 	private JLabel floorCountLabel;
 	private JLabel floorNumLabel;
-	
 	private JSpinner floorsBuildingSpinner;
 	private JCheckBox gardenGroundCheckBox;
 	private JLabel apartmentNumberLabel;
@@ -52,7 +51,6 @@ public class AddNewApartmentView extends Observable
 	private JSpinner missingRoomatesSpinner;
 	private JCheckBox elevatorCheckBox;
 	private JCheckBox parkingCheckBox;
-	
 	private JCheckBox airCheckBox;
 	private JCheckBox patioCheckBox;
 	private JCheckBox mamadCheckBox;
@@ -63,12 +61,7 @@ public class AddNewApartmentView extends Observable
 	private JTextArea descriptionTextArea;
 	private JSpinner roomsSpinner;
 	private JSpinner floorCountGroundSpinner;
-	
 	protected String connectedUser;
-	protected boolean adminBool;
-	protected boolean analystBool;
-	
-	protected boolean apartmentType = false;  // ground = false, building = true
 	private JLabel roomatesLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
@@ -77,6 +70,12 @@ public class AddNewApartmentView extends Observable
 	private JLabel citywarningLabel;
 	private JLabel streetLabel;
 	private JLabel amountLabel;
+	
+	protected boolean adminBool;
+	protected boolean analystBool;
+	
+	protected boolean apartmentType = false;  // ground = false, building = true
+
 	protected boolean citybool , streetbool , amountbool ,roomatestbool ,pricebool;
 
 	public static void main(String[] args) 
@@ -94,10 +93,6 @@ public class AddNewApartmentView extends Observable
 		});
 	}
 	
-//	public AddNewApartmentView(ShowAllApartmentView showAllApartmentView) {
-//		this.showAllApartmentView = showAllApartmentView;
-//		initialize();
-//	}
 	
 	public void setShowAllApartmentView(ShowAllApartmentView showAllApartmentView)
 	{
@@ -512,16 +507,6 @@ public class AddNewApartmentView extends Observable
 		}
 	}
 	
-//	ALL toghter 
-//	String [] buildingApartment = {cityTextFile.getText().toString(),apartmentTypeTextFile.getText().toString(),numOfRommatesSpinner.getValue().toString(),
-//			missingRoomatesSpinner.getValue().toString(), roomsSpinner.getValue().toString(), priceTextField.getText().toString(), descriptionTextArea.getText().toString(),
-//			propertyTypeComboBox.getItemAt(propertyTypeComboBox.getSelectedIndex()).toString(), floorsBuildingSpinner.getValue().toString(),
-//			String.valueOf(gardenGroundCheckBox.isSelected()), apartmentNumberGroundSpinner.getValue().toString(), floorCountGroundSpinner.getValue().toString(),
-//			String.valueOf(elevatorCheckBox.isSelected()), String.valueOf(parkingCheckBox.isSelected()), String.valueOf(airCheckBox.isSelected()), 
-//			String.valueOf(patioCheckBox.isSelected()), String.valueOf(mamadCheckBox.isSelected()), String.valueOf(storageCheckBox.isSelected()), 
-//			String.valueOf(accesibleCheckBox.isSelected()), String.valueOf(furnitureCheckBox.isSelected()), String.valueOf(petCheckBox.isSelected())};
-	
-	
 	public void addThisApartment() 
 	{
 		checkIfBiggerThanRoomates();
@@ -556,24 +541,6 @@ public class AddNewApartmentView extends Observable
 			
 			this.frame.setVisible(false); 
 			showAllApartmentView.openShowAllApartment(cityTextFile.getText(),adminBool,analystBool);	
-		}
-	}
-	
-	public class AddGround
-	{
-		public String [] ground;
-		public AddGround(String [] groundApartment)
-		{
-			this.ground = groundApartment;
-		}
-	}
-	
-	public class AddBuilding
-	{
-		public String [] building;
-		public AddBuilding(String [] building)
-		{
-			this.building = building;
 		}
 	}
 	
@@ -680,4 +647,24 @@ public class AddNewApartmentView extends Observable
 			}
 		}
 	}
+	
+	/// inner classes
+	public class AddGround
+	{
+		public String [] ground;
+		public AddGround(String [] groundApartment)
+		{
+			this.ground = groundApartment;
+		}
+	}
+	
+	public class AddBuilding
+	{
+		public String [] building;
+		public AddBuilding(String [] building)
+		{
+			this.building = building;
+		}
+	}
+	
 }

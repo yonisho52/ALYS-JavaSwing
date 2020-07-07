@@ -11,12 +11,6 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xssf.usermodel.XSSFSheet;  
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-// add new user
-// check existing user
-// add new apartment
-// search apartment
-// show all apartments
-// show user apartments
 
 public class DataExcelConn extends Observable
 {
@@ -41,112 +35,6 @@ public class DataExcelConn extends Observable
 		return dataExcelConn;
 	}
 	
-	public class CheckValidPassClass
-	{
-		public boolean validPass;
-		public boolean userType;
-		public boolean analystType;
-		public CheckValidPassClass(boolean valid, boolean admin, boolean analyst)
-		{
-			this.validPass = valid;
-			this.userType = admin;
-			this.analystType = analyst;
-		}
-	}
-	
-
-
-	public class ExistsUser
-	{
-		public boolean exixst;
-		public ExistsUser(boolean valid)
-		{
-			this.exixst = valid;
-		}
-	}
-	
-	public class TopApartment
-	{
-		public JTable topTable;
-		public TopApartment(JTable table)
-		{
-			this.topTable = table;
-		}
-	}
-	
-	public class UsersTable
-	{
-		public JTable usersTable;
-		public UsersTable(JTable table)
-		{
-			this.usersTable = table;
-		}
-	}
-	
-//	public class ApartmentsTable
-//	{
-//		public JTable apartmentsTable;
-//		public ApartmentsTable(JTable table)
-//		{
-//			this.apartmentsTable = table;
-//		}
-//	}
-	
-	public class UserApartments
-	{
-		public JTable userApartmentTable;
-		public UserApartments(JTable table)
-		{
-			this.userApartmentTable = table;
-		}
-	}
-	
-	public class ShowAllApartments
-	{
-		public JTable allApartmentTable;
-		public ShowAllApartments(JTable table)
-		{
-			this.allApartmentTable = table;
-		}
-	}
-	
-	public class ShowSearchTable
-	{
-		public JTable searchTable;
-		public ShowSearchTable(JTable table)
-		{
-			this.searchTable = table;
-		}
-	}
-	
-	public class CityShowRep
-	{
-		public String [] cityList;
-		public CityShowRep(String [] cities)
-		{
-			this.cityList = cities;
-		}
-	}
-
-	public class PropertType
-	{
-		public Boolean [] propertType;
-		public PropertType(Boolean [] type)
-		{
-			this.propertType = type;
-		}
-	}
-	
-	public class MissRommates
-	{
-		public String [] missRommatesList;
-		public MissRommates(String [] missedRommates)
-		{
-			this.missRommatesList = missedRommates;
-		}
-	}
-
-	public class ConfirmDelete{}
 	
 	private DataExcelConn() // singleton *
 	{	
@@ -203,6 +91,23 @@ public class DataExcelConn extends Observable
 		    }
 		}
 }
+	
+	public void open()
+	{
+		try 
+		{
+			fileInputStream = new FileInputStream(file);
+			workBook = WorkbookFactory.create(fileInputStream);
+			users = workBook.getSheetAt(0);
+			apartments=workBook.getSheetAt(1);
+			usersRow = users.getLastRowNum();
+			apartmentsRow = apartments.getLastRowNum();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	public void addNewTenant(Tenant tenant) 
 	{
@@ -330,15 +235,11 @@ public class DataExcelConn extends Observable
 		for(int i=1;i<=lastRow;i++) {
 			row=users.getRow(i);
 			userNameDB = row.getCell(0);
-			//System.out.println(userName + " " + userNameDB.toString());
-			//if(userName == userNameDB.toString())
 			if(userName.equals(userNameDB.toString()))
 			{
 				passDB = row.getCell(1);
 				adminDB = row.getCell(6);
 				analystDB = row.getCell(7);
-				//System.out.println(userName + " " + userNameDB.toString());
-				//if(pass == passDB.toString())
 				if(pass.equals(passDB.toString())) 
 				{
 					validFlag = true;
@@ -359,7 +260,6 @@ public class DataExcelConn extends Observable
 						validFlag = true;
 						adminFlag = true;
 						analystFlag = true;
-
 					}
 				} 
 			}
@@ -421,8 +321,8 @@ public class DataExcelConn extends Observable
 		Row row;
 		int lastRow = apartments.getLastRowNum();
 		Cell userNameDB;
-		String [][] matrixArr = new String[lastRow][8]; // for table
-		String [] rowArr = new String[8]; // lines
+		String [][] matrixArr = new String[lastRow][9]; // for table
+		String [] rowArr = new String[9]; // lines
 		int j = 0,n,k;
 		
 		for(int i=1; i<=lastRow; i++)
@@ -431,8 +331,8 @@ public class DataExcelConn extends Observable
 			userNameDB = row.getCell(0);
 			if(userName.toString().equals(userNameDB.toString())) 
 			{		
-				
-				for(n=3,k=0;n<=10;n++,k++)	
+				rowArr[0] = dataFormatter.formatCellValue(row.getCell(1));
+				for(n=3,k=1;n<=10;n++,k++)	
 				{
 					rowArr[k] = dataFormatter.formatCellValue(row.getCell(n));
 				}
@@ -462,20 +362,21 @@ public class DataExcelConn extends Observable
 		String [][] apartmentUserMatrixArr = showUserApartments(userName);
 		Row row;
 		Cell apartmentIdDB;
-		String apartmentId = apartmentUserMatrixArr[index][0];
+		String apartmentId = apartmentUserMatrixArr[index][0]+".0";
 		int rowIndexToDelete,lastIndex;
-		
-		
+
 		for(int i=1; i<apartments.getLastRowNum(); i++)
 		{
 			row=apartments.getRow(i);
 			apartmentIdDB = row.getCell(1);
-			
-			if(apartmentId.toString().equals(apartmentIdDB.toString().substring(0, apartmentIdDB.toString().length() - 2))) 
+			if(apartmentId.toString().equals(apartmentIdDB.toString()))
 			{
 				lastIndex = apartments.getLastRowNum();
 				rowIndexToDelete = row.getRowNum();
-		        apartments.shiftRows(rowIndexToDelete+1, lastIndex, -1);
+		        if(rowIndexToDelete!=lastIndex)
+		        	apartments.shiftRows(rowIndexToDelete+1, lastIndex, -1);
+		        else 
+		        	apartments.removeRow(row);
 		        break;
 			}
 		}
@@ -497,12 +398,10 @@ public class DataExcelConn extends Observable
 		notifyObservers(new ConfirmDeletedUserApartment());
 	}
 	
-	public class ConfirmDeletedUserApartment{}
-	
 	public void createUserApartmnetTable(String userName)
 	{
 		String [][] apartmentUserMatrixArr = showUserApartments(userName);
-		String[] UserapartmentsColumns = {"עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס"};
+		String[] UserapartmentsColumns = {"id", "עיר","רחוב","סהכ שותפים","שותפים חסרים","חדרים","מחיר","תיאור","סוג הנכס"};
 		JTable jTable = new JTable(apartmentUserMatrixArr, UserapartmentsColumns);
 		setChanged();
 		notifyObservers(new UserApartments(jTable));
@@ -974,7 +873,6 @@ public class DataExcelConn extends Observable
 
 		String[] UserapartmentsColumns = {"משתמש","כמות חיפושים","עיר","רחוב","שותפים חסרים","חדרים","מחיר","סוג הנכס"};
 		JTable jTable = new JTable(matrixArr, UserapartmentsColumns);
-		//jTable.setBounds(10, 159, 1030, 309);
 		setChanged();
 		notifyObservers(new TopApartment(jTable));
 		
@@ -1022,8 +920,8 @@ public class DataExcelConn extends Observable
 			e.printStackTrace();
 		}
 
-//		setChanged();
-//		notifyObservers(new ConfirmDelete());	
+		setChanged();
+		notifyObservers(new ConfirmDelete());	
 	}
 
 	public void deleteUsersApartment(String userName)
@@ -1057,5 +955,104 @@ public class DataExcelConn extends Observable
 		}
 	}
 	
+///// inner classes
+	
+	public class CheckValidPassClass
+	{
+		public boolean validPass;
+		public boolean userType;
+		public boolean analystType;
+		public CheckValidPassClass(boolean valid, boolean admin, boolean analyst)
+		{
+			this.validPass = valid;
+			this.userType = admin;
+			this.analystType = analyst;
+		}
+	}
+	
+	public class ExistsUser
+	{
+		public boolean exixst;
+		public ExistsUser(boolean valid)
+		{
+			this.exixst = valid;
+		}
+	}
+	
+	public class TopApartment
+	{
+		public JTable topTable;
+		public TopApartment(JTable table)
+		{
+			this.topTable = table;
+		}
+	}
+	
+	public class UsersTable
+	{
+		public JTable usersTable;
+		public UsersTable(JTable table)
+		{
+			this.usersTable = table;
+		}
+	}
+	
+	public class UserApartments
+	{
+		public JTable userApartmentTable;
+		public UserApartments(JTable table)
+		{
+			this.userApartmentTable = table;
+		}
+	}
+	
+	public class ShowAllApartments
+	{
+		public JTable allApartmentTable;
+		public ShowAllApartments(JTable table)
+		{
+			this.allApartmentTable = table;
+		}
+	}
+	
+	public class ShowSearchTable
+	{
+		public JTable searchTable;
+		public ShowSearchTable(JTable table)
+		{
+			this.searchTable = table;
+		}
+	}
+	
+	public class CityShowRep
+	{
+		public String [] cityList;
+		public CityShowRep(String [] cities)
+		{
+			this.cityList = cities;
+		}
+	}
+
+	public class PropertType
+	{
+		public Boolean [] propertType;
+		public PropertType(Boolean [] type)
+		{
+			this.propertType = type;
+		}
+	}
+	
+	public class MissRommates
+	{
+		public String [] missRommatesList;
+		public MissRommates(String [] missedRommates)
+		{
+			this.missRommatesList = missedRommates;
+		}
+	}
+
+	public class ConfirmDelete{}
+	
+	public class ConfirmDeletedUserApartment{}
 	
 }

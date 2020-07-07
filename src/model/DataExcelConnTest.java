@@ -214,19 +214,6 @@ class DataExcelConnTest  extends junit.framework.TestCase{
 	}
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// Excel open and close
 	
 	Sheet users,apartments;

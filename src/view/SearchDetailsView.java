@@ -68,7 +68,6 @@ public class SearchDetailsView extends Observable
 		frame.setVisible(true);
 		setChanged();
 		notifyObservers(new TopApartment()); 
-		//this.frame.setEnabled(true);
 	}
 	public SearchDetailsView() {
 		initialize();
@@ -121,15 +120,16 @@ public class SearchDetailsView extends Observable
 		});
 	}
 	
-	public class TopApartment
-	{
-		
-	}
-	
 	public void showTop(JTable table)
 	{
 		JScrollPane scrollPane_2 = new JScrollPane(table);
 		panel.add(scrollPane_2);
 		this.frame.setVisible(true);
 	}
+	
+	/// inner classes
+	
+	public class TopApartment{}
+	
+	
 }

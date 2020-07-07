@@ -52,10 +52,9 @@ public class DataController implements Observer{
 				String [] user = (String[])arg1;
 				dataExcelConn.checkValidPass(user[0], user[1]);
 			}
-			
 		}
 		
-		if(arg0 instanceof RegisterView)
+		else if(arg0 instanceof RegisterView)
 		{
 			if(arg1 instanceof RegisterView.AddUser)
 			{
@@ -72,7 +71,7 @@ public class DataController implements Observer{
 			}
 		}
 
-		if(arg0 instanceof ShowAllUsersView)
+		else if(arg0 instanceof ShowAllUsersView)
 		{
 			if(arg1 instanceof ShowAllUsersView.GetAllUsers)
 			{
@@ -85,12 +84,9 @@ public class DataController implements Observer{
 				dataExcelConn.deleteUser(index);
 			}
 		}
-		
-		//update new if - instance of addNewApartment button - important!!!!!!!!!!!!!!!!!!!!!!!!!!! (we think) - wrong
-		
+				
 
-		
-		if(arg0 instanceof ShowAllApartmentView) 
+		else if(arg0 instanceof ShowAllApartmentView) 
 		{
 			if(arg1 instanceof ShowAllApartmentView.CreateAllApartmentTable)
 			{
@@ -122,7 +118,7 @@ public class DataController implements Observer{
 			}
 		}
 		
-		if(arg0 instanceof ShowUserApartmentView) 
+		else if(arg0 instanceof ShowUserApartmentView) 
 		{
 			if(arg1 instanceof ShowUserApartmentView.ShowUserApartments)
 			{
@@ -139,7 +135,7 @@ public class DataController implements Observer{
 		}
 
 		
-		if(arg0 instanceof SearchDetailsView) 
+		else if(arg0 instanceof SearchDetailsView) 
 		{
 			if(arg1 instanceof SearchDetailsView.TopApartment)
 			{
@@ -148,7 +144,7 @@ public class DataController implements Observer{
 		}
 		
 		
-		if(arg0 instanceof AddNewApartmentView)
+		else if(arg0 instanceof AddNewApartmentView)
 		{
 			if(arg1 instanceof AddNewApartmentView.AddGround)
 			{
@@ -206,23 +202,16 @@ public class DataController implements Observer{
 			}
 		}
 
-
 		
 		///// data to view
 		
-		if(arg0 instanceof DataExcelConn)
+		else if(arg0 instanceof DataExcelConn)
 		{
 			if(arg1 instanceof DataExcelConn.UsersTable)
 			{
 				JTable jTable = ((DataExcelConn.UsersTable) arg1).usersTable;
 				showAllUsersView.crateAllUsers(jTable);
 			}
-			
-//			else if(arg1 instanceof DataExcelConn.ApartmentsTable)   /// not connected to view 
-//			{
-//				JTable jTable = ((DataExcelConn.ApartmentsTable) arg1).apartmentsTable;
-//				showAllUsersView.crateAllUsers(jTable);
-//			}
 			
 			else if(arg1 instanceof DataExcelConn.CheckValidPassClass)
 			{

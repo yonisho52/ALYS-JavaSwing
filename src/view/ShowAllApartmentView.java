@@ -23,6 +23,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
+
+import model.DataExcelConn;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.Panel;
@@ -44,21 +47,21 @@ public class ShowAllApartmentView extends Observable
 	private JComboBox cityComboBox;
 	private JComboBox propertyTypecomboBox;
 	private JSpinner missingRoomatesSpinner;
-	
 	private JLabel userNameLabel;
 	private JButton loginOrLogoutButton;
 	private JButton addApartmentButton;
 	private JButton watchApartmentButton;
 	private JButton watchSearchResultButton;
 	private JButton showAllUsersButton;
-	private JLabel lblNewLabel;
+	private JLabel priceLabel;
+	private JLabel endPriceLabel;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
 	
 	protected String connectedUser;
 	protected boolean adminBool;
 	protected boolean analystBool;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
-		
+
 
 	/**
 	 * Launch the application.
@@ -198,8 +201,7 @@ public class ShowAllApartmentView extends Observable
 		searchButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				searchButtonCliecked(propertyTypecomboBox.getSelectedIndex(), cityComboBox.getSelectedItem().toString(),
-						missingRoomatesSpinner.getValue().toString(), startPrice.getText().toString(), limitPrice.getText().toString());
+				searchClicked();
 			}
 		});
 		searchButton.setBackground(new Color(219, 112, 147));
@@ -217,7 +219,7 @@ public class ShowAllApartmentView extends Observable
 		missingRoomatesLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		JLabel startPriceLabel = new JLabel("\u05DE\u05DE\u05D7\u05D9\u05E8");
-		startPriceLabel.setBounds(604, 323, 74, 16);
+		startPriceLabel.setBounds(596, 322, 74, 16);
 		panel.add(startPriceLabel);
 		startPriceLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		startPriceLabel.setForeground(new Color(255, 255, 255));
@@ -232,11 +234,13 @@ public class ShowAllApartmentView extends Observable
 		limitPrice.setBounds(433, 371, 116, 32);
 		panel.add(limitPrice);
 		limitPrice.setColumns(10);
+		limitPrice.setText("");
 		
 		startPrice = new JTextField();
 		startPrice.setBounds(433, 317, 116, 32);
 		panel.add(startPrice);
 		startPrice.setColumns(10);
+		startPrice.setText("");
 		
 		missingRoomatesSpinner = new JSpinner();
 		missingRoomatesSpinner.setBounds(432, 270, 36, 22);
@@ -269,6 +273,22 @@ public class ShowAllApartmentView extends Observable
 		lblNewLabel_2.setIcon(new ImageIcon(ShowAllApartmentView.class.getResource("/Images/icons8-male-user-50.png")));
 		lblNewLabel_2.setBounds(195, 13, 64, 51);
 		panel.add(lblNewLabel_2);
+		
+		priceLabel = new JLabel("הכנס מחיר התחלתי");
+		priceLabel.setBounds(308, 327, 104, 14);
+		panel.add(priceLabel);
+		
+		endPriceLabel = new JLabel("הכנס מחיר סופי");
+		endPriceLabel.setBounds(317, 381, 95, 14);
+		panel.add(endPriceLabel);
+		
+		priceLabel_1 = new JLabel("*");
+		priceLabel_1.setBounds(693, 326, 12, 14);
+		panel.add(priceLabel_1);
+		
+		priceLabel_2 = new JLabel("*");
+		priceLabel_2.setBounds(693, 385, 12, 14);
+		panel.add(priceLabel_2);
 		propertyTypecomboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				propertyTypeComboBox();
@@ -279,9 +299,6 @@ public class ShowAllApartmentView extends Observable
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				loginOrLogout();
-				
-//				mainView.showMainView();
-//				frame.setVisible(false);
 			}
 		});
 		addApartmentButton.addActionListener(new ActionListener() {
@@ -324,8 +341,6 @@ public class ShowAllApartmentView extends Observable
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				openSearchDetailsView(arg0);
-				//searchDetailsView.showSearchDetailsView(connectedUser,adminBool);
-				//frame.setVisible(false);
 			}});
 	}
 	
@@ -360,7 +375,12 @@ public class ShowAllApartmentView extends Observable
 		this.mainView = mainView;
 	}
 	
+	DataExcelConn dataExcelConn = DataExcelConn.getDataExcelConn();
+	private JLabel priceLabel_1;
+	private JLabel priceLabel_2;
+	
 	public void openShowAllApartment(String userName, boolean userType, boolean analyst) {  //0 - ground, 1 - building
+
 		this.connectedUser = userName;
 		this.adminBool = userType;
 		this.analystBool = analyst;
@@ -369,9 +389,10 @@ public class ShowAllApartmentView extends Observable
 		userType();
 		setChanged();
 		notifyObservers(new PropertType());
+		
+		this.priceLabel.setVisible(false);
+		this.endPriceLabel.setVisible(false);
 	}
-	
-
 	
 	public void propertyTypeComboBox()
 	{
@@ -439,14 +460,10 @@ public class ShowAllApartmentView extends Observable
 	public void createAllApartment(JTable apartmentTable)
 	{
 		JFrame tableFrame=new JFrame();
-		//create table
 		JScrollPane scrollPane = new JScrollPane(apartmentTable);
 		tableFrame.getContentPane().add(scrollPane);
 		tableFrame.setSize(1500,500);
 		tableFrame.setVisible(true);
-//		JScrollPane scrollPane_1 = new JScrollPane(apartmentTable);
-//		panel.add(scrollPane_1);
-//		this.frame.setVisible(true);
 	}
 	
 	public void loadCities(String [] cities)
@@ -457,10 +474,10 @@ public class ShowAllApartmentView extends Observable
 		}
 	}
 	
-
-	
 	public void loadPropertType(Boolean [] type)
 	{
+		propertyTypecomboBox.removeAllItems();
+		
 		if(type[0])
 		{
 			propertyTypecomboBox.addItem("דירת קרקע");
@@ -468,6 +485,21 @@ public class ShowAllApartmentView extends Observable
 		if(type[1])
 		{
 			propertyTypecomboBox.addItem("דירה בבניין");
+		}
+	}
+	
+	public void searchClicked()
+	{
+		if((startPrice.getText().toString().equals("")) || (limitPrice.getText().toString().equals("")) || 
+				(Integer.parseInt(startPrice.getText().toString())>Integer.parseInt(limitPrice.getText().toString())))
+		{
+			priceLabel.setVisible(true);
+			endPriceLabel.setVisible(true);
+		}	
+		else
+		{
+		searchButtonCliecked(propertyTypecomboBox.getSelectedIndex(), cityComboBox.getSelectedItem().toString(),
+				missingRoomatesSpinner.getValue().toString(), startPrice.getText().toString(), limitPrice.getText().toString());
 		}
 	}
 	
@@ -490,15 +522,15 @@ public class ShowAllApartmentView extends Observable
 	public void showSearch(JTable searchTable)
 	{
 		JFrame tableFrame=new JFrame();
-		//create table
 		JScrollPane scrollPane = new JScrollPane(searchTable);
 		tableFrame.getContentPane().add(scrollPane);
 		tableFrame.setSize(1500,500);
 		tableFrame.setVisible(true);
-//		JScrollPane scrollPane_2 = new JScrollPane(searchTable);
-//		panel_1.add(scrollPane_2);
-//		this.frame.setVisible(true);
 	}
+	
+
+	
+	//// inner classes 
 	
 	public class Search 
 	{
