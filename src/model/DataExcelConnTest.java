@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test;
 
 import view.RegisterView.AddUser;
 
-class DataExcelConnTest  extends junit.framework.TestCase{
-
+class DataExcelConnTest  extends junit.framework.TestCase
+{
 	DataExcelConn junit;
 	Tenant tenant = new Tenant("user", "pass", "first", "last", "email@email.com", "0000000", false, false);
 	Ground ground = new Ground(0);
@@ -36,10 +36,10 @@ class DataExcelConnTest  extends junit.framework.TestCase{
 //	}
 
 	
-	public DataExcelConnTest() {
+	public DataExcelConnTest() 
+	{
 		initGround();
 		setUp();
-		
 	}
 
 	public void initGround() {
@@ -81,7 +81,6 @@ class DataExcelConnTest  extends junit.framework.TestCase{
 	@Test
 	public void checkIfUserAdded()
 	{
-
 		junit.addNewTenant(tenant);
 		
 		dataExcel();
@@ -115,7 +114,6 @@ class DataExcelConnTest  extends junit.framework.TestCase{
 	@Test
 	public void checkIfApartmentAdded()
 	{
-		
 		junit.addNewApartmentGround(ground);
 		
 		dataExcel();
@@ -181,8 +179,7 @@ class DataExcelConnTest  extends junit.framework.TestCase{
 
 	@Test
 	public void checkIfUserDeleted()
-	{
-		
+	{	
 		junit.deleteUser(users.getLastRowNum());
 		
 		dataExcel();

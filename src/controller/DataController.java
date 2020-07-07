@@ -9,9 +9,8 @@ import model.*;
 import view.*;
 import view.RegisterView.CheckExsistUser;
 
-public class DataController implements Observer{
-	
-	
+public class DataController implements Observer
+{
 	public RegisterView registerView;
 	public DataExcelConn dataExcelConn;
 	public SearchDetailsView searchDetailsView;
@@ -276,30 +275,3 @@ public class DataController implements Observer{
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
