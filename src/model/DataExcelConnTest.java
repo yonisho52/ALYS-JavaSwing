@@ -176,10 +176,10 @@ class DataExcelConnTest  extends junit.framework.TestCase
 
 		closeFile();
 	}
-
+	
 	@Test
-	public void checkIfUserDeleted()
-	{	
+	public void checkUserDeleted()
+	{
 		junit.deleteUser(users.getLastRowNum());
 		
 		dataExcel();
@@ -251,8 +251,8 @@ class DataExcelConnTest  extends junit.framework.TestCase
 		{ 
 			workBook = new XSSFWorkbook();
 			CreationHelper createHelper = workBook.getCreationHelper();
-			users=workBook.createSheet("×ž×©×ª×ž×©×™×�");//creating new sheet
-			apartments=workBook.createSheet("× ×›×¡×™×�");//creating new sheet
+			users=workBook.createSheet("משתמשים");//creating new sheet
+			apartments=workBook.createSheet("נכסים");//creating new sheet
 			 // Create a Font for styling header cells
 		    Font headerFont = workBook.createFont();
 		    headerFont.setBold(true);

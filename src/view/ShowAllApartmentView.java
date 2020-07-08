@@ -274,16 +274,16 @@ public class ShowAllApartmentView extends Observable
 		lblNewLabel_2.setBounds(195, 13, 64, 51);
 		panel.add(lblNewLabel_2);
 		
-		priceLabel = new JLabel("הכנס מחיר התחלתי");
+		priceLabel = new JLabel("הכנס מחיר תקין");
 		priceLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		priceLabel.setForeground(Color.RED);
-		priceLabel.setBounds(304, 325, 131, 14);
+		priceLabel.setBounds(328, 325, 109, 14);
 		panel.add(priceLabel);
 		
-		endPriceLabel = new JLabel("הכנס מחיר סופי");
+		endPriceLabel = new JLabel("הכנס מחיר סופי תקין");
 		endPriceLabel.setForeground(Color.RED);
 		endPriceLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		endPriceLabel.setBounds(331, 380, 104, 14);
+		endPriceLabel.setBounds(299, 380, 136, 14);
 		panel.add(endPriceLabel);
 		
 		priceLabel_1 = new JLabel("*");
@@ -397,7 +397,9 @@ public class ShowAllApartmentView extends Observable
 		userType();
 		setChanged();
 		notifyObservers(new PropertType());
-		
+		this.limitPrice.setText("");
+		this.startPrice.setText("");
+		this.missingRoomatesSpinner.setValue(0);
 		this.priceLabel.setVisible(false);
 		this.endPriceLabel.setVisible(false);
 	}
@@ -498,7 +500,29 @@ public class ShowAllApartmentView extends Observable
 	
 	public void searchClicked()
 	{
-		if((startPrice.getText().toString().equals("")) || (limitPrice.getText().toString().equals("")) || 
+		boolean startPriceBool = true, limitPriceBool=true; 
+		for(int i=0 ; i < startPrice.getText().length(); i++)
+		{
+			String arr = startPrice.getText();
+			if(arr.charAt(i) < '0' || arr.charAt(i) > '9')
+			{
+				startPrice.setVisible(true);
+				startPriceBool = false;
+			}
+		}
+		
+		for(int i=0 ; i < limitPrice.getText().length(); i++)
+		{
+			String arr1 = limitPrice.getText();
+			if(arr1.charAt(i) < '0' || arr1.charAt(i) > '9')
+			{
+				limitPrice.setVisible(true);
+				limitPriceBool = false;
+			}
+		}
+		
+
+		if((!startPriceBool) || (!limitPriceBool) || (startPrice.getText().toString().equals("")) || (limitPrice.getText().toString().equals("")) || 
 				(Integer.parseInt(startPrice.getText().toString())>Integer.parseInt(limitPrice.getText().toString())))
 		{
 			priceLabel.setVisible(true);
@@ -508,6 +532,8 @@ public class ShowAllApartmentView extends Observable
 		{
 		searchButtonCliecked(propertyTypecomboBox.getSelectedIndex(), cityComboBox.getSelectedItem().toString(),
 				missingRoomatesSpinner.getValue().toString(), startPrice.getText().toString(), limitPrice.getText().toString());
+			priceLabel.setVisible(false);
+			endPriceLabel.setVisible(false);
 		}
 	}
 	
